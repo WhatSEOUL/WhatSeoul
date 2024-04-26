@@ -1,0 +1,73 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ "release" ]
+  pull_request:
+    branches: [ "release" ]
+    
+permissions:
+  contents: read
+  
+jobs:
+  CI-CD: 
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    ## gradle caching (빌드 시간 줄이기)
+    - name: Gradle Caching
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-
+        
+    - name: make application-prod.yml
+      run: |
+        cd ./src/main/resources
+        touch ./application-prod.yml
+        echo "${{ secrets.APPLICATION_PROD }}" > ./application-prod.yml
+        
+    # gradle chmod
+    - name: Grant execute permission for gradlew
+      run: chmod +x gradlew
+
+    # gradle build
+    - name: Build with Gradle
+      run: ./gradlew clean build -x test
+
+    # docker login
+    - name: Docker build
+      run: |
+        docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+        docker build -t app .
+        docker tag app ${{ secrets.DOCKERHUB_USERNAME }}/whatSeoul:latest
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/whatSeoul:latest
+
+    ## deploy to production
+    - name: Deploy to prod
+      uses: appleboy/ssh-action@master
+      id: deploy-prod
+      if: contains(github.ref, 'release')
+      with:
+        host: ${{ secrets.EC2_HOST }} # EC2 인스턴스 퍼블릭 DNS
+        username: ec2-user
+        key: ${{ secrets.EC2_KEY }} # pem 키
+        # 도커 작업
+        script: |
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/whatSeoul:latest
+          docker stop $(docker ps -a -q)
+          docker run -d --log-driver=syslog -p 8080:8080 -e SPRING_PROFILES_ACTIVE=prod ${{ secrets.DOCKERHUB_USERNAME }}/whatSeoul:latest
+          docker rm $(docker ps --filter 'status=exited' -a -q)
+          docker image prune -a -f
+
+
