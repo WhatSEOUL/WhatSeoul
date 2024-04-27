@@ -50,8 +50,8 @@ jobs:
       run: |
         docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
         docker build -t app .
-        docker tag app ${{ secrets.DOCKERHUB_USERNAME }}/whatSeoul:latest
-        docker push ${{ secrets.DOCKERHUB_USERNAME }}/whatSeoul:latest
+        docker tag app ${{ secrets.DOCKERHUB_USERNAME }}/whatseoul:latest
+        docker push ${{ secrets.DOCKERHUB_USERNAME }}/whatseoul:latest
 
     ## deploy to production
     - name: Deploy to prod
@@ -64,9 +64,9 @@ jobs:
         key: ${{ secrets.EC2_KEY }} # pem 키
         # 도커 작업
         script: |
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/whatSeoul:latest
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/whatseoul:latest
           docker stop $(docker ps -a -q)
-          docker run -d --log-driver=syslog -p 8080:8080 -e SPRING_PROFILES_ACTIVE=prod ${{ secrets.DOCKERHUB_USERNAME }}/whatSeoul:latest
+          docker run -d --log-driver=syslog -p 8080:8080 -e SPRING_PROFILES_ACTIVE=prod ${{ secrets.DOCKERHUB_USERNAME }}/whatseoul:latest
           docker rm $(docker ps --filter 'status=exited' -a -q)
           docker image prune -a -f
 
