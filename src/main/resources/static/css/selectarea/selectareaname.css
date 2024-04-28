@@ -1,0 +1,72 @@
+/* 상단바 css start  */
+.navbar {
+    height:10vh; /* 네비게이션 바의 높이를 조정합니다. */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과를 추가합니다. */
+}
+
+.navbar-nav .nav-item:nth-child(1) .nav-link,
+.navbar-nav .nav-item:nth-child(2) .nav-link {
+    margin-right: 2vw; /* 첫 번째와 두 번째 nav-item에 margin-right를 추가합니다. */
+}
+
+.my-page-btn {
+    margin-left: 2vw;
+    background-color: #007bff;
+    border-radius: 5px;
+}
+.my-page-btn a {
+    color: #ffffff !important;
+}
+.logout-btn {
+    margin-left: 1vw;
+    background-color: #6c757d;
+    border-radius: 5px;
+}
+.logout-btn a {
+    color: #ffffff !important;
+}
+.main-content-text {
+    text-align: center;
+}
+
+/* 상단바 css end  */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 90vh;
+    align-items: center;
+}
+.main-content-text {
+    font-size: 1.4rem;
+}
+.button-container-wrapper {
+    width: 40vw;
+    margin-top: 5vh;
+}
+.button-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2vh;
+}
+
+.button-container button {
+    font-size: 1.1rem;
+    border: 0px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+
+    margin: 10px;
+    min-width: 100px;
+    height: 40px;
+    white-space: nowrap; /* 텍스트가 넘칠 경우 줄 바꿈을 방지 */
+    overflow: hidden; /* 넘치는 부분을 숨김 */
+    text-overflow: ellipsis; /* 넘치는 부분을 생략 부호로 표시 */
+}
+
+.button-container button:hover {
+    border: 1px solid black;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.4); /* 호버 시 그림자 효과를 강화 */
+}

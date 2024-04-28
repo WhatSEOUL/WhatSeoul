@@ -1,0 +1,66 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WhatSeoul</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/selectarea/selectareaname.css" th:href="@{../../static/css/selectarea/selectareaname.css}">
+    <script defer src="../../static/js/selectarea/selectareaname.js"></script>
+</head>
+<body>
+<header>
+    <!-- 상단바 html start  -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="../index/index.html">WhatSeoul</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="../selectarea/selectdistrict.html">지금 서울은?</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">서울 명소 추천받기</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">커뮤니티</a>
+                    </li>
+                    <li class="nav-item my-page-btn">
+                        <a class="nav-link" href="#">마이페이지</a>
+                    </li>
+                    <li class="nav-item logout-btn">
+                        <a class="nav-link" href="#">로그아웃</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- 상단바 html end -->
+</header>
+<main>
+    <div class="main-content">
+        <div class="main-content-text">
+            <strong></strong>를 선택하셨어요.<br>
+            구체적으로 어느 지역에 관심이 있나요?
+        </div>
+        <div class="button-container-wrapper">
+        </div>
+    </div>
+    <!-- 뒤로가기 버튼 -->
+    <div class="button-container-wrapper" id="backButtonWrapper" style="display: none;">
+        <button id="backButton" class="btn btn-secondary">뒤로가기</button>
+    </div>
+</main>
+<!-- 부트스트랩 JS (jQuery 포함) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+</body>
+</html>
