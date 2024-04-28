@@ -173,8 +173,11 @@ strongText.innerHTML = districtName;
 const areaNames = areasByDistrict[districtName];
 console.log(areaNames);
 
+
 const buttonContainerWrapper= document.querySelector('.button-container-wrapper')
 const buttonContainerDiv = document.createElement('div');
+const backButton = document.querySelector('#backButton');
+
 buttonContainerDiv.classList.add('button-container');
 buttonContainerWrapper.appendChild(buttonContainerDiv);
 
@@ -185,5 +188,17 @@ if(areaNames) {
         button.className = 'area-name';
         button.textContent = area;
         buttonContainerDiv.appendChild(button);
+        buttonContainerDiv.appendChild(backButton);
+        backButton.style.backgroundColor = '#6198ff';
+        backButton.style.color = '#ffffff';
     })
 }
+
+const areaButtons = document.querySelectorAll('.area-name');
+areaButtons.forEach(function(button) {
+    button.addEventListener('click', function () {
+        var buttonText = button.textContent;
+        localStorage.setItem('area', buttonText);
+        location.href = "selectconfirm.html";
+    })
+})
