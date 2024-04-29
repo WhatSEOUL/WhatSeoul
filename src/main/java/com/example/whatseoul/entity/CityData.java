@@ -1,12 +1,18 @@
 package com.example.whatseoul.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "CITYDATA")
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class CityData {
 
     @Id
@@ -24,7 +30,7 @@ public class CityData {
     private String areaCongestionMessage;
 
     @Column(name = "PPLTN_TIME", nullable = false)
-    private LocalDateTime pplUpdateTime;
+    private String pplUpdateTime;
 
     // 인구 예측값
     @Column(name = "FCST_PPLTN")
@@ -59,8 +65,7 @@ public class CityData {
 
     // 날씨 데이터 업데이트 시간
     @Column(name = "WEATHER_TIME")
-    private LocalDateTime weatherTime;
-
+    private String weatherTime;
 
     @Column(name = "EVENT_NAME")
     private String culturalEventName;
