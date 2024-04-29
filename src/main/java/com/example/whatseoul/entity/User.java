@@ -19,6 +19,7 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
 
+
 	@Column(name = "USER_EMAIL", nullable = false, length = 255) // length(ERD 포함)  길이 255로 변경했습니다.
 	private String userEmail;
 

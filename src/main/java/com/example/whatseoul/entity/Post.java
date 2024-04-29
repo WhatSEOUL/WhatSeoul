@@ -31,6 +31,7 @@ public class Post {
 	@Column(name = "VIEW_COUNT")
 	private Long viewCount;
 
+
 	@Column(name = "CREATED_AT", nullable = false)
 	@CreatedDate
 	private LocalDateTime createdAt;
