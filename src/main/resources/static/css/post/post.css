@@ -1,0 +1,56 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+h2 {
+    color: #333;
+    display: inline-block;
+}
+
+form {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+label {
+    display: block;
+    margin-bottom: 10px;
+    color: #666;
+}
+
+input[type="text"],
+textarea,
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box; /* So that width includes padding */
+}
+button {
+    background-color: white;
+    color: black;
+    padding: 10px 20px;
+    border: 1px solid grey;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 20px 10px;
+}
+
+button:hover {
+    background-color: lightgrey;
+}
+
+.back {
+    float: right;
+}
+
+.add-review:hover, .modify-review:hover{
+    background-color: lightskyblue;
+}
