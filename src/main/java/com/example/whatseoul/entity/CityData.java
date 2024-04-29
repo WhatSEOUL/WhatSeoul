@@ -1,12 +1,14 @@
 package com.example.whatseoul.entity;
 
 import jakarta.persistence.*;
-
+import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "CITYDATA")
+@NoArgsConstructor
 public class CityData {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CITYDATA_ID")
