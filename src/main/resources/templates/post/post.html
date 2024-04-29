@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>후기 게시판</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../static/css/post/post.css">
+    <link rel="stylesheet" type="text/css" href="../../static/css/index/index.css">
+</head>
+<body>
+<header>
+    <!-- 상단바 html start  -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="../index/index.html">WhatSeoul</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+                    <!--                    <li class="nav-item active">-->
+                    <!--                        <a class="nav-link" href="#">현재있는 메뉴는 이 클래스 쓰면 될듯 <span class="sr-only">(현재)</span></a>-->
+                    <!--                    </li>-->
+                    <li class="nav-item">
+                        <a class="nav-link" href="../selectarea/selectdistrict.html">지금 서울은?</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">서울 명소 추천받기</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">커뮤니티</a>
+                    </li>
+                    <li class="nav-item my-page-btn">
+                        <a class="nav-link" href="#">마이페이지</a>
+                    </li>
+                    <li class="nav-item logout-btn">
+                        <a class="nav-link" href="#">로그아웃</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- 상단바 html end -->
+</header>
+<main>
+    <form>
+        <h2>후기 작성</h2>
+        <button type="button" class="back">뒤로가기</button>
+
+        <label for="title">제목:</label>
+        <input type="text" id="title" name="title" required>
+
+        <label for="content">내용:</label>
+        <textarea id="content" name="content" rows="10" cols="50" required></textarea>
+
+        <label for="image">사진 첨부:</label>
+        <input type="file" id="image" name="image">
+
+        <button  type="button" class="add-review">후기 등록</button>
+        <button  type="button" class="modify-review">후기 수정</button>
+
+    </form>
+</main>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+</body>
+</html>
