@@ -7,67 +7,7 @@ districtButtons.forEach(function(button) {
         mainContentText.innerHTML = "<strong>" + buttonText + "</strong>를 선택하셨어요.<br>" +
             "구체적으로 어느 지역에 관심이 있나요?";
         localStorage.setItem('district', buttonText);
-        location.href = "selectareaname.html";
-        // buttonContainerWrapper.innerHTML = '';
-        //
-        // areasByDistrict[buttonText].forEach(function (area) {
-        //     var newButton = document.createElement('button');
-        //     newButton.textContent = area;
-        //     newButton.className = 'area-button';
-        //     buttonContainerWrapper.appendChild(newButton);
-        // })
-        // switch (buttonText) {
-        //     case "강남구":
-        //         break;
-        //     case "강동구":
-        //         break;
-        //     case "강북구":
-        //         break;
-        //     case "강서구":
-        //         break;
-        //     case "관악구":
-        //         break;
-        //     case "광진구":
-        //         break;
-        //     case "구로구":
-        //         break;
-        //     case "금천구":
-        //         break;
-        //     case "노원구":
-        //         break;
-        //     case "도봉구":
-        //         break;
-        //     case "동대문구":
-        //         break;
-        //     case "동작구":
-        //         break;
-        //     case "마포구":
-        //         break;
-        //     case "서대문구":
-        //         break;
-        //     case "서초구":
-        //         break;
-        //     case "성동구":
-        //         break;
-        //     case "성북구":
-        //         break;
-        //     case "송파구":
-        //         break;
-        //     case "양천구":
-        //         break;
-        //     case "영등포구":
-        //         break;
-        //     case "용산구":
-        //         break;
-        //     case "은평구":
-        //         break;
-        //     case "종로구":
-        //         break;
-        //     case "중구":
-        //         break;
-        //     case "중랑구":
-        //         break;
-        // }
+        location.href = "/area";
     });
 });
 
