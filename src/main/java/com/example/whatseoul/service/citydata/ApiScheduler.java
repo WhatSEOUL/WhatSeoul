@@ -3,6 +3,7 @@ package com.example.whatseoul.service.citydata;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import com.example.whatseoul.entity.Area;
@@ -23,9 +25,11 @@ import com.example.whatseoul.repository.citydata.CityDataRepository;
 import com.example.whatseoul.util.TagName;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class ApiScheduler {
 
 	private final AreaRepository areaRepository;
@@ -40,10 +44,10 @@ public class ApiScheduler {
 		List<Area> areas = areaRepository.findAll();
 		List<CityData> cityDataList = new ArrayList<>();
 
-		for (int i = 0; i < areas.size(); i++) {
-			String apiUrl = url + "/" + urlEncoding(areas.get(i).getAreaName());
-			Document document;
-			document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(apiUrl);
+		for (int i = 0; i < 5; i++) {
+			String apiUrl = url + ("/" + urlEncoding(areas.get(i).getAreaName()));
+			Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(apiUrl);
+
 			CityData cityData = CityData.builder()
 				.areaName(getElementText(document, TagName.AREA_NM.name()))
 				.areaCongestionLevel(getElementText(document, TagName.AREA_CONGEST_LVL.name()))
@@ -60,14 +64,15 @@ public class ApiScheduler {
 				.pm10(getElementText(document, TagName.PM10.name()))
 				.weatherTime(getElementText(document, TagName.WEATHER_TIME.name()))
 				.skyStatus(getElementText(document, TagName.SKY_STTS.name()))
-				.culturalEventName(getElementText(document, TagName.EVENT_NAME.name()))
+				.culturalEventName(getElementText(document, TagName.EVENT_NM.name()))
 				.culturalEventPeriod(getElementText(document, TagName.EVENT_PERIOD.name()))
 				.culturalEventPlace(getElementText(document, TagName.EVENT_PLACE.name()))
-				.culturalEventUrl(getElementText(document, TagName.CULTURAL_EVENT_URL.name()))
+				.culturalEventUrl(getElementText(document, TagName.URL.name()))
 				.build();
 			cityDataList.add(cityData);
 		}
-		cityDataRepository.saveAll(cityDataList);
+		Iterable<CityData> dataList = cityDataList;
+		cityDataRepository.saveAll(dataList);
 	}
 
 	private String urlEncoding(String str) throws UnsupportedEncodingException {
@@ -77,8 +82,17 @@ public class ApiScheduler {
 	}
 
 	private String getElementText(Document document, String tag) {
-		Document documentInfo = document;
-		String result = documentInfo.getElementsByTagName(tag).item(0).getTextContent();
-		return result;
+		// return document.getElementsByTagName(tag).item(0).getTextContent();
+		// Document 객체에서 태그 이름에 해당하는 요소 가져오기
+		NodeList nodeList = document.getElementsByTagName(tag);
+
+		// 가져온 요소가 비어 있는지 확인
+		if (nodeList.getLength() > 0) {
+			// 첫 번째로 발견된 요소의 텍스트 내용을 반환
+			return nodeList.item(0).getTextContent();
+		} else {
+			// 해당 태그가 없을 경우
+			return "태그가 존재하지 않습니다.";
+		}
 	}
 }
