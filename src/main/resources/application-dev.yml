@@ -22,5 +22,12 @@ spring:
 
     hibernate:
       ddl-auto: update
+
+# 서울 공공데이터 OPEN API
+seoul:
+  open:
+    api:
+      key: 4e4f4d6774736f6f35385a6f416e49
+
 server:
   port: 8080

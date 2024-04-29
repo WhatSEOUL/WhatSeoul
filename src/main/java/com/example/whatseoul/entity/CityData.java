@@ -33,32 +33,34 @@ public class CityData {
     @Column(name = "FCST_CONGEST_LVL")
     private String forecastCongestionLevel;
 
+    // 기온
     @Column(name = "TEMP")
     private String temperature;
 
+    // 최고 기온
     @Column(name = "MAX_TEMP")
     private String maxTemperature;
 
+    // 최저 기온
     @Column(name = "MIN_TEMP")
     private String minTemperature;
 
+    // 초미세먼지 지표
     @Column(name = "PM25_INDEX")
     private String pm25Index;
 
-    @Column(name = "PM25")
-    private String pm25;
-
+    // 미세먼지 지표
     @Column(name = "PM10_INDEX")
     private String pm10Index;
 
-    @Column(name = "PM10")
-    private String pm10;
+    // 강수 관련 메시지
+    @Column(name = "PCP_MSG")
+    private String pcpMsg;
 
+    // 날씨 데이터 업데이트 시간
     @Column(name = "WEATHER_TIME")
     private LocalDateTime weatherTime;
 
-    @Column(name = "SKY_STTS")
-    private String skyStatus;
 
     @Column(name = "EVENT_NAME")
     private String culturalEventName;
