@@ -3,9 +3,9 @@ package com.example.whatseoul.service.citydata;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -40,45 +40,58 @@ public class ApiScheduler {
 
 	//@Transactional
 	// @Scheduled(cron = "* * * * * *")
-	public void call() throws ParserConfigurationException, IOException, SAXException {
+	public void call() {
 		List<Area> areas = areaRepository.findAll();
-		List<CityData> cityDataList = new ArrayList<>();
+		List<CompletableFuture<CityData>> futures = areas.stream()
+			.map(this::fetchCityDataAsync)
+			.collect(Collectors.toList());
+		List<CityData> cityDataList = futures.stream()
+			.map(CompletableFuture::join)
+			.collect(Collectors.toList());
+		cityDataRepository.deleteAll();
+		cityDataRepository.saveAll(cityDataList);
 
-		for (int i = 0; i < 5; i++) {
-			String apiUrl = url + ("/" + urlEncoding(areas.get(i).getAreaName()));
-			Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(apiUrl);
+	}
 
-			CityData cityData = CityData.builder()
-				.areaName(getElementText(document, TagName.AREA_NM.name()))
-				.areaCongestionLevel(getElementText(document, TagName.AREA_CONGEST_LVL.name()))
-				.areaCongestionMessage(getElementText(document, TagName.AREA_CONGEST_MSG.name()))
-				.pplUpdateTime(getElementText(document, TagName.PPLTN_TIME.name()))
-				.forecastPopulation(getElementText(document, TagName.FCST_PPLTN.name()))
-				.forecastCongestionLevel(getElementText(document, TagName.FCST_CONGEST_LVL.name()))
-				.temperature(getElementText(document, TagName.TEMP.name()))
-				.maxTemperature(getElementText(document, TagName.MAX_TEMP.name()))
-				.minTemperature(getElementText(document, TagName.MIN_TEMP.name()))
-				.pm25Index(getElementText(document, TagName.PM25_INDEX.name()))
-				.pm25(getElementText(document, TagName.PM25.name()))
-				.pm10Index(getElementText(document, TagName.PM10_INDEX.name()))
-				.pm10(getElementText(document, TagName.PM10.name()))
-				.weatherTime(getElementText(document, TagName.WEATHER_TIME.name()))
-				.skyStatus(getElementText(document, TagName.SKY_STTS.name()))
-				.culturalEventName(getElementText(document, TagName.EVENT_NM.name()))
-				.culturalEventPeriod(getElementText(document, TagName.EVENT_PERIOD.name()))
-				.culturalEventPlace(getElementText(document, TagName.EVENT_PLACE.name()))
-				.culturalEventUrl(getElementText(document, TagName.URL.name()))
-				.build();
-			cityDataList.add(cityData);
-		}
-		Iterable<CityData> dataList = cityDataList;
-		cityDataRepository.saveAll(dataList);
+	private CompletableFuture<CityData> fetchCityDataAsync(Area area) {
+		return CompletableFuture.supplyAsync(() -> {
+			try {
+				log.info("areaId: {} areaName: {}", area.getAreaId(), area.getAreaName());
+				String apiUrl = url + ("/" + urlEncoding(area.getAreaName()));
+				Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(apiUrl);
+				return parseCityData(document);
+			} catch (SAXException | IOException | ParserConfigurationException e) {
+				log.error("error fetching citydata for areaname {}", area.getAreaName(), e);
+				return null;
+			}
+		});
+	}
+
+	private CityData parseCityData(Document document) {
+		return CityData.builder()
+			.areaName(getElementText(document, TagName.AREA_NM.name()))
+			.areaCongestionLevel(getElementText(document, TagName.AREA_CONGEST_LVL.name()))
+			.areaCongestionMessage(getElementText(document, TagName.AREA_CONGEST_MSG.name()))
+			.pplUpdateTime(getElementText(document, TagName.PPLTN_TIME.name()))
+			.forecastCongestionLevel(getElementText(document, TagName.FCST_CONGEST_LVL.name()))
+			.temperature(getElementText(document, TagName.TEMP.name()))
+			.maxTemperature(getElementText(document, TagName.MAX_TEMP.name()))
+			.minTemperature(getElementText(document, TagName.MIN_TEMP.name()))
+			.pm25Index(getElementText(document, TagName.PM25_INDEX.name()))
+			.pm25(getElementText(document, TagName.PM25.name()))
+			.pm10Index(getElementText(document, TagName.PM10_INDEX.name()))
+			.pm10(getElementText(document, TagName.PM10.name()))
+			.weatherTime(getElementText(document, TagName.WEATHER_TIME.name()))
+			.skyStatus(getElementText(document, TagName.SKY_STTS.name()))
+			.culturalEventName(getElementText(document, TagName.EVENT_NM.name()))
+			.culturalEventPeriod(getElementText(document, TagName.EVENT_PERIOD.name()))
+			.culturalEventPlace(getElementText(document, TagName.EVENT_PLACE.name()))
+			.culturalEventUrl(getElementText(document, TagName.URL.name()))
+			.build();
 	}
 
 	private String urlEncoding(String str) throws UnsupportedEncodingException {
-		String result = "";
-		result = URLEncoder.encode(str, "UTF-8");
-		return result;
+		return URLEncoder.encode(str, "UTF-8");
 	}
 
 	private String getElementText(Document document, String tag) {
