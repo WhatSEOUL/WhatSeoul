@@ -7,10 +7,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import com.example.whatseoul.entity.CityData;
+import com.example.whatseoul.repository.citydata.CityDataRepository;
+
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class CityDataService {
-	@Autowired
-	private RestTemplate restTemplate;
+	private final CityDataRepository cityDataRepository;
+
+	// @Autowired
+	// private RestTemplate restTemplate;
 
 	// @Transactional
 	// @Scheduled()
@@ -22,5 +32,13 @@ public class CityDataService {
 	// 	ResponseEntity response = restTemplate.getForEntity(url, String.class);
 	// 	System.out.println("here");
 	// }
+
+	public CityData getCityDataByAreaName(String areaName) {
+		CityData data = cityDataRepository.findByAreaName(areaName);
+		log.info("getCityDataByAreaName - {}", data);
+		log.info("getCityDataByAreaName - {}", data.getAreaName());
+
+		return cityDataRepository.findByAreaName(areaName);
+	}
 
 }

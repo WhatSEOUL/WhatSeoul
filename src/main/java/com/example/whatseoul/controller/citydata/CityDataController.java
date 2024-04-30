@@ -1,14 +1,16 @@
 package com.example.whatseoul.controller.citydata;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.xml.sax.SAXException;
 
+import com.example.whatseoul.entity.CityData;
 import com.example.whatseoul.service.citydata.ApiScheduler;
 import com.example.whatseoul.service.citydata.CityDataService;
 
@@ -44,8 +46,14 @@ public class CityDataController {
 	}
 
 	@GetMapping("/citydata")
-	public String getCityData() throws IOException, ParserConfigurationException, SAXException {
+	public String fetchCityData() {
 		apiScheduler.call();
 		return "/citydata/citydatalist";
+	}
+
+	@GetMapping("/api/citydata/{areaName}")
+	public ResponseEntity<CityData> getCityDataByAreaName(@PathVariable String areaName) {
+		CityData cityData = cityDataService.getCityDataByAreaName(areaName);
+		return ResponseEntity.ok(cityData);
 	}
 }
