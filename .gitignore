@@ -39,3 +39,4 @@ out/
 .vscode/
 *.yml
 application.properties
+*.xlsx

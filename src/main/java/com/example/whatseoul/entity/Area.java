@@ -12,14 +12,14 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "area")
+@Table(name = "AREA")
 public class Area {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "area_id")
+	@Column(name = "AREA_ID")
 	private Long areaId;
 
-	@Column(name = "area_name")
+	@Column(name = "AREA_NAME")
 	private String areaName;
 
 	public Area(String areaName) {
