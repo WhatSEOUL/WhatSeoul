@@ -3,11 +3,13 @@ package com.example.whatseoul.entity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "CITYDATA")
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -31,8 +33,8 @@ public class CityData {
     private String pplUpdateTime;
 
     // 인구 예측값
-    @Column(name = "FCST_PPLTN")
-    private String forecastPopulation;
+    @Column(name = "FCST_TIME")
+    private String forecastTime;
 
     @Column(name = "FCST_CONGEST_LVL")
     private String forecastCongestionLevel;
