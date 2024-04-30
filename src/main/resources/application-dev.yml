@@ -15,18 +15,19 @@ spring:
 
   jpa:
     database: mysql
-    show-sql: true
+    #show-sql: true
     properties:
       hibernate:
         format_sql: true
 
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
 
 # 서울 공공데이터 OPEN API
 seoul:
   open:
     api:
-      key: http://openapi.seoul.go.kr:8088/4e4f4d6774736f6f35385a6f416e49/xml/citydata/1/5
+      url: http://openapi.seoul.go.kr:8088/4e4f4d6774736f6f35385a6f416e49/xml/citydata/1/1
+      key: 4e4f4d6774736f6f35385a6f416e49
 server:
   port: 8080
