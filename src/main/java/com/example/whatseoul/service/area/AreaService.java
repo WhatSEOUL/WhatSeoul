@@ -29,7 +29,6 @@ public class AreaService {
 		for (int i = 1; i <= sheet.getLastRowNum(); i++) {
 			Row row = sheet.getRow(i);
 			Cell cell = row.getCell(3);
-			Cell cell2 = row.getCell(1);
 			System.out.println("cell: " + cell);
 			if (cell != null) {
 				String areaName = cell.getStringCellValue();
