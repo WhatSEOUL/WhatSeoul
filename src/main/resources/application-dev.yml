@@ -21,7 +21,7 @@ spring:
         format_sql: true
 
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
 
 # 서울 공공데이터 OPEN API
 seoul:
