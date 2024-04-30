@@ -1,28 +1,25 @@
 package com.example.whatseoul.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
 @NoArgsConstructor
-@Table(name = "AREA")
+@AllArgsConstructor
+@Table(name = "area")
 public class Area {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "AREA_ID")
-	private Long areaId;
 
-	@Column(name = "AREA_NAME")
-	private String areaName;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "AREA_ID")
+    private Long areaId;
 
-	public Area(String areaName) {
-		this.areaName = areaName;
-	}
+    @Column(name = "AREA_CODE")
+    private String areaCode;
+
+    @Column(name = "AREA_NAME")
+    private String areaName;
 }
