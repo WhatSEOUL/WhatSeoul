@@ -38,4 +38,6 @@ public class Post {
 	@Column(name = "MODIFIED_AT")
 	@LastModifiedDate
 	private LocalDateTime modifiedAt;
+
+
 }
