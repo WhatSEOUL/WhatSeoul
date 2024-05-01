@@ -1,5 +1,6 @@
 package com.example.whatseoul.entity;
 
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +14,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class Population {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "POPULATION_ID")
@@ -35,3 +35,4 @@ public class Population {
     @Column(name = "PPLTN_TIME", nullable = false)
     private String pplUpdateTime;
 }
+
