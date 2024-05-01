@@ -28,7 +28,7 @@ public class Population {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "POPULATION_ID")
-    private int populationId;
+    private Long populationId;
 
 	@OneToOne
 	@JoinColumn(name = "AREA_CODE")
