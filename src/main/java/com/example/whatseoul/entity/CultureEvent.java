@@ -27,7 +27,7 @@ public class CultureEvent {
     @Column(name = "CULTURAL_EVENT_URL")
     private String culturalEventUrl;
 
-    @OneToOne
-    @JoinColumn(name = "AREA_CODE")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "AREA_CODE", referencedColumnName = "AREA_CODE")
     private Area area;
 }
