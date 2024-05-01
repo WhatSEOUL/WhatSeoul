@@ -178,26 +178,27 @@ public class ApiScheduler {
         } else return "No Tag";
     }
 
-    private String getPplForecastText(Document document, String tag) {
-        NodeList nodeList = document.getElementsByTagName("FCST_PPLTN"); // 13개 노드가 담긴 리스트 반환, 0번 노드는 부모 노드
-        for (int i = 1; i < nodeList.getLength(); i++) {
-            Node fcstPpltnNode = nodeList.item(i);
-            NodeList childNodes = fcstPpltnNode.getChildNodes();
-
-            for (int j = 0; j < childNodes.getLength(); j++) {
-                Node childNode = childNodes.item(j);
-                if (childNode.getNodeName().equals(tag)) {
-                    return childNode.getTextContent();
-                }
-            }
-            // if (tag.equals("FCST_TIME")) {
-            //     return fcstPpltnNode.getFirstChild().getFirstChild().getTextContent();
-            // } else if (tag.equals("FCST_CONGEST_LVL")) {
-            //     return fcstPpltnNode.getFirstChild().getFirstChild().getNextSibling().getTextContent();
-            // }
-        }
-        return "No Tag";
-    }
+    // 향후 사용할 일이 없어보이면 삭제하겠습니다!
+    // private String getPplForecastText(Document document, String tag) {
+    //     NodeList nodeList = document.getElementsByTagName("FCST_PPLTN"); // 13개 노드가 담긴 리스트 반환, 0번 노드는 부모 노드
+    //     for (int i = 1; i < nodeList.getLength(); i++) {
+    //         Node fcstPpltnNode = nodeList.item(i);
+    //         NodeList childNodes = fcstPpltnNode.getChildNodes();
+    //
+    //         for (int j = 0; j < childNodes.getLength(); j++) {
+    //             Node childNode = childNodes.item(j);
+    //             if (childNode.getNodeName().equals(tag)) {
+    //                 return childNode.getTextContent();
+    //             }
+    //         }
+    //         // if (tag.equals("FCST_TIME")) {
+    //         //     return fcstPpltnNode.getFirstChild().getFirstChild().getTextContent();
+    //         // } else if (tag.equals("FCST_CONGEST_LVL")) {
+    //         //     return fcstPpltnNode.getFirstChild().getFirstChild().getNextSibling().getTextContent();
+    //         // }
+    //     }
+    //     return "No Tag";
+    // }
 }
 
 
