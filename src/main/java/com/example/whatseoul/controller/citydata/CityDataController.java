@@ -8,11 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 import org.xml.sax.SAXException;
 
 import com.example.whatseoul.service.ApiScheduler;
 
-@Controller
+@RestController
 public class CityDataController {
 
 	private final ApiScheduler apiScheduler;
