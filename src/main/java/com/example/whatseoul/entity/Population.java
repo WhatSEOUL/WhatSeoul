@@ -20,7 +20,7 @@ public class Population {
     private Long populationId;
 
     @OneToOne
-    @JoinColumn(name = "AREA_CODE")
+    @JoinColumn(name = "AREA_CODE", referencedColumnName = "AREA_CODE")
     private Area area;
 
     // 장소 혼잡도 지표

@@ -48,6 +48,6 @@ public class Weather {
     private String weatherTime;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "AREA_CODE")
+    @JoinColumn(name = "AREA_CODE", referencedColumnName = "AREA_CODE")
     private Area area;
 }
