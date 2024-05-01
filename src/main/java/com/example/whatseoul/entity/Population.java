@@ -19,7 +19,7 @@ public class Population {
     @Column(name = "POPULATION_ID")
     private Long populationId;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "AREA_CODE", referencedColumnName = "AREA_CODE")
     private Area area;
 
