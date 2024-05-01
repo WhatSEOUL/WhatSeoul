@@ -18,7 +18,7 @@ public class PopulationForecast {
     private Long forecastId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "POPULATION_ID")
+    @JoinColumn(name = "POPULATION_ID", referencedColumnName = "POPULATION_ID")
     private Population population;
 
     // 인구 혼잡도 예측 시점

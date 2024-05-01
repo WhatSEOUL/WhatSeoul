@@ -2,11 +2,9 @@ package com.example.whatseoul.service;
 
 import com.example.whatseoul.dto.CityData;
 import com.example.whatseoul.entity.Area;
-import com.example.whatseoul.entity.CultureEvent;
 import com.example.whatseoul.entity.Population;
 import com.example.whatseoul.entity.Weather;
 import com.example.whatseoul.respository.cityData.AreaRepository;
-import com.example.whatseoul.respository.cityData.CulturalEventRepository;
 import com.example.whatseoul.respository.cityData.PopulationRepository;
 import com.example.whatseoul.respository.cityData.WeatherRepository;
 import lombok.RequiredArgsConstructor;
@@ -34,14 +32,13 @@ public class ApiScheduler {
     private final AreaRepository areaRepository;
     private final WeatherRepository weatherRepository;
     private final PopulationRepository populationRepository;
-    private final CulturalEventRepository culturalEventRepository;
 
     @Value("${seoul.open.api.url}")
     private String url;
 
 
     @Transactional
-    @Scheduled(cron = "0 01/5 * * * *")
+    @Scheduled(cron = "0 35/5 * * * *")
     public void call() {
         long startTime = System.currentTimeMillis();
         List<Area> areas = areaRepository.findAll();
@@ -62,19 +59,11 @@ public class ApiScheduler {
                 .map(CityData::getPopulation) // WeatherAndPopulation에서 Population을 추출
                 .toList();
 
-        List<CultureEvent> cultureEventList = allFutures.stream()
-                .map(CompletableFuture::join)
-                .map(CityData::getCultureEvent)
-                .toList();
-
         weatherRepository.deleteAllInBatch();
         weatherRepository.saveAll(weatherList);
 
         populationRepository.deleteAllInBatch();
         populationRepository.saveAll(populationList);
-
-        culturalEventRepository.deleteAllInBatch();
-        culturalEventRepository.saveAll(cultureEventList);
 
         long endTime = System.currentTimeMillis();
         long totalTime = (endTime-startTime)/1000;
@@ -89,9 +78,8 @@ public class ApiScheduler {
                 Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(apiUrl);
                 Weather weather= parseWeatherData(document, area);
                 Population population = parsePopulationData(document, area);
-                CultureEvent cultureEvent = parseCultureEventData(document, area);
 
-                return new CityData(weather, population, cultureEvent);
+                return new CityData(weather, population);
             } catch (SAXException | IOException | ParserConfigurationException e) {
                 log.error("error fetching citydata for areaname {}", area.getAreaName(), e);
                 return null;
@@ -124,25 +112,15 @@ public class ApiScheduler {
 
     public Weather parseWeatherData(Document document, Area area){
         return Weather.builder()
-                .temperature(getElement(document, "TEMP"))
-                .maxTemperature(getElement(document, "MAX_TEMP"))
-                .minTemperature(getElement(document, "MIN_TEMP"))
-                .pm25Index(getElement(document, "PM25_INDEX"))
-                .pm10Index(getElement(document, "PM10_INDEX"))
-                .pcpMsg(getElement(document, "PCP_MSG"))
-                .weatherTime(getElement(document, "WEATHER_TIME"))
-                .area(area)
-                .build();
-    }
-
-    public CultureEvent parseCultureEventData(Document document, Area area){
-        return CultureEvent.builder()
-                .culturalEventName(getElement(document,"EVENT_NM"))
-                .culturalEventPeriod(getElement(document, "EVENT_PERIOD"))
-                .culturalEventPlace(getElement(document, "EVENT_PLACE"))
-                .culturalEventUrl(getElement(document, "URL"))
-                .area(area)
-                .build();
+                    .temperature(getElement(document, "TEMP"))
+                    .maxTemperature(getElement(document, "MAX_TEMP"))
+                    .minTemperature(getElement(document, "MIN_TEMP"))
+                    .pm25Index(getElement(document, "PM25_INDEX"))
+                    .pm10Index(getElement(document, "PM10_INDEX"))
+                    .pcpMsg(getElement(document, "PCP_MSG"))
+                    .weatherTime(getElement(document, "WEATHER_TIME"))
+                    .area(area)
+                    .build();
     }
 
     private String getElement(Document document, String tag) {
@@ -156,3 +134,5 @@ public class ApiScheduler {
         } else return "No Tag";
     }
 }
+
+
