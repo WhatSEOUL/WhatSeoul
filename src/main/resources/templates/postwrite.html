@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>후기 작성</title>
+    <style>
+        .layout {
+            width: 500px;
+            margin: 0 auto;
+            margin-top: 40px;
+        }
+        .layout input, textarea {
+            width: 100%;
+            box-sizing: border-box;
+            margin-top: 10px;
+
+        }
+        .layout textarea{
+            width: 100%;
+            margin-top: 10px;
+            min-height: 300px;
+        }
+    </style>
+</head>
+<body>
+<div class="layout">
+    <form action="/post/writepro" method="post">
+        <input name="postTitle" type="text">
+        <textarea name="postContent"></textarea>
+        <button type="submit">작성</button>
+    </form>
+</div>
+</body>
+</html>
