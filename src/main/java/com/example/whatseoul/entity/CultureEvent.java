@@ -1,15 +1,14 @@
 package com.example.whatseoul.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
-
-@Data
+@Getter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "CULTURE_EVENT")
+@Builder
 public class CultureEvent {
 
     @Id
@@ -17,7 +16,7 @@ public class CultureEvent {
     @Column(name = "EVENT_ID")
     private Long eventId;
 
-    @Column(name = "EVENT_NAME")
+    @Column(name = "EVENT_NM")
     private String culturalEventName;
 
     @Column(name = "EVENT_PERIOD")
@@ -26,7 +25,7 @@ public class CultureEvent {
     @Column(name = "EVENT_PLACE")
     private String culturalEventPlace;
 
-    @Column(name = "CULTURAL_EVENT_URL")
+    @Column(name = "URL")
     private String culturalEventUrl;
 
     @OneToOne
