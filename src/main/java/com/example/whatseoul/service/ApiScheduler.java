@@ -23,6 +23,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -42,7 +43,7 @@ public class ApiScheduler {
 
 
     @Transactional
-    @Scheduled(cron = "0 34/5 * * * *")
+    @Scheduled(cron = "0 18/5 * * * *")
     public void call() {
         long startTime = System.currentTimeMillis();
         List<Area> areas = areaRepository.findAll();
@@ -65,7 +66,7 @@ public class ApiScheduler {
 
         List<PopulationForecast> pplForecastList = allFutures.stream()
             .map(CompletableFuture::join)
-            .map(CityData::getPplForecast)
+            .flatMap(cityData -> cityData.getPplForecast().stream())
             .collect(Collectors.toList());
 
         weatherRepository.deleteAllInBatch();
@@ -90,7 +91,7 @@ public class ApiScheduler {
                 Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(apiUrl);
                 Weather weather= parseWeatherData(document, area);
                 Population population = parsePopulationData(document, area);
-                PopulationForecast pplForecast = parsePopulationForecastData(document, population);
+                List<PopulationForecast> pplForecast = parsePopulationForecastData(document, population);
 
                 return new CityData(weather, population, pplForecast);
             } catch (SAXException | IOException | ParserConfigurationException e) {
@@ -123,12 +124,34 @@ public class ApiScheduler {
                 .build();
     }
 
-    public PopulationForecast parsePopulationForecastData(Document document, Population population) {
-        return PopulationForecast.builder()
-            .population(population)
-            .forecastTime(getPplForecastText(document, "FCST_TIME"))
-            .forecastCongestionLevel(getPplForecastText(document, "FCST_CONGEST_LVL"))
-            .build();
+    public List<PopulationForecast> parsePopulationForecastData(Document document, Population population) {
+        List<PopulationForecast> pplForecastList = new ArrayList<>();
+        NodeList nodeList = document.getElementsByTagName("FCST_PPLTN"); // 13개 노드가 담긴 리스트 반환, 0번 노드는 부모 노드
+        for (int i = 1; i < nodeList.getLength(); i++) {
+            Node fcstPpltnNode = nodeList.item(i);
+            NodeList childNodes = fcstPpltnNode.getChildNodes();
+
+            String forecastTime = "";
+            String forecastCongestionLevel = "";
+
+            for (int j = 0; j < childNodes.getLength(); j++) {
+                Node childNode = childNodes.item(j);
+                if (childNode.getNodeName().equals("FCST_TIME")) {
+                    forecastTime = childNode.getTextContent();
+                } else if (childNode.getNodeName().equals("FCST_CONGEST_LVL")) {
+                    forecastCongestionLevel = childNode.getTextContent();
+                }
+            }
+            PopulationForecast pplForecast = PopulationForecast.builder()
+                .population(population)
+                .forecastTime(forecastTime)
+                .forecastCongestionLevel(forecastCongestionLevel)
+                .build();
+
+            pplForecastList.add(pplForecast);
+
+        }
+        return pplForecastList;
     }
 
     public Weather parseWeatherData(Document document, Area area){

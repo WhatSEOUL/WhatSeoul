@@ -1,5 +1,7 @@
 package com.example.whatseoul.dto;
 
+import java.util.List;
+
 import com.example.whatseoul.entity.Population;
 import com.example.whatseoul.entity.PopulationForecast;
 import com.example.whatseoul.entity.Weather;
@@ -11,5 +13,5 @@ import lombok.Getter;
 public class CityData {
     private Weather weather;
     private Population population;
-    private PopulationForecast pplForecast;
+    private List<PopulationForecast> pplForecast;
 }
