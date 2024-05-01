@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>City Events</title>
+</head>
+<body>
+<h1>문화행사 정보</h1>
+<table>
+    <thead>
+    <tr>
+        <th>이름</th>
+        <th>기간</th>
+        <th>장소</th>
+        <th>상세 URL</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="event : ${events}">
+        <td th:text="${event.name}"></td>
+        <td th:text="${event.period}"></td>
+        <td th:text="${event.location}"></td>
+        <td><a th:text="${event.detailUrl}" th:href="${event.detailUrl}" target="_blank">상세 정보</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

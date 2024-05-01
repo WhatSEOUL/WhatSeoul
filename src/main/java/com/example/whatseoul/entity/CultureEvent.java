@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 @Data
 @NoArgsConstructor
 @Entity
@@ -30,4 +32,5 @@ public class CultureEvent {
     @OneToOne
     @JoinColumn(name = "AREA_CODE")
     private Area area;
+
 }
