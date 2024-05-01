@@ -19,8 +19,8 @@ public class Population {
     @Column(name = "POPULATION_ID")
     private Long populationId;
 
-    @OneToOne
-    @JoinColumn(name = "AREA_CODE")
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "AREA_CODE", referencedColumnName = "AREA_CODE")
     private Area area;
 
     // 장소 혼잡도 지표

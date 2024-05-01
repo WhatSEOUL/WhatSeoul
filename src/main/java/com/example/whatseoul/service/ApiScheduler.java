@@ -3,8 +3,10 @@ package com.example.whatseoul.service;
 import com.example.whatseoul.dto.CityData;
 import com.example.whatseoul.entity.Area;
 import com.example.whatseoul.entity.Population;
+import com.example.whatseoul.entity.PopulationForecast;
 import com.example.whatseoul.entity.Weather;
 import com.example.whatseoul.respository.cityData.AreaRepository;
+import com.example.whatseoul.respository.cityData.PopulationForecastRepository;
 import com.example.whatseoul.respository.cityData.PopulationRepository;
 import com.example.whatseoul.respository.cityData.WeatherRepository;
 import lombok.RequiredArgsConstructor;
@@ -14,12 +16,14 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
@@ -32,13 +36,14 @@ public class ApiScheduler {
     private final AreaRepository areaRepository;
     private final WeatherRepository weatherRepository;
     private final PopulationRepository populationRepository;
+    private final PopulationForecastRepository populationForecastRepository;
 
     @Value("${seoul.open.api.url}")
     private String url;
 
 
     @Transactional
-    @Scheduled(cron = "0 35/5 * * * *")
+    @Scheduled(cron = "0 18/5 * * * *")
     public void call() {
         long startTime = System.currentTimeMillis();
         List<Area> areas = areaRepository.findAll();
@@ -59,11 +64,19 @@ public class ApiScheduler {
                 .map(CityData::getPopulation) // WeatherAndPopulation에서 Population을 추출
                 .toList();
 
+        List<PopulationForecast> pplForecastList = allFutures.stream()
+            .map(CompletableFuture::join)
+            .flatMap(cityData -> cityData.getPplForecast().stream())
+            .collect(Collectors.toList());
+
         weatherRepository.deleteAllInBatch();
         weatherRepository.saveAll(weatherList);
 
+        populationForecastRepository.deleteAllInBatch(); // 인구예측데이터를 먼저 삭제한 이후 인구 데이터 삭제
         populationRepository.deleteAllInBatch();
-        populationRepository.saveAll(populationList);
+        populationRepository.saveAll(populationList); // 인구데이터를 먼저 저장한 후 인구 예측 데이터 저장
+        populationForecastRepository.saveAll(pplForecastList);
+
 
         long endTime = System.currentTimeMillis();
         long totalTime = (endTime-startTime)/1000;
@@ -78,8 +91,9 @@ public class ApiScheduler {
                 Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(apiUrl);
                 Weather weather= parseWeatherData(document, area);
                 Population population = parsePopulationData(document, area);
+                List<PopulationForecast> pplForecast = parsePopulationForecastData(document, population);
 
-                return new CityData(weather, population);
+                return new CityData(weather, population, pplForecast);
             } catch (SAXException | IOException | ParserConfigurationException e) {
                 log.error("error fetching citydata for areaname {}", area.getAreaName(), e);
                 return null;
@@ -110,6 +124,36 @@ public class ApiScheduler {
                 .build();
     }
 
+    public List<PopulationForecast> parsePopulationForecastData(Document document, Population population) {
+        List<PopulationForecast> pplForecastList = new ArrayList<>();
+        NodeList nodeList = document.getElementsByTagName("FCST_PPLTN"); // 13개 노드가 담긴 리스트 반환, 0번 노드는 부모 노드
+        for (int i = 1; i < nodeList.getLength(); i++) {
+            Node fcstPpltnNode = nodeList.item(i);
+            NodeList childNodes = fcstPpltnNode.getChildNodes();
+
+            String forecastTime = "";
+            String forecastCongestionLevel = "";
+
+            for (int j = 0; j < childNodes.getLength(); j++) {
+                Node childNode = childNodes.item(j);
+                if (childNode.getNodeName().equals("FCST_TIME")) {
+                    forecastTime = childNode.getTextContent();
+                } else if (childNode.getNodeName().equals("FCST_CONGEST_LVL")) {
+                    forecastCongestionLevel = childNode.getTextContent();
+                }
+            }
+            PopulationForecast pplForecast = PopulationForecast.builder()
+                .population(population)
+                .forecastTime(forecastTime)
+                .forecastCongestionLevel(forecastCongestionLevel)
+                .build();
+
+            pplForecastList.add(pplForecast);
+
+        }
+        return pplForecastList;
+    }
+
     public Weather parseWeatherData(Document document, Area area){
         return Weather.builder()
                     .temperature(getElement(document, "TEMP"))
@@ -133,6 +177,28 @@ public class ApiScheduler {
             return nodeList.item(0).getTextContent();
         } else return "No Tag";
     }
+
+    // 향후 사용할 일이 없어보이면 삭제하겠습니다!
+    // private String getPplForecastText(Document document, String tag) {
+    //     NodeList nodeList = document.getElementsByTagName("FCST_PPLTN"); // 13개 노드가 담긴 리스트 반환, 0번 노드는 부모 노드
+    //     for (int i = 1; i < nodeList.getLength(); i++) {
+    //         Node fcstPpltnNode = nodeList.item(i);
+    //         NodeList childNodes = fcstPpltnNode.getChildNodes();
+    //
+    //         for (int j = 0; j < childNodes.getLength(); j++) {
+    //             Node childNode = childNodes.item(j);
+    //             if (childNode.getNodeName().equals(tag)) {
+    //                 return childNode.getTextContent();
+    //             }
+    //         }
+    //         // if (tag.equals("FCST_TIME")) {
+    //         //     return fcstPpltnNode.getFirstChild().getFirstChild().getTextContent();
+    //         // } else if (tag.equals("FCST_CONGEST_LVL")) {
+    //         //     return fcstPpltnNode.getFirstChild().getFirstChild().getNextSibling().getTextContent();
+    //         // }
+    //     }
+    //     return "No Tag";
+    // }
 }
 
 
