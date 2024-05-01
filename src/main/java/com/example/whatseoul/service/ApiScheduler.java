@@ -43,7 +43,7 @@ public class ApiScheduler {
 
 
     @Transactional
-    @Scheduled(cron = "0 18/5 * * * *")
+    @Scheduled(cron = "0 57/5 * * * *")
     public void call() {
         long startTime = System.currentTimeMillis();
         List<Area> areas = areaRepository.findAll();
@@ -100,20 +100,6 @@ public class ApiScheduler {
             }
         });
     }
-
-    /*private CompletableFuture<Population> fetchPopulationDataAsync(Area area) {
-        return CompletableFuture.supplyAsync(() -> {
-            try {
-                log.info("areaId: {} areaName: {}", area.getAreaId(), area.getAreaName());
-                String apiUrl = url + ("/" + area.getAreaCode());
-                Document document = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(apiUrl);
-                return parsePopulationData(document, area);
-            } catch (SAXException | IOException | ParserConfigurationException e) {
-                log.error("error fetching citydata for areaname {}", area.getAreaName(), e);
-                return null;
-            }
-        });
-    }*/
 
     public Population parsePopulationData(Document document, Area area) {
         return Population.builder()
