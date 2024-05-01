@@ -1,5 +1,4 @@
 package com.example.whatseoul.entity;
-
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,14 +12,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class PopulationForecast {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "FORECAST_ID")
-    private int forecastId;
+    private Long forecastId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "POPULATION_ID")
+    @JoinColumn(name = "POPULATION_ID", referencedColumnName = "POPULATION_ID")
     private Population population;
 
     // 인구 혼잡도 예측 시점
