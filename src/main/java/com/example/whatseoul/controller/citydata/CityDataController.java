@@ -10,18 +10,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.xml.sax.SAXException;
 
-import com.example.whatseoul.entity.CityData;
-import com.example.whatseoul.service.citydata.ApiScheduler;
-import com.example.whatseoul.service.citydata.CityDataService;
+import com.example.whatseoul.service.ApiScheduler;
 
 @Controller
 public class CityDataController {
 
-	private final CityDataService cityDataService;
 	private final ApiScheduler apiScheduler;
 
-	public CityDataController(CityDataService cityDataService, ApiScheduler apiScheduler) {
-		this.cityDataService = cityDataService;
+	public CityDataController(ApiScheduler apiScheduler) {
 		this.apiScheduler = apiScheduler;
 	}
 
@@ -45,15 +41,17 @@ public class CityDataController {
 		return "/selectarea/selectconfirm";
 	}
 
-	@GetMapping("/citydata")
-	public String fetchCityData() {
-		apiScheduler.call();
-		return "/citydata/citydatalist";
-	}
+	// 핫스팟 전체 도시데이터 조회
+	// @GetMapping("/citydata")
+	// public String fetchCityData() {
+	// 	apiScheduler.call();
+	// 	return "/citydata/citydatalist";
+	// }
 
-	@GetMapping("/api/citydata/{areaName}")
-	public ResponseEntity<CityData> getCityDataByAreaName(@PathVariable String areaName) {
-		CityData cityData = cityDataService.getCityDataByAreaName(areaName);
-		return ResponseEntity.ok(cityData);
-	}
+	// 개별 핫스팟 도시데이터 조회
+	// @GetMapping("/api/citydata/{areaName}")
+	// public ResponseEntity<CityData> getCityDataByAreaName(@PathVariable String areaName) {
+	// 	CityData cityData = cityDataService.getCityDataByAreaName(areaName);
+	// 	return ResponseEntity.ok(cityData);
+	// }
 }
