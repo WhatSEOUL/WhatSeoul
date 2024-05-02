@@ -3,6 +3,7 @@ package com.example.whatseoul.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.whatseoul.service.AlanService;
@@ -18,8 +19,8 @@ public class AlanController {
 	private final AlanService alanService;
 
 	@GetMapping("/alan")
-	public ResponseEntity<String> getAlanResponse() {
-		String response = alanService.fetchAlanResponse();
+	public ResponseEntity<String> getAlanResponse(@RequestParam String content) {
+		String response = alanService.fetchAlanResponse(content);
 		log.info("response: {}", response);
 
 		return ResponseEntity.ok(response);
