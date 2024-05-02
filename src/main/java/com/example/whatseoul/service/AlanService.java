@@ -17,17 +17,16 @@ public class AlanService {
 
 	@Value("${alan.api.client_id}")
 	private String CLIENT_ID;
-	private static final String CONTENT = "오늘 놀러갈만한 서울 명소를 추천해줄래?";
 	private final RestTemplate restTemplate;
 
 	public AlanService(RestTemplateBuilder restTemplateBuilder) {
 		this.restTemplate = restTemplateBuilder.build();
 	}
 
-	public String fetchAlanResponse() {
+	public String fetchAlanResponse(String content) {
 		String uri = UriComponentsBuilder
 			.fromHttpUrl(BASE_URL)
-			.queryParam("content", CONTENT)
+			.queryParam("content", content)
 			.queryParam("client_id", CLIENT_ID)
 			.toUriString();
 
