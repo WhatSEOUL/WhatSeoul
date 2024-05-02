@@ -43,7 +43,7 @@ public class ApiScheduler {
 
 
     @Transactional
-    @Scheduled(cron = "0 15/5 * * * *")
+    @Scheduled(cron = "0 4/5 * * * *")
     public void call() {
         long startTime = System.currentTimeMillis();
         List<Area> areas = areaRepository.findAll();
@@ -117,8 +117,10 @@ public class ApiScheduler {
             Node fcstPpltnNode = nodeList.item(i);
             NodeList childNodes = fcstPpltnNode.getChildNodes();
 
-            String forecastTime = "";
-            String forecastCongestionLevel = "";
+            String forecastTime = "No Tag";
+            String forecastCongestionLevel = "No Tag";
+            String forecastPopulationMin = "No Tag";
+            String forecastPopulationMax = "No Tag";
 
             for (int j = 0; j < childNodes.getLength(); j++) {
                 Node childNode = childNodes.item(j);
@@ -126,12 +128,18 @@ public class ApiScheduler {
                     forecastTime = childNode.getTextContent();
                 } else if (childNode.getNodeName().equals("FCST_CONGEST_LVL")) {
                     forecastCongestionLevel = childNode.getTextContent();
+                } else if (childNode.getNodeName().equals("FCST_PPLTN_MIN")) {
+                    forecastPopulationMin = childNode.getTextContent();
+                } else if (childNode.getNodeName().equals("FCST_PPLTN_MAX")) {
+                    forecastPopulationMax = childNode.getTextContent();
                 }
             }
             PopulationForecast pplForecast = PopulationForecast.builder()
                 .population(population)
                 .forecastTime(forecastTime)
                 .forecastCongestionLevel(forecastCongestionLevel)
+                .forecastPopulationMin(forecastPopulationMin)
+                .forecastPopulationMax(forecastPopulationMax)
                 .build();
 
             pplForecastList.add(pplForecast);
