@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "area")
+@Table(name = "area", uniqueConstraints={@UniqueConstraint(columnNames={"AREA_CODE"})})
 public class Area {
 
     @Id
