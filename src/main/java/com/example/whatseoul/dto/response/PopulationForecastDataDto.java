@@ -12,4 +12,6 @@ import lombok.NoArgsConstructor;
 public class PopulationForecastDataDto {
 	private String forecastTime;
 	private String forecastCongestionLevel;
+	private String forecastPopulationMin;
+	private String forecastPopulationMax;
 }

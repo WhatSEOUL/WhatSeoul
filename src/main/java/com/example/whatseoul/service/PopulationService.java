@@ -38,6 +38,8 @@ public class PopulationService {
 			PopulationForecastDataDto forecastDataDto = PopulationForecastDataDto.builder()
 				.forecastTime(forecast.getForecastTime())
 				.forecastCongestionLevel(forecast.getForecastCongestionLevel())
+				.forecastPopulationMin(forecast.getForecastPopulationMin())
+				.forecastPopulationMax(forecast.getForecastPopulationMax())
 				.build();
 			forecastDataDtoList.add(forecastDataDto);
 		}
