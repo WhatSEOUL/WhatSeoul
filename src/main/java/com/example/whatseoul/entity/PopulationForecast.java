@@ -25,7 +25,15 @@ public class PopulationForecast {
     @Column(name = "FCST_TIME")
     private String forecastTime;
 
-    // 인구 혼잡도
+    // 장소 예측 혼잡도 지표
     @Column(name = "FCST_CONGEST_LVL")
     private String forecastCongestionLevel;
+
+    // 예측 실시간 인구 지표 최소값
+    @Column(name = "FCST_PPLTN_MIN")
+    private String forecastPopulationMin;
+
+    // 예측 실시간 인구 지표 최대값
+    @Column(name = "FCST_PPLTN_MAX")
+    private String forecastPopulationMax;
 }
