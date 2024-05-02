@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -67,8 +68,8 @@ public class ApiScheduler {
 
         List<CultureEvent> cultureEventList = allFutures.stream()
                 .map(CompletableFuture::join)
-                .map(CityData::getCultureEvent)
-                .toList();
+                .flatMap(cityData -> cityData.getCultureEvent().stream())
+                .collect(Collectors.toList());
 
         weatherRepository.deleteAllInBatch();
         weatherRepository.saveAll(weatherList);
@@ -95,7 +96,7 @@ public class ApiScheduler {
                 Weather weather= parseWeatherData(document, area);
                 Population population = parsePopulationData(document, area);
                 List<PopulationForecast> pplForecast = parsePopulationForecastData(document, population);
-                CultureEvent cultureEvent = parseCultureEventData(document, area);
+                List<CultureEvent> cultureEvent = parseCultureEventData(document, area);
 
                 return new CityData(weather, population, cultureEvent, pplForecast);
             } catch (SAXException | IOException | ParserConfigurationException e) {
@@ -166,14 +167,40 @@ public class ApiScheduler {
     }
 
 
-    public CultureEvent parseCultureEventData(Document document, Area area){
-        return CultureEvent.builder()
-                .culturalEventName(getElement(document,"EVENT_NM"))
-                .culturalEventPeriod(getElement(document, "EVENT_PERIOD"))
-                .culturalEventPlace(getElement(document, "EVENT_PLACE"))
-                .culturalEventUrl(getElement(document, "URL"))
-                .area(area)
-                .build();
+        public List<CultureEvent> parseCultureEventData(Document document, Area area) {
+        List<CultureEvent> cultureEvents = new ArrayList<>();
+        NodeList eventNodes = document.getElementsByTagName("EVENT_STTS");
+
+        for (int i = 1; i < eventNodes.getLength(); i++) {
+            Node eventNode = eventNodes.item(i);
+            if (eventNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element eventElement = (Element) eventNode;
+                String eventName = getElement(eventElement, "EVENT_NM");
+                String eventPeriod = getElement(eventElement, "EVENT_PERIOD");
+                String eventPlace = getElement(eventElement, "EVENT_PLACE");
+                String eventUrl = getElement(eventElement, "URL");
+
+                CultureEvent cultureEvent = CultureEvent.builder()
+                        .culturalEventName(eventName)
+                        .culturalEventPeriod(eventPeriod)
+                        .culturalEventPlace(eventPlace)
+                        .culturalEventUrl(eventUrl)
+                        .area(area)
+                        .build();
+
+                cultureEvents.add(cultureEvent);
+            }
+        }
+
+        return cultureEvents;
+    }
+
+        private String getElement(Element element, String tag) {
+        NodeList nodeList = element.getElementsByTagName(tag);
+
+        if (nodeList.getLength() > 0) {
+            return nodeList.item(0).getTextContent();
+        } else return "No Tag";
     }
 
     private String getElement(Document document, String tag) {
