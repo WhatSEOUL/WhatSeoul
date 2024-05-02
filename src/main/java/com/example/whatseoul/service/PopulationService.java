@@ -33,23 +33,22 @@ public class PopulationService {
 			.orElseThrow(() -> new NoSuchElementException("Population Not Found"));
 		List<PopulationForecast> forecasts = populationForecastRepository.findPopulationForecastsByPopulation(population);
 
-		PopulationDataDto.PopulationDataDtoBuilder builder = PopulationDataDto.builder()
-			.areaName(area.getAreaName())
-			.areaCongestionLevel(population.getAreaCongestionLevel())
-			.areaCongestionMessage(population.getAreaCongestionMessage())
-			.pplUpdateTime(population.getPplUpdateTime());
-
-		List<PopulationForecastDataDto> forecastDataDtos = new ArrayList<>();
+		List<PopulationForecastDataDto> forecastDataDtoList = new ArrayList<>();
 		for (PopulationForecast forecast : forecasts) {
 			PopulationForecastDataDto forecastDataDto = PopulationForecastDataDto.builder()
 				.forecastTime(forecast.getForecastTime())
 				.forecastCongestionLevel(forecast.getForecastCongestionLevel())
 				.build();
-			forecastDataDtos.add(forecastDataDto);
+			forecastDataDtoList.add(forecastDataDto);
 		}
-		builder.populationForecasts(forecastDataDtos);
 
-		return builder.build();
+		return PopulationDataDto.builder()
+			.areaName(area.getAreaName())
+			.areaCongestionLevel(population.getAreaCongestionLevel())
+			.areaCongestionMessage(population.getAreaCongestionMessage())
+			.pplUpdateTime(population.getPplUpdateTime())
+			.populationForecasts(forecastDataDtoList)
+			.build();
 	}
 
 }
