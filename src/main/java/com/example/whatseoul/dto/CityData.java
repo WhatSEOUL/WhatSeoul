@@ -14,6 +14,6 @@ import java.util.List;
 public class CityData {
     private Weather weather;
     private Population population;
-    private CultureEvent cultureEvent;
+    private List<CultureEvent> cultureEvent;
     private List<PopulationForecast> pplForecast;
 }
