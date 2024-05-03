@@ -2,27 +2,87 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>City Events</title>
+    <title>서울 문화 이벤트</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: lightgoldenrodyellow;
+        }
+
+        a {
+            color: #2a5db0;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        p {
+            text-align: center;
+        }
+        .scrollable-table {
+            overflow-y: auto;
+            height: 250px; /* 원하는 높이로 설정하세요 */
+        }
+        thead {
+            position: sticky;
+            top: 0;
+            background-color: darkgrey;
+        }
+    </style>
+
 </head>
 <body>
-<h1>문화행사 정보</h1>
-<table>
-    <thead>
-    <tr>
-        <th>이름</th>
-        <th>기간</th>
-        <th>장소</th>
-        <th>상세 URL</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="event : ${events}">
-        <td th:text="${event.name}"></td>
-        <td th:text="${event.period}"></td>
-        <td th:text="${event.location}"></td>
-        <td><a th:text="${event.detailUrl}" th:href="${event.detailUrl}" target="_blank">상세 정보</a></td>
-    </tr>
-    </tbody>
-</table>
+<h1>서울 문화 이벤트 목록</h1>
+<div th:if="${!cultureEvents.isEmpty()}" class="scrollable-table">
+    <table>
+        <thead>
+        <tr>
+            <th>이벤트 이름</th>
+            <th>기간</th>
+            <th>장소</th>
+            <th>상세 정보</th>
+            <th>지역 이름</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="event : ${cultureEvents}">
+            <td th:text="${event.culturalEventName}">이벤트 이름</td>
+            <td th:text="${event.culturalEventPeriod}">기간</td>
+            <td th:text="${event.culturalEventPlace}">장소</td>
+            <td><a th:href="${event.culturalEventUrl}" th:text="${event.culturalEventUrl}">상세 정보 링크</a></td>
+            <td th:text="${event.areaName}">지역 이름</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div th:if="${cultureEvents.isEmpty()}">
+    <p>해당 지역에 대한 문화 이벤트 정보가 없습니다.</p>
+</div>
 </body>
 </html>
