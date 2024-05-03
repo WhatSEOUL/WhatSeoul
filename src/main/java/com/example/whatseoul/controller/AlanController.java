@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.whatseoul.dto.response.AlanResponseDto;
-import com.example.whatseoul.dto.response.AlanSseResponseDto;
+import com.example.whatseoul.dto.response.AlanBasicResponseDto;
 import com.example.whatseoul.service.AlanService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -21,17 +20,11 @@ import lombok.extern.slf4j.Slf4j;
 public class AlanController {
 	private final AlanService alanService;
 
-	@GetMapping("/alan")
-	public ResponseEntity<AlanResponseDto> getAlanResponse(@RequestParam String content) throws
+	// 앨런 기본 질의
+	@GetMapping("/alan/basic")
+	public ResponseEntity<AlanBasicResponseDto> getAlanResponse(@RequestParam String content) throws
 		JsonProcessingException {
-		AlanResponseDto response = alanService.fetchAlanResponse(content);
+		AlanBasicResponseDto response = alanService.fetchAlanResponse(content);
 		return ResponseEntity.ok(response);
-	}
-
-	@GetMapping("/alan/sse")
-	public String getAlanSseResponse(@RequestParam String content) throws
-		JsonProcessingException {
-		alanService.fetchAlanSseResponse(content);
-		return "okok";
 	}
 }

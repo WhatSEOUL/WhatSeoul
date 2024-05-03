@@ -1,15 +1,27 @@
 package com.example.whatseoul.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Getter
 public class AlanResponseDto {
-	private AlanAction action;
-	private String content;
+	@JsonProperty(value = "type")
+	private String type;
+
+	@JsonProperty(value = "data")
+	private Data data;
+
+	@Getter
+	public static class Data {
+		@JsonProperty(value = "content")
+		private String content;
+
+		@JsonProperty(value = "name")
+		private String name;
+
+		@JsonProperty(value = "speak")
+		private String speak;
+	}
 }
