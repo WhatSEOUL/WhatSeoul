@@ -4,10 +4,8 @@ import com.example.whatseoul.entity.Post;
 import com.example.whatseoul.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 
 @Controller
@@ -22,10 +20,49 @@ public class PostController {
     }
 
     @PostMapping("/post/writepro")
-    public String postWritePro(@RequestBody Post post) {
+    public String postWritePro(@ModelAttribute Post post) {
 
         postService.write(post);
 
-        return "";
+        return "redirect:/post/list";
+    }
+
+    @GetMapping("/post/list")
+    public String postList(Model model){
+
+        model.addAttribute("list", postService.postList());
+
+        return "postlist";
+    }
+
+    @GetMapping("/post/edit")
+    public String postEdit(Post post, Model model) {
+        Post post2 = postService.findById(post.getPostId());
+        model.addAttribute("post", post2);
+        return "postedit";
+    }
+
+    @PostMapping("/post/editpro")
+    public String postEditPro(@ModelAttribute Post post) {
+
+        postService.edit(post);
+
+        return "redirect:/post/list";
+    }
+
+    @GetMapping("/post/view")
+    public String postview(Model model, Long id) {
+
+        model.addAttribute("post", postService.postview(id));
+
+        return "postview";
+    }
+
+    @GetMapping("/post/delete")
+    public String postDelete(Long id) {
+
+        postService.postDelete(id);
+
+        return "redirect:/post/list";
     }
 }

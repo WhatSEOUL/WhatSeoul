@@ -21,6 +21,6 @@ spring:
         format_sql: true
 
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
 server:
   port: 8080

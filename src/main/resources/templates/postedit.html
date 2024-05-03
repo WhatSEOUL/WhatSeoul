@@ -24,10 +24,11 @@
 </head>
 <body>
 <div class="layout">
-    <form action="/post/writepro" method="post" enctype="application/x-www-form-urlencoded">
-        <input name="postTitle" type="text">
-        <textarea name="postContent"></textarea>
-        <button type="submit">작성</button>
+    <form action="/post/editpro" method="post" enctype="application/x-www-form-urlencoded">
+        <input name="postId" type="hidden" th:value="${post.postId}">
+        <input name="postTitle" type="text" th:value="${post.postTitle}">
+        <textarea name="postContent" th:text="${post.postContent}"></textarea>
+        <button type="submit">수정</button>
     </form>
 </div>
 </body>
