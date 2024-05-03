@@ -7,22 +7,21 @@ import lombok.Setter;
 
 @Getter
 public class AlanResponseDto {
-    @JsonProperty(value = "type")
-    private String type;
+	@JsonProperty(value = "type")
+	private String type;
 
-    @JsonProperty(value = "data")
-    private Data data;
+	@JsonProperty(value = "data")
+	private Data data;
 
-    @Getter
-    public static class Data {
-        @JsonProperty(value = "content")
-        private String content;
+	@Getter
+	public static class Data {
+		@JsonProperty(value = "content")
+		private String content;
 
-        @JsonProperty(value = "name")
-        private String name;
+		@JsonProperty(value = "name")
+		private String name;
 
-        @JsonProperty(value = "speak")
-        private String speak;
-    }
+		@JsonProperty(value = "speak")
+		private String speak;
+	}
 }
-
