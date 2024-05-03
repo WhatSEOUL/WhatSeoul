@@ -35,7 +35,4 @@ public class WeatherService {
                 .pcpMsg(weather.getPcpMsg())
                 .build();
     }
-
-
-
 }
