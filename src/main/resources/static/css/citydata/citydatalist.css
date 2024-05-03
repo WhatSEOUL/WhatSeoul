@@ -26,6 +26,8 @@
     color: #ffffff !important;
 }
 /* 상단바 css end  */
+
+/* index 페이지처럼 페이지 내부 컨텐트를 정렬하는 css start ===> */
 section.container {
     height: 90vh;
     display: flex;
@@ -56,8 +58,8 @@ img.main-banner-img {
 }
 
 .main-content {
-    margin-top: 40vh;
-    text-align: center;
+    width: 80vw;
+    border: 1px solid gray;
 }
 
 .main-content-title {
@@ -117,3 +119,16 @@ section.buttons-wrapper {
     display: flex;
     justify-content: center;
 }
+/* ===> index 페이지처럼 페이지 내부 컨텐트를 정렬하는 css end */
+
+/* 인구데이터 조회 관련 css start ===> */
+.main-content-population-wrapper {
+    border: 1px solid gray;
+     width: 30vw;
+}
+
+#myChart {
+    width: 300px;
+    height: 300px;
+}
+/* ===> 인구데이터 조회 관련 css end */

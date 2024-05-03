@@ -1,14 +1,8 @@
 package com.example.whatseoul.service;
 
 import com.example.whatseoul.dto.CityData;
-import com.example.whatseoul.entity.Area;
-import com.example.whatseoul.entity.Population;
-import com.example.whatseoul.entity.PopulationForecast;
-import com.example.whatseoul.entity.Weather;
-import com.example.whatseoul.respository.cityData.AreaRepository;
-import com.example.whatseoul.respository.cityData.PopulationForecastRepository;
-import com.example.whatseoul.respository.cityData.PopulationRepository;
-import com.example.whatseoul.respository.cityData.WeatherRepository;
+import com.example.whatseoul.entity.*;
+import com.example.whatseoul.respository.cityData.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -37,13 +32,14 @@ public class ApiScheduler {
     private final WeatherRepository weatherRepository;
     private final PopulationRepository populationRepository;
     private final PopulationForecastRepository populationForecastRepository;
+    private final CulturalEventRepository culturalEventRepository;
 
     @Value("${seoul.open.api.url}")
     private String url;
 
 
     @Transactional
-    @Scheduled(cron = "0 21/5 * * * *")
+    @Scheduled(cron = "0 33/5 * * * *")
     public void call() {
         long startTime = System.currentTimeMillis();
         List<Area> areas = areaRepository.findAll();
@@ -65,9 +61,14 @@ public class ApiScheduler {
                 .toList();
 
         List<PopulationForecast> pplForecastList = allFutures.stream()
-            .map(CompletableFuture::join)
-            .flatMap(cityData -> cityData.getPplForecast().stream())
-            .collect(Collectors.toList());
+                .map(CompletableFuture::join)
+                .flatMap(cityData -> cityData.getPplForecast().stream())
+                .collect(Collectors.toList());
+
+        List<CultureEvent> cultureEventList = allFutures.stream()
+                .map(CompletableFuture::join)
+                .flatMap(cityData -> cityData.getCultureEvent().stream())
+                .collect(Collectors.toList());
 
         weatherRepository.deleteAllInBatch();
         weatherRepository.saveAll(weatherList);
@@ -77,6 +78,8 @@ public class ApiScheduler {
         populationRepository.saveAll(populationList); // 인구데이터를 먼저 저장한 후 인구 예측 데이터 저장
         populationForecastRepository.saveAll(pplForecastList);
 
+        culturalEventRepository.deleteAllInBatch();
+        culturalEventRepository.saveAll(cultureEventList);
 
         long endTime = System.currentTimeMillis();
         long totalTime = (endTime-startTime)/1000;
@@ -92,8 +95,9 @@ public class ApiScheduler {
                 Weather weather= parseWeatherData(document, area);
                 Population population = parsePopulationData(document, area);
                 List<PopulationForecast> pplForecast = parsePopulationForecastData(document, population);
+                List<CultureEvent> cultureEvent = parseCultureEventData(document, area);
 
-                return new CityData(weather, population, pplForecast);
+                return new CityData(weather, population, cultureEvent, pplForecast);
             } catch (SAXException | IOException | ParserConfigurationException e) {
                 log.error("error fetching citydata for areaname {}", area.getAreaName(), e);
                 return null;
@@ -117,8 +121,10 @@ public class ApiScheduler {
             Node fcstPpltnNode = nodeList.item(i);
             NodeList childNodes = fcstPpltnNode.getChildNodes();
 
-            String forecastTime = "";
-            String forecastCongestionLevel = "";
+            String forecastTime = "No Tag";
+            String forecastCongestionLevel = "No Tag";
+            String forecastPopulationMin = "No Tag";
+            String forecastPopulationMax = "No Tag";
 
             for (int j = 0; j < childNodes.getLength(); j++) {
                 Node childNode = childNodes.item(j);
@@ -126,12 +132,18 @@ public class ApiScheduler {
                     forecastTime = childNode.getTextContent();
                 } else if (childNode.getNodeName().equals("FCST_CONGEST_LVL")) {
                     forecastCongestionLevel = childNode.getTextContent();
+                } else if (childNode.getNodeName().equals("FCST_PPLTN_MIN")) {
+                    forecastPopulationMin = childNode.getTextContent();
+                } else if (childNode.getNodeName().equals("FCST_PPLTN_MAX")) {
+                    forecastPopulationMax = childNode.getTextContent();
                 }
             }
             PopulationForecast pplForecast = PopulationForecast.builder()
                 .population(population)
                 .forecastTime(forecastTime)
                 .forecastCongestionLevel(forecastCongestionLevel)
+                .forecastPopulationMin(forecastPopulationMin)
+                .forecastPopulationMax(forecastPopulationMax)
                 .build();
 
             pplForecastList.add(pplForecast);
@@ -142,15 +154,52 @@ public class ApiScheduler {
 
     public Weather parseWeatherData(Document document, Area area){
         return Weather.builder()
-                    .temperature(getElement(document, "TEMP"))
-                    .maxTemperature(getElement(document, "MAX_TEMP"))
-                    .minTemperature(getElement(document, "MIN_TEMP"))
-                    .pm25Index(getElement(document, "PM25_INDEX"))
-                    .pm10Index(getElement(document, "PM10_INDEX"))
-                    .pcpMsg(getElement(document, "PCP_MSG"))
-                    .weatherTime(getElement(document, "WEATHER_TIME"))
-                    .area(area)
-                    .build();
+                .temperature(getElement(document, "TEMP"))
+                .maxTemperature(getElement(document, "MAX_TEMP"))
+                .minTemperature(getElement(document, "MIN_TEMP"))
+                .pm25Index(getElement(document, "PM25_INDEX"))
+                .pm10Index(getElement(document, "PM10_INDEX"))
+                .pcpMsg(getElement(document, "PCP_MSG"))
+                .weatherTime(getElement(document, "WEATHER_TIME"))
+                .area(area)
+                .build();
+    }
+
+
+        public List<CultureEvent> parseCultureEventData(Document document, Area area) {
+        List<CultureEvent> cultureEvents = new ArrayList<>();
+        NodeList eventNodes = document.getElementsByTagName("EVENT_STTS");
+
+        for (int i = 1; i < eventNodes.getLength(); i++) {
+            Node eventNode = eventNodes.item(i);
+            if (eventNode.getNodeType() == Node.ELEMENT_NODE) {
+                Element eventElement = (Element) eventNode;
+                String eventName = getElement(eventElement, "EVENT_NM");
+                String eventPeriod = getElement(eventElement, "EVENT_PERIOD");
+                String eventPlace = getElement(eventElement, "EVENT_PLACE");
+                String eventUrl = getElement(eventElement, "URL");
+
+                CultureEvent cultureEvent = CultureEvent.builder()
+                        .culturalEventName(eventName)
+                        .culturalEventPeriod(eventPeriod)
+                        .culturalEventPlace(eventPlace)
+                        .culturalEventUrl(eventUrl)
+                        .area(area)
+                        .build();
+
+                cultureEvents.add(cultureEvent);
+            }
+        }
+
+        return cultureEvents;
+    }
+
+        private String getElement(Element element, String tag) {
+        NodeList nodeList = element.getElementsByTagName(tag);
+
+        if (nodeList.getLength() > 0) {
+            return nodeList.item(0).getTextContent();
+        } else return "No Tag";
     }
 
     private String getElement(Document document, String tag) {
@@ -186,5 +235,3 @@ public class ApiScheduler {
     //     return "No Tag";
     // }
 }
-
-
