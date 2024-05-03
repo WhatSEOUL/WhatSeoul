@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.whatseoul.dto.response.AlanResponseDto;
+import com.example.whatseoul.dto.response.AlanSseResponseDto;
 import com.example.whatseoul.service.AlanService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
@@ -25,5 +26,12 @@ public class AlanController {
 		JsonProcessingException {
 		AlanResponseDto response = alanService.fetchAlanResponse(content);
 		return ResponseEntity.ok(response);
+	}
+
+	@GetMapping("/alan/sse")
+	public String getAlanSseResponse(@RequestParam String content) throws
+		JsonProcessingException {
+		alanService.fetchAlanSseResponse(content);
+		return "okok";
 	}
 }
