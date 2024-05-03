@@ -7,15 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>WhatSeoul</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../../static/css/selectarea/selectdistrict.css" th:href="@{../../static/css/selectarea/selectdistrict.css}">
-    <script defer src="../../static/js/selectarea/selectdistrict.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/selectarea/selectdistrict.css" th:href="@{/css/selectarea/selectdistrict.css}">
+    <script defer src="/js/selectarea/selectdistrict.js"></script>
 </head>
 <body>
 <header>
     <!-- 상단바 html start  -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="../index/index.html">WhatSeoul</a>
+            <a class="navbar-brand" onclick="location.href='/'">WhatSeoul</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -23,7 +23,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="../selectarea/selectdistrict.html">지금 서울은?</a>
+                        <a class="nav-link" href="/district">지금 서울은?</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">서울 명소 추천받기</a>

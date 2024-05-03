@@ -199,6 +199,6 @@ areaButtons.forEach(function(button) {
     button.addEventListener('click', function () {
         var buttonText = button.textContent;
         localStorage.setItem('area', buttonText);
-        location.href = "selectconfirm.html";
+        location.href = "/area/confirm";
     })
 })
