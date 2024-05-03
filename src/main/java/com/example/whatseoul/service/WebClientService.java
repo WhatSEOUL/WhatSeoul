@@ -18,7 +18,6 @@ public class WebClientService {
 
     @Value("${alan.key}")
     private String alanId;
-
     private final WebClient webClient = WebClient.builder().build();
     private final ObjectMapper objectMapper = new ObjectMapper().configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
 

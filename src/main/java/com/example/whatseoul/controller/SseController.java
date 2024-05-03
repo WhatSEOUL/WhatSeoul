@@ -24,6 +24,10 @@ public class SseController {
     @GetMapping("/alan")
     public Flux<ServerSentEvent<AlanResponseDto>> getAlanResponse(){
         return webClientService.getResponse()
+                .doOnNext(data -> {
+                    // 받은 데이터를 로그로 출력
+                    log.info("Received data: {}", data.getData().getContent());
+                })
                 .map(data -> ServerSentEvent.<AlanResponseDto>builder()
                         .id("eventId")
                         .event("eventType")

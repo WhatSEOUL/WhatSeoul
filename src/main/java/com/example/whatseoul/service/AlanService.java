@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AlanService {
 	private static final String BASE_URL = "https://kdt-api-function.azurewebsites.net/api/v1/question";
 
-	@Value("${alan.api.client_id}")
+	@Value("${alan.key}")
 	private String CLIENT_ID;
 	private final RestTemplate restTemplate;
 	private final ObjectMapper objectMapper;
