@@ -25,7 +25,7 @@ public class WebClientService {
         return webClient.get()
                 .uri("https://kdt-api-function.azurewebsites.net/api/v1/question/sse-streaming",
                         uriBuilder -> uriBuilder
-                        .queryParam("content", "red")
+                        .queryParam("content", "서울의 명소를 추천해줄래?")
                         .queryParam("client_id", alanId)
                         .build())
                 .retrieve()

@@ -39,7 +39,7 @@ public class ApiScheduler {
 
 
     @Transactional
-    @Scheduled(cron = "0 33/5 * * * *")
+    @Scheduled(cron = "0 46/5 * * * *")
     public void call() {
         long startTime = System.currentTimeMillis();
         List<Area> areas = areaRepository.findAll();
