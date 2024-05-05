@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;
 
@@ -16,6 +18,7 @@ import java.time.Duration;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/api")
 @Slf4j
 public class SseController {
 
@@ -25,16 +28,13 @@ public class SseController {
     private String alanId;
 
     @GetMapping("/alan")
-    public Flux<ServerSentEvent<AlanResponseDto>> getAlanResponse(HttpServletResponse response){
+    public Flux<ServerSentEvent<AlanResponseDto>> getAlanResponse(HttpServletResponse response, @RequestParam String content){
         response.setContentType("text/event-stream");
-        return webClientService.getResponse()
+        return webClientService.getResponse(content)
                 .doOnNext(data -> {
-                    // 받은 데이터를 로그로 출력
                     log.info("Received data: {}", data.getData().getContent());
                 })
                 .map(data -> ServerSentEvent.<AlanResponseDto>builder()
-                        .id("eventId")
-                        .event("eventType")
                         .data(data)
                         .build())
                 .delayElements(Duration.ofMillis(50));

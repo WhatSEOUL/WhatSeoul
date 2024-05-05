@@ -21,11 +21,11 @@ public class WebClientService {
     private final WebClient webClient = WebClient.builder().build();
     private final ObjectMapper objectMapper = new ObjectMapper().configure(JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
 
-    public Flux<AlanResponseDto> getResponse(){
+    public Flux<AlanResponseDto> getResponse(String content){
         return webClient.get()
                 .uri("https://kdt-api-function.azurewebsites.net/api/v1/question/sse-streaming",
                         uriBuilder -> uriBuilder
-                        .queryParam("content", "서울의 명소를 추천해줄래?")
+                        .queryParam("content", content)
                         .queryParam("client_id", alanId)
                         .build())
                 .retrieve()
@@ -35,11 +35,10 @@ public class WebClientService {
 
     private Flux<AlanResponseDto> parseJsonToResponseDto(String jsonString){
         try {
-            // Parse JSON string to ResponseDto object
+            // JSON 문자열을 ResponseDto 객체로 파싱
             AlanResponseDto responseDto = this.objectMapper.readValue(jsonString, AlanResponseDto.class);
             return Flux.just(responseDto);
         } catch (JsonProcessingException e) {
-            // Handle parsing exception
             return Flux.error(e);
         }
     }
