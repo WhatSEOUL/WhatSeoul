@@ -32,6 +32,7 @@ function setupSSE(question) {
         }); // /alan 엔드포인트로 SSE 요청
     eventSource.onopen = (e) => {
         console.log("onopen");
+        alanResponse.innerHTML = "";
         console.log(question);
     }
 
@@ -46,14 +47,14 @@ function setupSSE(question) {
         const speak = parsedData.data.speak; // data -> data -> speak 접근
 
         if (type === "action") {
-            alanResponse.innerHTML += "<br><br>" + formatResponse(speak) + "<br><br>";
+            alanResponse.innerHTML += speak + "<br><br>";
             console.log(speak);
         } else if (type === "continue") {
-            alanResponse.innerHTML += formatResponse(content);
+            alanResponse.innerHTML += content;
             console.log(content);
         } else if (type === "complete") {
             alanResponse.innerHTML = "";
-            alanResponse.innerHTML = formatResponse(content);
+            alanResponse.innerHTML = "정보 확인이 완료되었습니다.<br><br>" + formatResponse(content);
             console.log(content);
         }
     }
