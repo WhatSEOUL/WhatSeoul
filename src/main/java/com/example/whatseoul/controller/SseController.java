@@ -24,9 +24,6 @@ public class SseController {
 
     private final WebClientService webClientService;
 
-    @Value("${alan.key}")
-    private String alanId;
-
     @GetMapping("/alan")
     public Flux<ServerSentEvent<AlanResponseDto>> getAlanResponse(HttpServletResponse response, @RequestParam String content){
         response.setContentType("text/event-stream");
