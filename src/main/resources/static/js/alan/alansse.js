@@ -30,8 +30,14 @@ function setupSSE(question) {
         console.log(typeof e.data); // string
         const parsedData = JSON.parse(e.data);
         const content = parsedData.data.content; // data -> data -> content 접근
-        console.log(content);
-        alanResponse.textContent += content;
+        const speak = parsedData.data.speak; // data -> data -> speak 접근
+        if(content == null) {
+            alanResponse.textContent += speak;
+            console.log(speak);
+        } else {
+            alanResponse.textContent += content;
+            console.log(content);
+        }
     }
 
     eventSource.addEventListener('complete', (e) => {
