@@ -41,37 +41,49 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function showEventData(event) {
-    const cultureInfo = document.querySelector('.main-content-culture');
-    const eventInfo = document.createElement('div');
-    eventInfo.classList.add('event-info');
+    const cultureInfo = document.querySelector('.event-container.scroll-1');
+    const eventCard = document.createElement('div');
+    eventCard.classList.add('event-card');
 
-    const eventName = document.createElement('p');
-    eventName.textContent = `행사명 : ${event.culturalEventName}`;
-    eventInfo.appendChild(eventName);
+    const eventContent = document.createElement('div');
+    eventContent.classList.add('card__content');
+
+    const eventName = document.createElement('span');
+    eventName.textContent = `${event.culturalEventName}`;
+    eventName.classList.add('card__title'); // 클래스 추가
+    eventContent.appendChild(eventName);
+
+    const hr = document.createElement('hr');
+    eventContent.appendChild(hr); // 가로선을 content에 추가합니다.
 
     const eventPeriod = document.createElement('p');
-    eventPeriod.textContent = `기간 : ${event.culturalEventPeriod}`;
-    eventInfo.appendChild(eventPeriod);
+    eventPeriod.textContent = `📅 : ${event.culturalEventPeriod}`;
+    eventPeriod.classList.add('card__describe'); // 클래스 추가
+    eventContent.appendChild(eventPeriod);
 
     const eventPlace = document.createElement('p');
     eventPlace.textContent = `장소 : ${event.culturalEventPlace}`;
-    eventInfo.appendChild(eventPlace);
+    eventPlace.classList.add('card__describe'); // 클래스 추가
+    eventContent.appendChild(eventPlace);
 
     const eventUrl = document.createElement('a');
     eventUrl.textContent = `${event.culturalEventUrl}`;
+    eventUrl.classList.add('card__describe'); // 클래스 추가
     eventUrl.href = event.url;
-    eventInfo.appendChild(eventUrl);
+    eventContent.appendChild(eventUrl);
 
-    cultureInfo.appendChild(eventInfo);
+    eventCard.appendChild(eventContent);
+
+    cultureInfo.appendChild(eventCard);
 }
 
 function clearCultureEventData() {
-    const cultureInfo = document.querySelector('.main-content-culture');
+    const cultureInfo = document.querySelector('.culture-card');
     cultureInfo.innerHTML = ''; // 요소 내용 삭제
 }
 
 function showNoEventMessage() {
-    const cultureInfo = document.querySelector('.main-content-culture');
+    const cultureInfo = document.querySelector('.culture-card');
     const message = document.createElement('p');
     message.textContent = '문화행사가 없습니다.';
     cultureInfo.appendChild(message);

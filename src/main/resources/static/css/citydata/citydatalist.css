@@ -326,3 +326,63 @@ section.buttons-wrapper {
 .event-info{
     margin-bottom: 50px;
 }
+
+.scroll-1::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+.scroll-1::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: #888;
+}
+
+.event-container * {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    color: #fff;
+}
+
+.event-container {
+    display: flex;
+    overflow-x: scroll;
+    padding: 24px;
+    width: 300px;
+    scroll-snap-type: x mandatory;
+    scroll-padding-top: 24px;
+    border-radius: 8px;
+    gap: 20px;
+}
+
+.event-container .event-card {
+    flex: 0 0 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    background-color: #353535;
+    scroll-snap-align: start;
+}
+
+.event-card .card__content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+}
+
+.event-card .card__content .card__title {
+    font-size: 24px;
+    color: #fff;
+    text-transform: capitalize;
+}
+
+.event-card .card__content hr {
+    border: none; /* 기본 선 제거 */
+    border-top: 1px solid #fff; /* 상단에 1픽셀의 흰색 실선 추가 */
+    margin: 10px 0; /* 위아래 여백 추가 */
+}
+
+.event-card .card__content .card__describe {
+    color: #fff;
+    font-size: 16px;
+}
