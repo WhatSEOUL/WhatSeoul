@@ -52,20 +52,7 @@
             어디로 떠나야할지 잘 모르겠다면, 앨런에게 물어보세요.
         </div>
         <div class="main-content-qna-wrapper">
-            <div class="main-content-question-wrapper">
-                <img alt="유저 아이콘" class="user-profile-img" src="/media/user_profile.png">
-                <form id="questionForm">
-                    <label for="question">
-                        <textarea
-                                id="question"
-                                name="question"
-                                placeholder="앨런에게 질문을 남겨보세요."
-                                oninput='this.style.height = ""; this.style.height = this.scrollHeight + "px"'
-                                style="resize: none;"
-                        ></textarea>
-                    </label>
-                    <button class="question-button" type="submit">질문하기</button>
-                </form>
+            <div class="main-content-question-result-wrapper">
             </div>
             <div class="main-content-answer-wrapper">
                 <img alt="앨런 로고" class="alan-logo-img" src="/media/alan_logo_no_bg_square.png"/>
@@ -84,10 +71,22 @@
                 </div>
             </div>
         </div>
-
     </section>
+    <div class="main-content-question-wrapper">
+        <form id="questionForm">
+            <label for="question">
+                        <textarea
+                                id="question"
+                                name="question"
+                                placeholder="앨런에게 질문을 남겨보세요."
+                                oninput='this.style.height = ""; this.style.height = this.scrollHeight + "px"'
+                                style="resize: none;"
+                        ></textarea>
+            </label>
+            <button class="question-button" type="submit">질문하기</button>
+        </form>
+    </div>
 </main>
-
 
 <!-- 부트스트랩 JS (jQuery 포함) -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>

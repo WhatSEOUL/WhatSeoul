@@ -28,10 +28,13 @@
 /* 상단바 css end  */
 
 .main-content-wrapper {
+    /*margin: 0 auto;*/
     margin-top: 15vh;
+    margin-bottom: 20vh; /* 향후 수정하기 */
     display: flex;
     flex-direction: column;
     justify-content: center;
+    /*align-items: center;*/
     width: 50vw;
 
     /*align-items: center;*/
@@ -51,11 +54,31 @@
     display: flex;
     flex-direction: column;
 }
+.main-content-question-result-wrapper {
+    display: none;
+    flex-direction: row;
+    align-items: flex-start;
+    /*justify-content: center;*/
+    margin-top: 10vh;
+    border-top: 1px solid #d1d1d1;
+    /*border-bottom: 1px solid #d1d1d1;*/
+    padding: 5vh;
+}
+
+.main-content-question-result-wrapper strong {
+    margin-left: 2rem;
+}
 
 .main-content-question-wrapper {
+    width: 100vw;
+    position: fixed;
+    background-color: #ffffff;
+    left: 0;
+    bottom: 0;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
+    justify-content: center;
     margin-top: 10vh;
     border-top: 1px solid #d1d1d1;
     border-bottom: 1px solid #d1d1d1;
@@ -69,8 +92,8 @@
 
 #questionForm {
     display: flex;
-    flex-direction: column;
-    margin-left: 2rem;
+    /*flex-direction: column;*/
+    /*margin-left: 2rem;*/
 }
 
 #questionForm #question {
@@ -96,8 +119,8 @@
 }
 
 #questionForm button {
-    /*margin-left: 1rem;*/
-    align-self: flex-end;
+    margin-left: 1rem;
+    /*align-self: flex-end;*/
     width: 7vw;
     height: 3rem;
     border: 1px solid gray;
