@@ -1,4 +1,9 @@
+
+
+
 package com.example.whatseoul.dto;
+
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
