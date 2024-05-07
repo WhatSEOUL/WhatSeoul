@@ -1,7 +1,9 @@
-package com.example.whatseoul;
+package com.example.whatseoul.service;
 
 import lombok.RequiredArgsConstructor;
 
+import com.example.whatseoul.domain.User;
+import com.example.whatseoul.repository.UserRepository;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
