@@ -57,8 +57,9 @@ function showEventData(event) {
     eventPlace.textContent = `장소 : ${event.culturalEventPlace}`;
     eventInfo.appendChild(eventPlace);
 
-    const eventUrl = document.createElement('p');
-    eventUrl.textContent = `URL : ${event.culturalEventUrl}`;
+    const eventUrl = document.createElement('a');
+    eventUrl.textContent = `${event.culturalEventUrl}`;
+    eventUrl.href = event.url;
     eventInfo.appendChild(eventUrl);
 
     cultureInfo.appendChild(eventInfo);
