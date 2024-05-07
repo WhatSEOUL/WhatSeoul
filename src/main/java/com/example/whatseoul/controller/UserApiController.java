@@ -1,9 +1,13 @@
-package com.example.whatseoul.service;
+package com.example.whatseoul.controller;
+
+
+
+import com.example.whatseoul.dto.AddUserRequest;
+import com.example.whatseoul.service.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
