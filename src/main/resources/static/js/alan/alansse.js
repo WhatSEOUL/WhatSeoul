@@ -11,13 +11,14 @@ function adjustMainContentMargin() {
 adjustMainContentMargin();
 window.addEventListener("resize", adjustMainContentMargin);
 
+var count = 0;
 
 const form = document.querySelector("#questionForm");
 const input = document.querySelector("#question");
 const questionButton = document.querySelector(".question-button");
 const mainContentWrapper = document.querySelector(".main-content-wrapper");
 const qnaWrapper = document.querySelector(".main-content-qna-wrapper");
-const questionResultWrapper = document.querySelector(".main-content-question-result-wrapper");
+var questionResultWrapper = document.querySelector(".main-content-question-result-wrapper" + '.new-question-result-wrapper-' + count);
 const answerWrapper = document.querySelector(".main-content-answer-wrapper");
 const loadingImg = document.querySelector(".loading-img");
 const moreQuestionButton = document.querySelector(".alan-question-btn ");
@@ -25,6 +26,8 @@ const moreQuestionButton = document.querySelector(".alan-question-btn ");
 form.addEventListener("submit", function(event) {
     event.preventDefault(); // 새로고침 방지
     console.log("왜이럼?");
+    console.log("submit count: ", count)
+    console.log("questionResultWrapper: ", questionResultWrapper)
     questionResultWrapper.style.display = "flex";
     // 입력 폼 input, 질문하기 버튼 비활성화
     input.disabled = true;
@@ -35,11 +38,11 @@ form.addEventListener("submit", function(event) {
     alanResponse.style.display = "block";
     const question = input.value;
     questionResultWrapper.innerHTML = "<img alt=\"유저 아이콘\" class=\"user-profile-img\" src=\"/media/user_profile.png\">"
-        + "<strong>Q. </strong>" + question;
+        + "<strong>Q.&nbsp;</nbsp></strong>" + question;
 
     setupSSE(question); // SSE 설정 및 수신 시작
 })
-const alanResponse = document.querySelector('#alanResponse');
+var alanResponse = document.querySelector('.new-answer-wrapper-' + count + ' #alanResponse');
 
 function formatResponse(response) {
     let boldRegex = /\*\*(.*?)\*\*/g; // 볼드 처리를 위한 정규표현식
@@ -100,6 +103,7 @@ function setupSSE(question) {
         // 입력 폼 input, 질문하기 버튼 활성화
         input.disabled = false
         questionButton.disabled = false;
+        count++;
     };
 }
 
@@ -107,8 +111,9 @@ function showMoreButton() {
     alanResponse.appendChild(moreQuestionButton);
     moreQuestionButton.style.display = "block";
 }
-var count = 1;
+
 function questionAgain() {
+    console.log("questionAgain count: ", count);
     // 새로운 질문-응답 노드 생성
     const newQnaWrapper = document.createElement('div');
     newQnaWrapper.classList.add('main-content-qna-wrapper'); // 기존 클래스 추가
@@ -117,6 +122,11 @@ function questionAgain() {
     // 질문 결과를 표시하는 div 생성
     const newQuestionResultWrapper = document.createElement('div');
     newQuestionResultWrapper.classList.add('main-content-question-result-wrapper');
+    newQuestionResultWrapper.classList.add('new-question-result-wrapper-' + count); // 새로운 질문 구분을 위한 클래스 추가
+
+    const newAnswerWrapper = document.createElement('div');
+    newAnswerWrapper.classList.add('main-content-answer-wrapper');
+    newAnswerWrapper.classList.add('new-answer-wrapper-' + count); // 새로운 질문 구분을 위한 클래스 추가
 
     // 유저 아이콘 추가
     const userProfileImg = document.createElement('img');
@@ -135,7 +145,7 @@ function questionAgain() {
     // mainContentWrapper에 새로 생성한 질문-응답 노드 추가
     mainContentWrapper.appendChild(newQnaWrapper);
 
-    count++;
+    // count++;
 
     // 새로운 질문-응답 노드에 질문 입력 폼과 답변 추가
     answerWrapper.style.display = "flex";
