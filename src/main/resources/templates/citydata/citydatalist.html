@@ -9,8 +9,13 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <!-- 도시데이터 전체 조회(이 페이지)를 위한 css : 내부에 인구데이터 관련 css는 인구데이터 관련이라고 표기해둠    -->
     <link rel="stylesheet" type="text/css" href="/css/citydata/citydatalist.css" th:href="@{/css/citydata/citydatalist.css}">
+
     <!-- 인구데이터 조회 기능을 위한 js -->
     <script defer src="/js/citydata/population.js"></script>
+    <!-- 날씨데이터 조회 기능을 위한 js -->
+    <script defer src="/js/citydata/weather.js"></script>
+    <!-- 문화행사데이터 조회 기능을 위한 js -->
+    <script defer src="/js/citydata/event.js"></script>
 
 </head>
 <body>
@@ -48,30 +53,86 @@
 </header>
 <main>
     <section class="main-content-wrapper">
-        <div class="main-content">
+        <div class="main-content"><br>
             <!--${areaName}은 지금...-->
-            <div class="main-content-title"></div>
+            <div class="main-content-title"></div><p>은 지금...</p><br><br>
             <div class="main-content-descrip">
                 <!--서울시내 실시간 <strong>인구</strong>, <strong>날씨</strong>, <strong>문화행사</strong> 정보를 제공합니다.<br>-->
             </div>
             <!-- 실시간 날씨 현황 -->
+            <div class="main-content-weather-wrapper">
+                <strong style="font-size: 20px">실시간 날씨 현황</strong><br><br>
+                <div class="main-content-weather">
+                    <div class="temp-group">
+                        <div class="card">
+                            <p class="weather-title">🌡️ 기온</p>
+                            <p class="temp"><span id="temperature"></span></p>
+                            <div class="minmaxContainer">
+                                <div class="min">
+                                    <p class="minHeading">Min</p>
+                                    <p class="minTemp"><span id="minTemp"></span></p>
+                                </div>
+                                <div class="max">
+                                    <p class="maxHeading">Max</p>
+                                    <p class="maxTemp"><span id="maxTemp"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="fd-group">
+                        <div class="card">
+                            <p class="weather-title">😷 미세먼지</p>
+                            <div class="pmContainer">
+                                <div class="pm25">
+                                    <p class="pmHeading">초미세먼지</p>
+                                    <p class="pmIdx"><span id="pm25Idx"></span></p>
+                                </div>
+                                <div class="pm10">
+                                    <p class="pmHeading">미세먼지</p>
+                                    <p class="pmIdx"><span id="pm10Idx"></span></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rain-group">
+                        <div class="card">
+                            <p class="weather-title">☔️ 비가 오나요?</p>
+                            <p class="isRain"><span id="pcpMsg"></span></p><br>
+                        </div>
+                    </div>
+
+                    <div class="update-time" style="font-size: 10px; color: gray;">
+                        🕖 업데이트 시간: <span id="updateTime" ></span>
+                    </div>
+                </div><br>
+            </div>
 
             <!-- 실시간 인구 현황 -->
             <div class="main-content-population-wrapper">
-                <div class="main-content-population">
-                    <strong style="font-size: 20px">실시간 인구 현황</strong><br>
-                    실시간 인구 혼잡도 : <span id="area-congest-lvl"></span><br>
-                    <span id="area-congest-msg" style="color: gray"></span>
-                </div><br>
-                <div class="main-content-population-forecast">
-                    <!--인구 예측지표 차트가 그려질 부분-->
-                    장소 예측 인구
-                    <canvas id="myChart"></canvas>
+                <strong style="font-size: 20px">실시간 인구 현황</strong><br><br>
+                <div class="ppltn-card">
+                    <div class="main-content-population">
+                        <p class="ppltn-lv"> 👫 실시간 인구 혼잡도 : <span id="area-congest-lvl"></span></p><br>
+                        <span id="area-congest-msg"></span>
+                    </div><br>
+                    <div class="main-content-population-forecast">
+                        <!--인구 예측지표 차트가 그려질 부분-->
+                        <p id="ppltn-forecast"> 장소 예측 인구 </p>
+                        <canvas id="myChart"></canvas>
+                    </div>
                 </div>
             </div>
 
             <!-- 실시간 문화행사 정보 -->
-
+            <div class="main-content-culture-wrapper">
+                <strong style="font-size: 20px">문화행사 정보</strong><br><br>
+                <div class="culture-card">
+                    <div class="event-container scroll-1">
+                    </div>
+                </div>
+            </div>
 
 
         </div>
