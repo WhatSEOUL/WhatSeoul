@@ -1,15 +1,15 @@
 // 헤더 로고의 margin-left와 main content의 margin-left 맞추기
-// function adjustMainContentMargin() {
-//     var logo = document.querySelector(".navbar-brand");
-//     var logoLeft = logo.getBoundingClientRect().left;
-//     var mainContentWrapper = document.querySelector(".main-content-wrapper");
-//     var questionWrapper = document.querySelector(".main-content-question-wrapper");
-//     mainContentWrapper.style.marginLeft = logoLeft + "px";
-//     questionWrapper.style.paddingLeft = logoLeft + "px";
-// }
+function adjustMainContentMargin() {
+    var logo = document.querySelector(".navbar-brand");
+    var logoLeft = logo.getBoundingClientRect().left;
+    var mainContentWrapper = document.querySelector(".main-content-wrapper");
+    // var questionWrapper = document.querySelector(".main-content-question-wrapper");
+    mainContentWrapper.style.marginLeft = logoLeft + "px";
+    // questionWrapper.style.paddingLeft = logoLeft + "px";
+}
 
-// adjustMainContentMargin();
-// window.addEventListener("resize", adjustMainContentMargin);
+adjustMainContentMargin();
+window.addEventListener("resize", adjustMainContentMargin);
 
 
 const form = document.querySelector("#questionForm");
@@ -107,51 +107,45 @@ function showMoreButton() {
     alanResponse.appendChild(moreQuestionButton);
     moreQuestionButton.style.display = "block";
 }
+var count = 1;
+function questionAgain() {
+    // 새로운 질문-응답 노드 생성
+    const newQnaWrapper = document.createElement('div');
+    newQnaWrapper.classList.add('main-content-qna-wrapper'); // 기존 클래스 추가
+    newQnaWrapper.classList.add('new-question-wrapper-' + count); // 새로운 질문 구분을 위한 클래스 추가
 
-// function questionAgain() {
-//     alanResponse.removeChild(moreQuestionButton);
-//     // 새로운 질문-응답 노드 생성
-//     const newQnaWrapper = document.createElement('div');
-//     newQnaWrapper.classList.add('main-content-qna-wrapper'); // 기존 클래스 추가
-//
-//     // 질문과 응답을 감싸는 div 생성
-//     const newContentWrapper = document.createElement('div');
-//     newContentWrapper.classList.add('main-content-question-wrapper');
-//     newContentWrapper.style.marginTop = "0"; // 첫번째 질문 wrapper가 가진 margin-top 10vh을 없애주기
-//
-//     // 유저 아이콘 추가
-//     const userProfileImg = document.createElement('img');
-//     userProfileImg.classList.add('user-profile-img');
-//     userProfileImg.setAttribute('alt', '유저 아이콘');
-//     userProfileImg.setAttribute('src', '/media/user_profile.png');
-//
-//     // 질문 폼 생성
-//     const newQuestionForm = document.createElement('form');
-//     newQuestionForm.setAttribute('id', 'questionForm');
-//
-//     // 질문 textarea 생성
-//     const newQuestionTextarea = document.createElement('textarea');
-//     newQuestionTextarea.setAttribute('id', 'question');
-//     newQuestionTextarea.setAttribute('name', 'question');
-//     newQuestionTextarea.setAttribute('placeholder', '앨런에게 질문을 남겨보세요.');
-//     newQuestionTextarea.setAttribute('oninput', 'this.style.height = ""; this.style.height = this.scrollHeight + "px"');
-//     newQuestionTextarea.setAttribute('style', 'resize: none;');
-//
-//     // 질문 버튼 생성
-//     const newQuestionButton = document.createElement('button');
-//     newQuestionButton.classList.add('question-button');
-//     newQuestionButton.setAttribute('type', 'submit');
-//     newQuestionButton.textContent = '질문하기';
-//
-//     // 각각의 요소를 새로 생성한 질문 폼에 추가
-//     newQuestionForm.appendChild(newQuestionTextarea);
-//     newQuestionForm.appendChild(newQuestionButton);
-//
-//     // 유저 아이콘과 질문 폼을 질문과 응답을 감싸는 div에 추가
-//     newContentWrapper.appendChild(userProfileImg);
-//     newContentWrapper.appendChild(newQuestionForm);
-//
-//     // 질문과 응답을 감싸는 div를 새로 생성한 질문-응답 노드에 추가
-//     newQnaWrapper.appendChild(newContentWrapper);
-//     mainContentWrapper.appendChild(newQnaWrapper); // mainContentWrapper에 새로 생성한 질문-응답 노드 추가
-// }
+    // 질문 결과를 표시하는 div 생성
+    const newQuestionResultWrapper = document.createElement('div');
+    newQuestionResultWrapper.classList.add('main-content-question-result-wrapper');
+
+    // 유저 아이콘 추가
+    const userProfileImg = document.createElement('img');
+    userProfileImg.classList.add('user-profile-img');
+    userProfileImg.setAttribute('alt', '유저 아이콘');
+    userProfileImg.setAttribute('src', '/media/user_profile.png');
+
+    // 질문 결과를 표시하는 div에 추가될 내용 생성
+    const questionContent = document.createTextNode(input.value);
+    newQuestionResultWrapper.appendChild(userProfileImg.cloneNode(true)); // 유저 아이콘 복제
+    newQuestionResultWrapper.appendChild(document.createElement('strong').appendChild(questionContent));
+
+    // 새로운 질문-응답 노드에 질문 결과 추가
+    newQnaWrapper.appendChild(newQuestionResultWrapper);
+
+    // mainContentWrapper에 새로 생성한 질문-응답 노드 추가
+    mainContentWrapper.appendChild(newQnaWrapper);
+
+    count++;
+
+    // 새로운 질문-응답 노드에 질문 입력 폼과 답변 추가
+    answerWrapper.style.display = "flex";
+    alanResponse.style.display = "block";
+
+    // 이전 질문 더하기 버튼 제거
+    const prevMoreQuestionButton = document.querySelector('.main-content-answer-wrapper .alan-question-btn');
+    prevMoreQuestionButton.remove();
+
+    // 입력 폼 input, 질문하기 버튼 활성화
+    input.disabled = false;
+    questionButton.disabled = false;
+}
