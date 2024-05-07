@@ -1,8 +1,10 @@
-package com.example.whatseoul;
+
+
+package com.example.whatseoul.config;
 
 import lombok.RequiredArgsConstructor;
 
-
+import com.example.whatseoul.service.UserDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
