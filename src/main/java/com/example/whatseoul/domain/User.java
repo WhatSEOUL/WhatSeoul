@@ -1,5 +1,6 @@
 
-package com.example.whatseoul;
+package com.example.whatseoul.domain;
+
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
