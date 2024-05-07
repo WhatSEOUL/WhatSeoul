@@ -1,0 +1,108 @@
+/* 상단바 css start  */
+.navbar {
+    height:10vh; /* 네비게이션 바의 높이를 조정합니다. */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과를 추가합니다. */
+}
+
+.navbar-nav .nav-item:nth-child(1) .nav-link,
+.navbar-nav .nav-item:nth-child(2) .nav-link {
+    margin-right: 2vw; /* 첫 번째와 두 번째 nav-item에 margin-right를 추가합니다. */
+}
+
+.my-page-btn {
+    margin-left: 2vw;
+    background-color: #007bff;
+    border-radius: 5px;
+}
+.my-page-btn a {
+    color: #ffffff !important;
+}
+.logout-btn {
+    margin-left: 1vw;
+    background-color: #6c757d;
+    border-radius: 5px;
+}
+.logout-btn a {
+    color: #ffffff !important;
+}
+/* 상단바 css end  */
+
+.main-content-wrapper {
+    margin-top: 15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 50vw;
+
+    /*align-items: center;*/
+}
+
+.main-content-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.main-content-descrip {
+    font-size: 1.2rem;
+    margin-top: 1vh;
+}
+
+.main-content-qna-wrapper {
+    font-size: 1.1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content-question-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10vh;
+
+}
+.user-profile-img {
+    width: 4vw;
+    opacity: 70%;
+}
+
+#questionForm {
+    margin-left: 2rem;
+}
+
+#questionForm #question {
+    width: 30vw;
+    height: 3rem;
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+#questionForm #question:focus {
+    outline: none;
+    border: 1px solid #007bff; /* 클릭 시 테두리 굵기 및 색상 변경 */
+}
+
+#questionForm #question:valid {
+    background-color: #ffffff; /* 입력 폼이 유효할 때 input 배경색이 들어가는 문제 해결 */
+}
+
+#questionForm #question:disabled {
+    font-weight: 500;
+    color: #000000;
+    background-color: #ffffff; /* 질문제출 후 input이 disabled되었을 때 배경과 글자가 회색이 되는 문제 해결 */
+}
+
+#questionForm button {
+    margin-left: 1rem;
+    width: 7vw;
+    height: 3rem;
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+#questionForm button:focus {
+    outline: none;
+}
+
+#alanResponse {
+    margin-top: 10vh;
+    line-height: 180;
+
+}

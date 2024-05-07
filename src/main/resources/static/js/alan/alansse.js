@@ -1,15 +1,31 @@
+// 헤더 로고의 margin-left와 main content의 margin-left 맞추기
+function adjustMainContentMargin() {
+    var logo = document.querySelector(".navbar-brand");
+    var logoLeft = logo.getBoundingClientRect().left;
+    var mainContentWrapper = document.querySelector(".main-content-wrapper");
+    mainContentWrapper.style.marginLeft = logoLeft + "px";
+}
+
+adjustMainContentMargin();
+window.addEventListener("resize", adjustMainContentMargin);
+
+
 const form = document.querySelector("#questionForm");
 const input = document.querySelector("#question");
+const questionButton = document.querySelector(".question-button");
 
 form.addEventListener("submit", function(event) {
     event.preventDefault(); // 새로고침 방지
+
+    // 입력 폼 input 비활성화 하고 질문하기 버튼 숨기기
+    input.disabled = true;
+    questionButton.style.display = "none";
+
     alanResponse.innerHTML = "앨런의 답변 기다리는중..(새로고침하면 처음부터 다시 호출해버린답니다ㅠ)";
     const question = input.value;
     console.log(question);
 
     setupSSE(question); // SSE 설정 및 수신 시작
-
-
 })
 const alanResponse = document.querySelector('#alanResponse');
 
