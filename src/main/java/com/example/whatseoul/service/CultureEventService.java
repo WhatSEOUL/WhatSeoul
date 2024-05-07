@@ -17,29 +17,27 @@ public class CultureEventService {
     private final CulturalEventRepository culturalEventRepository;
     private final AreaRepository areaRepository;
 
-    public List<CultureEventDto> getCultureEventData(String areaName) {
-        Area area = areaRepository.findAreaByAreaName(areaName)
+    public List<CultureEventDto> getCultureEventData(String areaCode) {
+        Area area = areaRepository.findAreaByAreaCode(areaCode)
                 .orElseThrow(() -> new NoSuchElementException("Area not Found"));
 
         List<CultureEvent> cultureEvents = culturalEventRepository.findCultureEventsByArea(area);
-        if (cultureEvents.isEmpty()) {
-            throw new NoSuchElementException("Culture events not found for the provided area code");
-        }
+        List<CultureEventDto> cultureEventDto = new ArrayList<>();
 
-        List<CultureEventDto> cultureEventDtos = new ArrayList<>();
-        for (CultureEvent cultureEvent : cultureEvents) {
-            cultureEventDtos.add(
-                CultureEventDto.builder()
-                    .culturalEventName(cultureEvent.getCulturalEventName())
-                    .culturalEventPeriod(cultureEvent.getCulturalEventPeriod())
-                    .culturalEventPlace(cultureEvent.getCulturalEventPlace())
-                    .culturalEventUrl(cultureEvent.getCulturalEventUrl())
-                    .areaName(cultureEvent.getArea().getAreaName())
-                    .build()
-            );
+        if (!cultureEvents.isEmpty()) {
+            for (CultureEvent cultureEvent : cultureEvents) {
+                cultureEventDto.add(
+                        CultureEventDto.builder()
+                                .culturalEventName(cultureEvent.getCulturalEventName())
+                                .culturalEventPeriod(cultureEvent.getCulturalEventPeriod())
+                                .culturalEventPlace(cultureEvent.getCulturalEventPlace())
+                                .culturalEventUrl(cultureEvent.getCulturalEventUrl())
+                                .areaName(cultureEvent.getArea().getAreaName())
+                                .build()
+                );
+            }
         }
-
-        return cultureEventDtos;
+        return cultureEventDto;
     }
 }
 
