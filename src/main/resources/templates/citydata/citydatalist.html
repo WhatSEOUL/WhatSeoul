@@ -9,8 +9,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <!-- 도시데이터 전체 조회(이 페이지)를 위한 css : 내부에 인구데이터 관련 css는 인구데이터 관련이라고 표기해둠    -->
     <link rel="stylesheet" type="text/css" href="/css/citydata/citydatalist.css" th:href="@{/css/citydata/citydatalist.css}">
+
     <!-- 인구데이터 조회 기능을 위한 js -->
     <script defer src="/js/citydata/population.js"></script>
+    <!-- 날씨데이터 조회 기능을 위한 js -->
+    <script defer src="/js/citydata/weather.js"></script>
 
 </head>
 <body>
@@ -55,6 +58,24 @@
                 <!--서울시내 실시간 <strong>인구</strong>, <strong>날씨</strong>, <strong>문화행사</strong> 정보를 제공합니다.<br>-->
             </div>
             <!-- 실시간 날씨 현황 -->
+            <div class="main-content-weather-wrapper">
+                <div class="main-content-weather">
+                    <strong style="font-size: 20px">실시간 날씨 현황</strong><br>
+                    <div class="weather-group">
+                        🌡️ 현재 기온 : <span id="temperature"></span><br>
+                        🔻 최저 기온 <span id="minTemp" style="color: deepskyblue"></span><br>
+                        🔺 최고 기온 <span id="maxTemp" style="color: darkred"></span><br>
+                    </div>
+                    <div class="weather-group">
+                        😷 초미세먼지 <span id="pm25Idx"></span><br>
+                        😷 미세먼지 <span id="pm10Idx"></span><br>
+                    </div>
+                    <div class="weather-group">
+                        ☔️ 비가 오나요? <span id="pcpMsg" style="color: gray"></span><br>
+                        🕖 업데이트 시간 <span id="updateTime" style="color: gray"></span><br>
+                    </div>
+                </div><br>
+            </div>
 
             <!-- 실시간 인구 현황 -->
             <div class="main-content-population-wrapper">

@@ -2,7 +2,7 @@
 const district = localStorage.getItem("district");
 
 // 유저가 선택한 핫스팟
-const areaName = localStorage.getItem("area");
+let areaName = localStorage.getItem("area");
 
 // 핫스팟 실시간 도시데이터
 let cityData;

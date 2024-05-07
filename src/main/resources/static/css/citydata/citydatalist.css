@@ -132,3 +132,20 @@ section.buttons-wrapper {
     height: 300px;
 }
 /* ===> 인구데이터 조회 관련 css end */
+
+/* 날씨 데이터 조회 관련 css start ===> */
+.main-content-weather-wrapper {
+    border: 1px solid gray;
+    margin-bottom: 30px;
+    width: 50vw;
+}
+
+.main-content-weather {
+    display: flex;
+    flex-direction: row;
+}
+
+.weather-group {
+    margin-right: 20px; /* 각 그룹 간격 조절 */
+}
+/* ===> 인구데이터 조회 관련 css end */
