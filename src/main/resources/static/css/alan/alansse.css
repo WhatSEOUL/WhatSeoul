@@ -55,16 +55,19 @@
 .main-content-question-wrapper {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
     margin-top: 10vh;
 
 }
 .user-profile-img {
+    margin-top: -1vh;
     width: 4vw;
     opacity: 70%;
 }
 
 #questionForm {
+    display: flex;
+    flex-direction: column;
     margin-left: 2rem;
 }
 
@@ -91,7 +94,8 @@
 }
 
 #questionForm button {
-    margin-left: 1rem;
+    /*margin-left: 1rem;*/
+    align-self: flex-end;
     width: 7vw;
     height: 3rem;
     border: 1px solid gray;
@@ -103,6 +107,6 @@
 
 #alanResponse {
     margin-top: 10vh;
-    line-height: 180;
+    line-height: 180%;
 
 }
