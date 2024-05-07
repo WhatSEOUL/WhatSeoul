@@ -17,8 +17,8 @@ public class CultureEventService {
     private final CulturalEventRepository culturalEventRepository;
     private final AreaRepository areaRepository;
 
-    public List<CultureEventDto> getCultureEventData(String areaCode) {
-        Area area = areaRepository.findAreaByAreaCode(areaCode)
+    public List<CultureEventDto> getCultureEventData(String areaName) {
+        Area area = areaRepository.findAreaByAreaName(areaName)
                 .orElseThrow(() -> new NoSuchElementException("Area not Found"));
 
         List<CultureEvent> cultureEvents = culturalEventRepository.findCultureEventsByArea(area);

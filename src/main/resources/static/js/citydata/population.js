@@ -8,7 +8,12 @@ let areaName = localStorage.getItem("area");
 let cityData;
 
 const mainContentTitle = document.querySelector('.main-content-title');
-mainContentTitle.textContent = `${areaName}은 지금...`;
+mainContentTitle.textContent = `${areaName}`;
+
+// areaName 변수가 있는 경우에만 특정 클래스를 추가
+if (areaName) {
+    mainContentTitle.classList.add('special-style');
+}
 
 const areaCongestLvl = document.querySelector('#area-congest-lvl');
 const areaCongestMsg = document.querySelector('#area-congest-msg');

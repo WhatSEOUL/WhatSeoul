@@ -59,7 +59,6 @@ img.main-banner-img {
 
 .main-content {
     width: 80vw;
-    border: 1px solid gray;
 }
 
 .main-content-title {
@@ -121,31 +120,206 @@ section.buttons-wrapper {
 }
 /* ===> index 페이지처럼 페이지 내부 컨텐트를 정렬하는 css end */
 
+.special-style {
+    font-size: 48px; /* 원하는 크기로 조절 */
+    text-shadow: 2px 2px 4px rgb(185, 179, 179);
+    color: #8c8888;
+}
+
+
+/* 날씨 데이터 조회 관련 css start ===> */
+.main-content-weather-wrapper {
+    position: relative;
+    border: none;
+    margin-bottom: 30px;
+    width: 70vw;
+}
+
+.main-content-weather {
+    display: flex;
+    flex-direction: row;
+    width: fit-content;
+    align-items: center;
+    justify-content: center;
+}
+
+.rain-group {
+    margin-left: 10px;
+    margin-right: 50px; /* 각 그룹 간격 조절 */
+}
+.fd-group {
+    margin-left: 10px;
+    margin-right: 50px; /* 각 그룹 간격 조절 */
+}
+.temp-group {
+    margin-left: 10px;
+    margin-right: 50px; /* 각 그룹 간격 조절 */
+}
+
+.card {
+    position: relative;
+    width: 220px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 10px;
+    backdrop-filter: blur(30px);
+    border:none;
+    background-color: #f0f0f0; /* 밝은 배경색 */
+    box-shadow: 8px 8px 16px #dcdcdc,
+    -8px -8px 16px #ffffff; /* 그림자 */
+    border-radius: 12px;
+}
+
+
+.weather-title {
+    font-weight: 700;
+    font-size: 0.9em;
+    letter-spacing: 1.2px;
+    color: darkgrey;
+}
+
+.weather {
+    font-weight: 500;
+    font-size: 0.7em;
+    letter-spacing: 1.2px;
+    color: dimgrey;
+}
+
+.temp {
+    font-size: 1.8em;
+    color: dimgrey;
+}
+
+.minmaxContainer,
+.pmContainer{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+.min,
+.max {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0px 20px;
+    gap: 4px;
+}
+
+.max {
+    align-items: flex-start;
+    border-left: 2px solid dimgrey;
+}
+
+.pmHeading,
+.maxHeading,
+.minHeading {
+    font-size: 0.7em;
+    font-weight: 600;
+    color: dimgrey;
+}
+
+.maxTemp,
+.minTemp {
+    font-size: 0.8em;
+    font-weight: 500;
+}
+
+.minTemp{
+    color: rgba(54, 162, 235, 1);
+}
+.maxTemp{
+    color: rgba(255, 99, 132, 1);
+}
+
+.isRain{
+    font-size: 1.0em;
+    font-weight: 600;
+    color: dimgrey;
+}
+
+.pmIdx{
+    font-size: 1.0em;
+    font-weight: 500;
+    color: dimgrey;
+}
+
+.pm10,
+.pm25 {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0px 20px;
+    gap: 4px;
+}
+
+.pm10 {
+    align-items: flex-start;
+    border-left: 2px solid dimgrey;
+}
+
+.update-time{
+    position: absolute;
+    bottom: 0;
+    right: 7px;
+}
+/* ===> 날씨 데이터 조회 관련 css end */
+
 /* 인구데이터 조회 관련 css start ===> */
 .main-content-population-wrapper {
-    border: 1px solid gray;
-     width: 30vw;
+    width: 70vw;
+    margin-bottom: 50px;
 }
 
 #myChart {
     width: 300px;
     height: 300px;
 }
-/* ===> 인구데이터 조회 관련 css end */
-
-/* 날씨 데이터 조회 관련 css start ===> */
-.main-content-weather-wrapper {
-    border: 1px solid gray;
-    margin-bottom: 30px;
-    width: 50vw;
-}
-
-.main-content-weather {
+.ppltn-card,
+.culture-card{
+    position: relative;
+    width: 800px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 10px;
+    backdrop-filter: blur(30px);
+    border:none;
+    background-color: #f0f0f0; /* 밝은 배경색 */
+    box-shadow: 8px 8px 16px #dcdcdc,
+    -8px -8px 16px #ffffff; /* 그림자 */
+    border-radius: 12px;
 }
 
-.weather-group {
-    margin-right: 20px; /* 각 그룹 간격 조절 */
+#area-congest-lvl,
+#ppltn-forecast{
+    font-size: 1.0em;
+    font-weight: 600;
+    color: dimgrey;
 }
-/* ===> 인구데이터 조회 관련 css end */
+
+.ppltn-lv{
+    font-weight: 700;
+    font-size: 1.4em;
+    letter-spacing: 1.2px;
+    color: darkgrey;
+}
+
+#area-congest-msg{
+    font-size: 0.8em;
+    font-weight: 600;
+    color: dimgrey;
+}
+/* 인구데이터 조회 관련 css end ===> */
+
+/* 문화행사 데이터 조회 관련 css start ===> */
