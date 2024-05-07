@@ -13,6 +13,8 @@ window.addEventListener("resize", adjustMainContentMargin);
 const form = document.querySelector("#questionForm");
 const input = document.querySelector("#question");
 const questionButton = document.querySelector(".question-button");
+const answerWrapper = document.querySelector(".main-content-answer-wrapper");
+const loadingImg = document.querySelector(".loading-img");
 
 form.addEventListener("submit", function(event) {
     event.preventDefault(); // 새로고침 방지
@@ -21,7 +23,8 @@ form.addEventListener("submit", function(event) {
     input.disabled = true;
     questionButton.style.display = "none";
 
-    alanResponse.innerHTML = "앨런의 답변 기다리는중..(새로고침하면 처음부터 다시 호출해버린답니다ㅠ)";
+    answerWrapper.style.display = "flex";
+    alanResponse.style.display = "block";
     const question = input.value;
     console.log(question);
 

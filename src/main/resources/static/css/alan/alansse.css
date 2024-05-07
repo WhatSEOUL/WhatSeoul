@@ -57,11 +57,13 @@
     flex-direction: row;
     align-items: flex-start;
     margin-top: 10vh;
-
+    border-top: 1px solid #d1d1d1;
+    border-bottom: 1px solid #d1d1d1;
+    padding: 5vh;
 }
 .user-profile-img {
     margin-top: -1vh;
-    width: 4vw;
+    width: 4.5rem;
     opacity: 70%;
 }
 
@@ -105,8 +107,25 @@
     outline: none;
 }
 
-#alanResponse {
-    margin-top: 10vh;
-    line-height: 180%;
+.main-content-answer-wrapper {
+    display: none;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 5vh;
+    background-color: #f0f4ff;
 
+}
+.alan-logo-img {
+    width: 4.6rem;
+    opacity: 70%;
+}
+
+#alanResponse {
+    display: none;
+    margin-left: 2rem;
+    line-height: 180%;
+}
+
+.loading-img {
+    width: 4.5rem;
 }
