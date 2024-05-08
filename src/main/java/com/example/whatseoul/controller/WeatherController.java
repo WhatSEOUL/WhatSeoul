@@ -20,7 +20,7 @@ public class WeatherController {
 
     @GetMapping("/weather/{areaName}")
     public ResponseEntity<WeatherDataDto> getWeatherData(@PathVariable String areaName){
-        Area area = areaRepository.findAreaByAreaCode(areaName)
+        Area area = areaRepository.findAreaByAreaName(areaName)
                 .orElseThrow(() -> new NoSuchElementException("Area Not Found"));
         WeatherDataDto dataDto = weatherService.getWeatherData(area.getAreaCode());
 
