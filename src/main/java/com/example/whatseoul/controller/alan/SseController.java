@@ -1,4 +1,4 @@
-package com.example.whatseoul.controller;
+package com.example.whatseoul.controller.alan;
 
 
 import com.example.whatseoul.dto.response.AlanResponseDto;
@@ -6,7 +6,7 @@ import com.example.whatseoul.service.WebClientService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.http.codec.ServerSentEvent;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
