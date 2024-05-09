@@ -1,0 +1,110 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>WhatSeoul</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/index/index.css" th:href="@{/css/index/index.css}">
+</head>
+<body>
+<header>
+    <!-- 상단바 html start  -->
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" onclick="location.href='/'">WhatSeoul</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto">
+<!--                    <li class="nav-item active">-->
+<!--                        <a class="nav-link" href="#">현재있는 메뉴는 이 클래스 쓰면 될듯 <span class="sr-only">(현재)</span></a>-->
+<!--                    </li>-->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/district">지금 서울은?</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/alan/sse">서울 명소 추천받기</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/posts">커뮤니티</a>
+                    </li>
+                    <li class="nav-item my-page-btn">
+                        <a class="nav-link" href="#">마이페이지</a>
+                    </li>
+                    <li class="nav-item logout-btn">
+                        <a class="nav-link" href="#">로그아웃</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- 상단바 html end -->
+</header>
+<main>
+    <section class="container banner">
+        <div class="main-banner-content-wrap">
+            <div class="main-banner-title">
+                WhatSeoul
+            </div>
+            <div class="main-banner-descrip">
+                놀러가고 싶은 오늘,<br>
+                서울 어느 곳으로 가야 할지 모르겠다면<br>
+                실시간 지역 정보를 확인하고<br>
+                서울 명소를 추천받아 보세요!
+            </div>
+        </div>
+        <div class="main-banner-img-wrap">
+            <img alt="배너 이미지" class="main-banner-img" src="/media/banner.PNG">
+        </div>
+    </section>
+    <section class="main-content-wrapper">
+        <div class="main-content">
+            <div class="main-content-title">
+                서울 실시간 지역 정보 제공
+            </div>
+            <div class="main-content-descrip">
+                서울시내 실시간 <strong>인구</strong>, <strong>날씨</strong>, <strong>문화행사</strong> 정보를 제공합니다.<br>
+            </div>
+            <img alt="실시간 지역정보 제공 기능 설명 이미지" class="blank-img" src="/media/blank_img.png"/>
+        </div>
+        <div class="main-content" style="margin-bottom: 30vh;">
+            <div class="main-content-title">
+                서울 명소 추천받기
+            </div>
+            <div class="main-content-descrip">
+                어디로 떠나야할지 잘 모르겠다면, 앨런에게 물어보세요.
+            </div>
+            <img alt="서울 명소 추천받기 기능 설명 이미지" class="blank-img" src="/media/blank_img.png"/>
+        </div>
+    </section>
+    <section class="buttons-wrapper" >
+        <button class="location-info-btn" onclick="location.href='/district'">
+            실시간<br>
+            지역정보 확인하기</button>
+        <button class="alan-question-btn" onclick="location.href='/alan/sse'">
+            <div class="alan-question-btn-content">
+                <div class="btn-content-text">
+                    앨런에게<br>
+                    서울 명소 추천받기
+                </div>
+                <div class="btn-contet-img">
+                    <img alt="앨런 AI 아이콘" class="alan-question-btn-img" src="/media/alan_logo_no_bg.png"/>
+                </div>
+            </div>
+
+        </button>
+    </section>
+
+</main>
+<!-- 부트스트랩 JS (jQuery 포함) -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+
+</body>
+</html>

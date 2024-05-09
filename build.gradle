@@ -24,16 +24,37 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    // ms office 관련 라이브러리
+//    implementation 'org.apache.poi:poi:5.2.4'
+//    implementation 'org.apache.poi:poi-ooxml:5.2.4'
     implementation 'org.springframework.boot:spring-boot-starter-security'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.springframework.boot:spring-boot-devtools'
+    implementation 'io.netty:netty-resolver-dns-native-macos:4.1.68.Final:osx-aarch_64'
+    implementation 'org.modelmapper:modelmapper:3.1.0'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'com.mysql:mysql-connector-j'
+    compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+
+    // Hibernate Validator (Bean Validation API 구현체)
+    implementation 'org.hibernate.validator:hibernate-validator:6.2.0.Final'
+    // Bean Validation API
+    implementation 'javax.validation:validation-api:2.0.1.Final'
+    // Hibernate Validator가 사용하는 의존성
+    implementation 'org.glassfish:jakarta.el:3.0.3'
+    //위 3개의 코드는 @Email 어노테이션을 활성화 하기 위한 코드입니다.
+
+    // Jackson Dataformat XML
+    implementation group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-xml', version: '2.17.0'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.17.0'
+    implementation 'com.fasterxml.woodstox:woodstox-core:6.5.0'
 }
 
 tasks.named('test') {
