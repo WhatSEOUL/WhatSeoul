@@ -2,7 +2,12 @@ package com.example.whatseoul.controller.account;
 
 import com.example.whatseoul.service.account.AccountService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +37,13 @@ public class AccountController {
         // 성공하면 로그인 페이지로 리디렉트
 
         boolean join = accountService.join(email, password, name);
+        return "redirect:/login";
+    }
+
+    @GetMapping("logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response) {
+        new SecurityContextLogoutHandler().logout(request, response,
+            SecurityContextHolder.getContext().getAuthentication());
         return "redirect:/login";
     }
 }

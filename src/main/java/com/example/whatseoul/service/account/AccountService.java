@@ -56,12 +56,4 @@ public class AccountService implements UserDetailsService {
         userRepository.save(newUser);
         return true;
     }
-
-    @GetMapping("/logout")
-    public String logout(HttpServletRequest request, HttpServletResponse response) {
-        new SecurityContextLogoutHandler().logout(request, response,
-            SecurityContextHolder.getContext().getAuthentication());
-        return "redirect:/login";
-    }
-
 }

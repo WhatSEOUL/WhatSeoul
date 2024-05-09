@@ -1,6 +1,12 @@
 package com.example.whatseoul.controller.citydata;
 
+import java.security.Principal;
+
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.whatseoul.service.ApiScheduler;
@@ -15,7 +21,14 @@ public class CityDataViewController {
 	}
 
 	@GetMapping("/")
-	public String indexPage() {
+	public String indexPage(Model model) {
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		Object principal = authentication.getPrincipal();
+		if (principal instanceof UserDetails) {
+			model.addAttribute("isAuthenticated", true);
+		} else {
+			model.addAttribute("isAuthenticated", false);
+		}
 		return "/index/index";
 	}
 
