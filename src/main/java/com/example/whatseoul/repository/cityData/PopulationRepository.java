@@ -1,4 +1,4 @@
-package com.example.whatseoul.respository.cityData;
+package com.example.whatseoul.repository.cityData;
 
 import java.util.Optional;
 

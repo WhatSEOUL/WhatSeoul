@@ -1,22 +1,20 @@
 package com.example.whatseoul.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "user_tb")
+@EntityListeners(AuditingEntityListener.class)
 public class User {
 
 	@Id
@@ -37,8 +35,5 @@ public class User {
 	private LocalDateTime userCreated;
 
 	@Column(name = "IS_ACTIVE", nullable = false)
-	private boolean isActive = true;  // 계정 활성 상태, 기본값은 true
-
-	public void setIsActive(boolean b) {
-	}
+	private boolean isActive;  // 계정 활성 상태, 기본값은 true
 }

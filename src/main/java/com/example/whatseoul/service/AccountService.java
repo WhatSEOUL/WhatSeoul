@@ -1,7 +1,7 @@
 package com.example.whatseoul.service;
 
 import com.example.whatseoul.entity.User;
-import com.example.whatseoul.respository.user.UserRepository;
+import com.example.whatseoul.repository.user.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -44,6 +44,7 @@ public class AccountService implements UserDetailsService {
         newUser.setUserEmail(userEmail);
         newUser.setUserPassword(encoder.encode(userPwd));
         newUser.setUserName(userName);
+        newUser.setActive(true);
         userRepository.save(newUser);
         return true;
     }

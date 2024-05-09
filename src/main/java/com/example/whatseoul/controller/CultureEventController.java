@@ -2,12 +2,10 @@ package com.example.whatseoul.controller;
 
 import com.example.whatseoul.dto.response.CultureEventDto;
 import com.example.whatseoul.entity.Area;
-import com.example.whatseoul.respository.cityData.AreaRepository;
+import com.example.whatseoul.repository.cityData.AreaRepository;
 import com.example.whatseoul.service.CultureEventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;

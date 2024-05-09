@@ -1,4 +1,4 @@
-package com.example.whatseoul.respository.user;
+package com.example.whatseoul.repository.user;
 
 import com.example.whatseoul.entity.User;
 import java.util.Optional;

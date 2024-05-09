@@ -1,0 +1,86 @@
+/* 상단바 css start  */
+.navbar {
+    height:10vh; /* 네비게이션 바의 높이를 조정합니다. */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과를 추가합니다. */
+}
+
+.navbar-nav .nav-item:nth-child(1) .nav-link,
+.navbar-nav .nav-item:nth-child(2) .nav-link {
+    margin-right: 2vw; /* 첫 번째와 두 번째 nav-item에 margin-right를 추가합니다. */
+}
+
+.my-page-btn {
+    margin-left: 2vw;
+    background-color: #007bff;
+    border-radius: 5px;
+}
+.my-page-btn a {
+    color: #ffffff !important;
+}
+.logout-btn {
+    margin-left: 1vw;
+    background-color: #6c757d;
+    border-radius: 5px;
+}
+.logout-btn a {
+    color: #ffffff !important;
+}
+/* 상단바 css end  */
+.card {
+    width: 490px;
+    height: 254px;
+    border-radius: 100px;
+    background: #f5f5f5;
+    position: relative;
+    padding: 1.8rem;
+    border: 2px solid #c3c6ce;
+    transition: 0.5s ease-out;
+    overflow: visible;
+    margin: 0 auto;
+}
+
+.card-details {
+    color: black;
+    height: 100%;
+    gap: .5em;
+    display: grid;
+    place-content: center;
+}
+
+.card-button {
+    transform: translate(-50%, 125%);
+    width: 70%;
+    border-radius: 1rem;
+    border: none;
+    background-color: #008bf8;
+    color: #fff;
+    font-size: 1rem;
+    padding: .5rem 1rem;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    opacity: 0;
+    transition: 0.3s ease-out;
+}
+
+.userEmail {
+    color: rgb(134, 134, 134);
+}
+
+/*Text*/
+.userName {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/*Hover*/
+.card:hover {
+    border-color: #63b0f3;
+    box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+}
+
+.card:hover .card-button {
+    transform: translate(-50%, 50%);
+    opacity: 1;
+    cursor: pointer;
+}

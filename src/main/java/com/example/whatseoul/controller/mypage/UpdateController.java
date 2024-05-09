@@ -1,9 +1,7 @@
 package com.example.whatseoul.controller.mypage;
 
 import com.example.whatseoul.entity.User;
-import com.example.whatseoul.respository.user.UserRepository;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import com.example.whatseoul.repository.user.UserRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -28,7 +26,7 @@ public class UpdateController {
     @GetMapping("/api/user/update")
     public String getMyPage(Model model) {
         // 기존 로직 ...
-        return"/update";
+        return"mypage/update";
     }
 
 //    @GetMapping("/api/user/update")
@@ -39,9 +37,7 @@ public class UpdateController {
 
 
     @PostMapping("/api/user/update")
-    public String updateUserInfo(@RequestParam("email") String email,
-                                 @RequestParam("name") String name,
-                                 @RequestParam("password") String password) {
+    public String updateUserInfo(@RequestParam("password") String password) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
@@ -53,7 +49,7 @@ public class UpdateController {
         return "redirect:/api/user/me";
     }
 
-    @PostMapping("/api/user/deactivate")
+    /*@PostMapping("/api/user/deactivate")
     public String deactivateAccount(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User user = userRepository.findByUserEmail(userDetails.getUsername())
@@ -62,6 +58,6 @@ public class UpdateController {
         user.setIsActive(false);  // 계정을 비활성화
         userRepository.save(user);
         return "redirect:/login";  // 로그인 페이지로 리디렉션
-    }
+    }*/
 
 }
