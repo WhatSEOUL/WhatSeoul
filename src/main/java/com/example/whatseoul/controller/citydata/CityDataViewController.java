@@ -2,29 +2,33 @@ package com.example.whatseoul.controller.citydata;
 
 import java.security.Principal;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.example.whatseoul.security.CustomUserDetails;
 import com.example.whatseoul.service.ApiScheduler;
+import com.example.whatseoul.service.account.AccountService;
 
 @Controller
 public class CityDataViewController {
 
 	private final ApiScheduler apiScheduler;
 
-	public CityDataViewController(ApiScheduler apiScheduler) {
+	public CityDataViewController(ApiScheduler apiScheduler, AccountService accountService) {
 		this.apiScheduler = apiScheduler;
 	}
 
 	@GetMapping("/")
-	public String indexPage(Model model) {
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		Object principal = authentication.getPrincipal();
-		if (principal instanceof UserDetails) {
+	public String indexPage(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
+
+		if (userDetails != null) {
 			model.addAttribute("isAuthenticated", true);
 		} else {
 			model.addAttribute("isAuthenticated", false);

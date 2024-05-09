@@ -9,22 +9,23 @@
     margin-right: 2vw; /* 첫 번째와 두 번째 nav-item에 margin-right를 추가합니다. */
 }
 
+.login-btn,
 .my-page-btn {
     margin-left: 2vw;
     background-color: #007bff;
     border-radius: 5px;
 }
+.login-btn a,
 .my-page-btn a {
     color: #ffffff !important;
 }
 
-.login-btn,
 .logout-btn {
     margin-left: 1vw;
     background-color: #6c757d;
     border-radius: 5px;
 }
-.login-btn a,
+
 .logout-btn a {
     color: #ffffff !important;
 }
