@@ -39,7 +39,7 @@ public class SecurityConfig {
         http
             .csrf(AbstractHttpConfigurer::disable) // csrf 비활성화
             .authorizeHttpRequests(requests -> requests
-                .requestMatchers("/", "/login", "/join", "/register")
+                .requestMatchers("/", "/login", "/register", "/check/username")
                 .permitAll() // 홈, 로그인, 회원가입 로그인 없이 접근가능
                 .anyRequest().authenticated()
             )

@@ -49,4 +49,8 @@ public class AccountService implements UserDetailsService {
         userRepository.save(newUser);
         return true;
     }
+
+    public boolean existsByUserName(String userName) {
+        return userRepository.existsByUserName(userName);
+    }
 }

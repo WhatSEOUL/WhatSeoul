@@ -6,12 +6,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/")
@@ -45,5 +47,14 @@ public class AccountController {
         new SecurityContextLogoutHandler().logout(request, response,
             SecurityContextHolder.getContext().getAuthentication());
         return "redirect:/";
+    }
+
+    @GetMapping("check/username")
+    public ResponseEntity<String> checkDuplicateUserName(@RequestParam("name") String userName) {
+        if (accountService.existsByUserName(userName)) {
+            return ResponseEntity.badRequest().body("이미 사용중인 유저네임입니다.");
+        } else {
+            return ResponseEntity.ok("사용가능한 유저네임입니다.");
+        }
     }
 }
