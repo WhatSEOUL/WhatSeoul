@@ -1,57 +1,64 @@
 package com.example.whatseoul.service;
 
+import com.example.whatseoul.dto.PostDto;
 import com.example.whatseoul.entity.Post;
 import com.example.whatseoul.repository.PostRepository;
-import jakarta.transaction.Transactional;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.persistence.EntityNotFoundException;
+import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class PostService {
 
-    @Autowired
-    PostRepository postRepository;
+    private final PostRepository postRepository;
+    private final ModelMapper modelMapper;
 
-    //게시글 생성
-    @Transactional
-    public void write(Post post) {
-
-        postRepository.save(post);
-
+    public List<PostDto> getAllPosts() {
+        List<Post> posts = postRepository.findAll();
+        return posts.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
-    //게시글 리스트 처리
-    public List<Post>postList() {
-        return postRepository.findAll();
+    public PostDto getPostById(Long id) {
+        Post post = postRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Post not found with id: " + id));
+        return convertToDto(post);
     }
 
-
-    public Post findById(Long postId) {
-        return postRepository.findById(postId).orElse(null);
+    public PostDto createPost(PostDto postDto) {
+        Post post = convertToEntity(postDto);
+        post = postRepository.save(post);
+        return convertToDto(post);
     }
 
-    //게시글 수정
-    public void edit(Post post) {
-        Post post2 = postRepository.findById(post.getPostId()).orElse(null);
-        post2.setPostTitle(post.getPostTitle());
-        post2.setPostContent(post.getPostContent());
-        postRepository.save(post2);
+    public PostDto updatePost(Long id, PostDto postDto) {
+        if (!postRepository.existsById(id)) {
+            throw new EntityNotFoundException("Post not found with id: " + id);
+        }
+        Post post = convertToEntity(postDto);
+        post.setId(id);
+        post = postRepository.save(post);
+        return convertToDto(post);
     }
 
-    //특정 게시글 불러오기
-    public Post postview(Long id) {
-
-        return postRepository.findById(id).get();
-    }
-
-    //특정 게시글 삭제
-
-    public void postDelete(Long id) {
-
+    public void deletePost(Long id) {
+        if (!postRepository.existsById(id)) {
+            throw new EntityNotFoundException("Post not found with id: " + id);
+        }
         postRepository.deleteById(id);
     }
 
+    private PostDto convertToDto(Post post) {
+        return modelMapper.map(post, PostDto.class);
+    }
+
+    private Post convertToEntity(PostDto postDto) {
+        return modelMapper.map(postDto, Post.class);
+    }
 }

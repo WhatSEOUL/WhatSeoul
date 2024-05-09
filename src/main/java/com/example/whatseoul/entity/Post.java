@@ -22,7 +22,8 @@ public class Post {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long postId;
+	@Column(name = "POST_ID")
+	private Long id;
 
 	@Column(name = "POST_TITLE", nullable = false, length = 100)
 	private String postTitle;
@@ -37,7 +38,7 @@ public class Post {
 	private Long viewCount;
 
 
-	@Column(name = "CREATED_AT", nullable = false)
+	@Column(name = "CREATED_AT", nullable = false, updatable = false)
 	@CreatedDate
 	private LocalDateTime createdAt;
 
