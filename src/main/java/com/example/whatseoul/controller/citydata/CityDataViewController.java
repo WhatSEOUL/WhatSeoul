@@ -16,7 +16,7 @@ public class CityDataViewController {
 
 	@GetMapping("/")
 	public String indexPage() {
-		return "/index/index";
+		return "./index/index";
 	}
 
 	@GetMapping("/district")
