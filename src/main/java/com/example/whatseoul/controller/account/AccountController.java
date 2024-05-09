@@ -1,7 +1,7 @@
-package com.example.whatseoul.controller;
+package com.example.whatseoul.controller.account;
 
-import com.example.whatseoul.service.AccountService;
-import lombok.AllArgsConstructor;
+import com.example.whatseoul.service.account.AccountService;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/")
 @RequiredArgsConstructor
-public class WebController {
+public class AccountController {
 
     private final AccountService accountService;
 
