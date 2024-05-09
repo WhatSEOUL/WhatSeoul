@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 목록</title>
+</head>
+<body>
+<h1>지금, 왓서울 유저들의 서울 방문 후기는? </h1>
+<a href="/posts/create">등록하기</a>
+<!--TODO : 작성자 / 조회수 추가 -->
+<ul>
+    <li th:each="post : ${posts}">
+
+        <p><strong>작성일:</strong> <span th:text="${post.createdAt}"></span></p>
+        <p><strong>제목:</strong> <span th:text="${post.postTitle}"></span></p>
+        <a th:href="@{'/posts/' + ${post.id}}">보러 가기</a>
+    </li>
+</ul>
+</body>
+</html>
