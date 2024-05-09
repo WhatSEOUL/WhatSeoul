@@ -35,4 +35,10 @@ public class User {
 	@Column(name = "USER_CREATED")
 	@CreatedDate
 	private LocalDateTime userCreated;
+
+	@Column(name = "IS_ACTIVE", nullable = false)
+	private boolean isActive = true;  // 계정 활성 상태, 기본값은 true
+
+	public void setIsActive(boolean b) {
+	}
 }

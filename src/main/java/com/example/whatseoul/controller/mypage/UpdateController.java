@@ -47,24 +47,21 @@ public class UpdateController {
 
         User user = userRepository.findByUserEmail(userDetails.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
-
-        user.setUserEmail(email);
-        user.setUserName(name);
         user.setUserPassword(encoder.encode(password));        // 실제 애플리케이션에서는 패스워드를 암호화해야 합니다.
         userRepository.save(user);
 
         return "redirect:/api/user/me";
     }
 
-    @PostMapping("/api/user/delete")
-    public String deleteUser(Authentication authentication) {
+    @PostMapping("/api/user/deactivate")
+    public String deactivateAccount(Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User user = userRepository.findByUserEmail(userDetails.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
 
-        userRepository.delete(user); // 데이터베이스에서 사용자 정보 삭제
-        return "redirect:/login"; // 로그인 페이지로 리디렉션
+        user.setIsActive(false);  // 계정을 비활성화
+        userRepository.save(user);
+        return "redirect:/login";  // 로그인 페이지로 리디렉션
     }
-
 
 }
