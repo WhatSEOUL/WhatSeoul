@@ -12,8 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 //@RestController
-//@RequestMapping("/posts")
+
 @Controller
+@RequestMapping("/posts")
 @RequiredArgsConstructor
 public class PostController {
 
@@ -26,7 +27,7 @@ public class PostController {
 //        return new ResponseEntity<>(posts, HttpStatus.OK);
 //    }
 
-    @GetMapping("/posts")
+    @GetMapping
     public String getAllPosts(Model model) {
         List<PostDto> posts = postService.getAllPosts();
         model.addAttribute("posts", posts);
@@ -38,7 +39,7 @@ public class PostController {
 //        PostDto post = postService.getPostById(id);
 //        return new ResponseEntity<>(post, HttpStatus.OK);
 //    }
-    @GetMapping("/posts/{id}")
+    @GetMapping("/{id}")
     public String getPostById(@PathVariable("id") Long id, Model model) {
         PostDto post = postService.getPostById(id);
         model.addAttribute("post", post);
@@ -52,13 +53,13 @@ public class PostController {
 //    }
 
     // TODO: css 확인
-    @GetMapping("/posts/create")
+    @GetMapping("/create")
     public String showCreateForm(Model model) {
         model.addAttribute("postDto", new PostDto());
         return "post/post"; 
     }
 
-    @PostMapping("/posts/create")
+    @PostMapping("/create")
     public String createPost(@ModelAttribute("postDto") PostDto postDto) {
         postService.createPost(postDto);
         return "redirect:/posts";
