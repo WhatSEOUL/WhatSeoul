@@ -1,21 +1,18 @@
-package com.example.whatseoul.controller;
+package com.example.whatseoul.controller.user;
 
 import com.example.whatseoul.service.AccountService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/")
 @RequiredArgsConstructor
-public class WebController {
+public class UserController {
 
     private final AccountService accountService;
 
@@ -27,7 +24,7 @@ public class WebController {
 
     @GetMapping("register")
     public String register() {
-        return "register";  // 회원가입 페이지를 반환
+        return "/user/register";  // 회원가입 페이지를 반환
     }
 
     @PostMapping("join")
@@ -43,5 +40,11 @@ public class WebController {
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
         return "redirect:/";
+    }
+
+    @PostMapping("update")
+    public String updateUserInfo(String password) {
+        accountService.updatePw(password);
+        return "redirect:/mypage/me";
     }
 }

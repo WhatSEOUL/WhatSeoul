@@ -17,11 +17,14 @@
 .my-page-btn a {
     color: #ffffff !important;
 }
-.logout-btn {
+.logout-btn,
+.login-btn {
     margin-left: 1vw;
     background-color: #6c757d;
     border-radius: 5px;
 }
+
+.login-btn a,
 .logout-btn a {
     color: #ffffff !important;
 }

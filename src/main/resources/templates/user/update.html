@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Update</title>
+</head>
+<body>
+<h2>Update</h2>
+<form th:action="@{/update}" method="post">
+    <div><label>Password: <input type="password" name="password" required /></label></div>
+    <div><button type="submit">Update</button></div>
+    <!--  <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>-->
+</form>
+</body>
+</html>

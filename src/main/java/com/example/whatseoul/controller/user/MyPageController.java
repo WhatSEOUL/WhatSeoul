@@ -1,4 +1,4 @@
-package com.example.whatseoul.controller.mypage;
+package com.example.whatseoul.controller.user;
 
 import com.example.whatseoul.entity.User;
 import com.example.whatseoul.repository.user.UserRepository;
@@ -19,7 +19,7 @@ public class MyPageController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping("/api/user/me")
+    @GetMapping("/user/me")
     public String getMyPage(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object principal = authentication.getPrincipal();
@@ -39,7 +39,6 @@ public class MyPageController {
             // 사용자가 인증되지 않은 경우
             return "redirect:/login";
         }
-
-        return "mypage/me"; // 마이 페이지 뷰 반환
+        return "user/me"; // 마이 페이지 뷰 반환
     }
 }
