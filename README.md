@@ -1,5 +1,6 @@
 # whatSeoul
 앨런 AI와 서울 실시간 도시데이터를 활용한 웹 사이트
+<img width="717" alt="스크린샷 2024-05-09 10 20 00" src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/c438cc6f-9754-475e-af66-64c1f5afe091">
 
 
 ## 🌈 Branch
