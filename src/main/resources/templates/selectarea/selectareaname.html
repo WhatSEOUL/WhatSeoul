@@ -7,15 +7,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>WhatSeoul</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../../static/css/selectarea/selectareaname.css" th:href="@{../../static/css/selectarea/selectareaname.css}">
-    <script defer src="../../static/js/selectarea/selectareaname.js"></script>
+    <link rel="stylesheet" type="text/css" href="./css/selectarea/selectareaname.css" th:href="@{/css/selectarea/selectareaname.css}">
+    <script defer src="/js/selectarea/selectareaname.js"></script>
 </head>
 <body>
 <header>
     <!-- 상단바 html start  -->
     <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container">
-            <a class="navbar-brand" href="../index/index.html">WhatSeoul</a>
+            <a class="navbar-brand" onclick="location.href='/'">WhatSeoul</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -23,10 +23,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="../selectarea/selectdistrict.html">지금 서울은?</a>
+                        <a class="nav-link" href="/district">지금 서울은?</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">서울 명소 추천받기</a>
+                        <a class="nav-link" href="/alan/sse">서울 명소 추천받기</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">커뮤니티</a>
@@ -54,7 +54,7 @@
     </div>
     <!-- 뒤로가기 버튼 -->
     <div class="button-container-wrapper" id="backButtonWrapper">
-        <button id="backButton" onclick="location.href='../selectarea/selectdistrict.html'">뒤로가기</button>
+        <button id="backButton" onclick="location.href='/district'">뒤로가기</button>
     </div>
 </main>
 <!-- 부트스트랩 JS (jQuery 포함) -->

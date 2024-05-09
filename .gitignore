@@ -6,7 +6,7 @@ build/
 !**/src/test/**/build/
 
 src/main/resources/application-prod.yml
-
+src/main/resources/application-dev.yml
 ### STS ###
 .apt_generated
 .classpath
@@ -37,3 +37,6 @@ out/
 
 ### VS Code ###
 .vscode/
+*.yml
+application.properties
+*.xlsx

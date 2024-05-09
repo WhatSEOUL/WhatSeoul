@@ -2,10 +2,10 @@ package com.example.whatseoul.service;
 
 import lombok.RequiredArgsConstructor;
 
-
 import com.example.whatseoul.domain.User;
 import com.example.whatseoul.dto.AddUserRequest;
 import com.example.whatseoul.repository.UserRepository;
+
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 

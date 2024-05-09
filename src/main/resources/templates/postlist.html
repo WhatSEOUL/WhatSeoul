@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 리스트 페이지</title>
+    <style>
+        .layout {
+            width: 500px;
+            margin: 0 auto;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="layout">
+
+        <table>
+            <thead>
+                <tr>
+                    <th>글번호</th>
+                    <th>제목</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr th:each="post : ${list}">
+                <td th:text="${post.postId}">1</td>
+                <td>
+                    <a th:text="${post.postTitle}" th:href="@{/post/view(id=${post.postId})}"></a>
+                </td>
+                <td>
+                    <button type="button" th:attr="onclick=|location.href='/post/edit?postId=${post.postId}'|">
+                        수정
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
