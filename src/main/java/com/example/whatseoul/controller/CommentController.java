@@ -38,15 +38,15 @@ public class CommentController {
         return new ResponseEntity<>(createdComment, HttpStatus.CREATED);
     }
 
-    @PutMapping("/comments/{commentId}")
-    public ResponseEntity<CommentDto> updateComment(@PathVariable Long commentId, @RequestBody CommentDto updatedCommentDto) {
-        CommentDto updatedComment = commentService.updateComment(commentId, updatedCommentDto);
+    @PutMapping("/comments/{comId}")
+    public ResponseEntity<CommentDto> updateComment(@PathVariable Long comId, @RequestBody CommentDto updatedCommentDto) {
+        CommentDto updatedComment = commentService.updateComment(comId, updatedCommentDto);
         return new ResponseEntity<>(updatedComment, HttpStatus.OK);
     }
 
-    @DeleteMapping("/comments/{commentId}")
-    public ResponseEntity<?> deleteComment(@PathVariable Long commentId) {
-        commentService.deleteComment(commentId);
+    @DeleteMapping("/comments/{comId}")
+    public ResponseEntity<?> deleteComment(@PathVariable Long comId) {
+        commentService.deleteComment(comId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 

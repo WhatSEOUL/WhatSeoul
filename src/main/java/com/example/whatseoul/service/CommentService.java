@@ -1,18 +1,13 @@
 package com.example.whatseoul.service;
 
 import com.example.whatseoul.dto.CommentDto;
-import com.example.whatseoul.dto.PostDto;
 import com.example.whatseoul.entity.Comment;
-import com.example.whatseoul.entity.Post;
-import com.example.whatseoul.repository.PostRepository;
-import com.example.whatseoul.respository.post.CommentRepository;
+import com.example.whatseoul.repository.post.CommentRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
