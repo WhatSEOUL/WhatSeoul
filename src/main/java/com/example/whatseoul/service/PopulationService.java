@@ -11,9 +11,9 @@ import com.example.whatseoul.dto.response.PopulationForecastDataDto;
 import com.example.whatseoul.entity.Area;
 import com.example.whatseoul.entity.Population;
 import com.example.whatseoul.entity.PopulationForecast;
-import com.example.whatseoul.respository.cityData.AreaRepository;
-import com.example.whatseoul.respository.cityData.PopulationForecastRepository;
-import com.example.whatseoul.respository.cityData.PopulationRepository;
+import com.example.whatseoul.repository.cityData.AreaRepository;
+import com.example.whatseoul.repository.cityData.PopulationForecastRepository;
+import com.example.whatseoul.repository.cityData.PopulationRepository;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

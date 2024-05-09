@@ -1,6 +1,6 @@
 package com.example.whatseoul.controller;
 
-import com.example.whatseoul.respository.TestRepositoryCustom;
+import com.example.whatseoul.repository.TestRepositoryCustom;
 import lombok.AllArgsConstructor;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.PostMapping;

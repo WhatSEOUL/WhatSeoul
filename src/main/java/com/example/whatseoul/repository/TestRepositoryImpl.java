@@ -1,4 +1,4 @@
-package com.example.whatseoul.respository;
+package com.example.whatseoul.repository;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;

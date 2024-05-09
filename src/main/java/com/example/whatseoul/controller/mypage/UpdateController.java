@@ -1,9 +1,8 @@
 package com.example.whatseoul.controller.mypage;
 
 import com.example.whatseoul.entity.User;
-import com.example.whatseoul.respository.user.UserRepository;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import com.example.whatseoul.repository.user.UserRepository;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
