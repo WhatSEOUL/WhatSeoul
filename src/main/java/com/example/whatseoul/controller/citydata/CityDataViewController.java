@@ -14,10 +14,10 @@ public class CityDataViewController {
 		this.apiScheduler = apiScheduler;
 	}
 
-	@GetMapping("/")
+	/*@GetMapping("/")
 	public String indexPage() {
 		return "/index";
-	}
+	}*/
 
 	@GetMapping("/district")
 	public String selectDistrictPage() {
