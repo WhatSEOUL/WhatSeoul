@@ -54,7 +54,16 @@ public class AccountController {
         if (accountService.existsByUserName(userName)) {
             return ResponseEntity.badRequest().body("이미 사용중인 유저네임입니다.");
         } else {
-            return ResponseEntity.ok("사용가능한 유저네임입니다.");
+            return ResponseEntity.ok("사용 가능한 유저네임입니다.");
+        }
+    }
+
+    @GetMapping("check/email")
+    public ResponseEntity<String> checkDuplicatUserEmail(@RequestParam("email") String userEmail) {
+        if (accountService.existsByUserEmail(userEmail)) {
+            return ResponseEntity.badRequest().body("이미 사용중인 이메일입니다.");
+        } else {
+            return ResponseEntity.ok("사용 가능한 이메일입니다.");
         }
     }
 }
