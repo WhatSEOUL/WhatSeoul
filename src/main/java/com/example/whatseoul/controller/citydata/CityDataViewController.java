@@ -16,27 +16,27 @@ public class CityDataViewController {
 
 	@GetMapping("/")
 	public String indexPage() {
-		return "./index/index";
+		return "index/index";
 	}
 
 	@GetMapping("/district")
 	public String selectDistrictPage() {
-		return "./selectarea/selectdistrict";
+		return "selectarea/selectdistrict";
 	}
 
 	@GetMapping("/area")
 	public String selectAreaNamePage() {
-		return "./selectarea/selectareaname";
+		return "selectarea/selectareaname";
 	}
 
 	@GetMapping("/area/confirm")
 	public String selectAreaNameConfirmPage() {
-		return "./selectarea/selectconfirm";
+		return "selectarea/selectconfirm";
 	}
 
 	// 유저가 지역구 선택한 후 "네, 좋아요" 버튼 클릭했을 때 도시데이터를 조회하는 화면
 	@GetMapping("/citydata")
 	public String citydataPage() {
-		return "./citydata/citydatalist";
+		return "citydata/citydatalist";
 	}
 }
