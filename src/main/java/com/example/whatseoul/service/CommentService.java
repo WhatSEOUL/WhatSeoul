@@ -1,54 +1,66 @@
-package com.example.whatseoul.service;
-
-import com.example.whatseoul.dto.CommentDto;
-import com.example.whatseoul.entity.Comment;
-import com.example.whatseoul.entity.Post;
-import com.example.whatseoul.repository.PostRepository;
-import com.example.whatseoul.respository.cityData.CommentRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
-import java.util.List;
-
-
-@Service
-@RequiredArgsConstructor
-public class CommentService {
-
-    private final CommentRepository commentRepository;
-    private final PostRepository postRepository;
-
-    @Transactional
-    public void addComment(CommentDto commentDto) {
-        Comment comment = new Comment();
-        comment.setComContent(commentDto.getComContent());
-        comment.setComCreated(LocalDateTime.now());
-        comment.setComModified(LocalDateTime.now());
-
-        Post post = postRepository.findById(commentDto.getPostId()).orElseThrow(() -> new RuntimeException("Post not found"));
-        comment.setPost(post);
-
-        commentRepository.save(comment);
-    }
-
-    @Transactional
-    public void editComment(CommentDto commentDto) {
-        Comment comment = commentRepository.findById(commentDto.getComId())
-                .orElseThrow(() -> new RuntimeException("Comment not found"));
-        comment.setComContent(commentDto.getComContent());
-        comment.setComModified(LocalDateTime.now());
-        commentRepository.save(comment);
-    }
-
-    @Transactional
-    public void deleteComment(Long comId) {
-        commentRepository.deleteById(comId);
-    }
-
-    public List<Comment> getCommentsByPostId(Long postId) {
-        return commentRepository.findAllByPostId(postId);
-    }
-
-}
+//package com.example.whatseoul.service;
+//
+//import com.example.whatseoul.dto.CommentDto;
+//import com.example.whatseoul.dto.PostDto;
+//import com.example.whatseoul.entity.Comment;
+//import com.example.whatseoul.entity.Post;
+//import com.example.whatseoul.repository.PostRepository;
+//import com.example.whatseoul.respository.post.CommentRepository;
+//import jakarta.persistence.EntityNotFoundException;
+//import lombok.RequiredArgsConstructor;
+//import org.modelmapper.ModelMapper;
+//import org.springframework.stereotype.Service;
+//import org.springframework.transaction.annotation.Transactional;
+//
+//import java.time.LocalDateTime;
+//import java.util.List;
+//import java.util.stream.Collectors;
+//
+//
+//@Service
+//@RequiredArgsConstructor
+//public class CommentService {
+//
+//    private final CommentRepository commentRepository;
+//    private final ModelMapper modelMapper;
+//
+//    public CommentDto createComment(CommentDto commentDto) {
+//        if (commentDto.getComContent() == null) {
+//            throw new IllegalArgumentException("Comment content cannot be null");
+//        }
+//        Comment comment = convertToEntity(commentDto);
+//        comment = commentRepository.save(comment);
+//        return convertToDto(comment);
+//    }
+//
+//    public List<CommentDto> getCommentsByPostId(Long postId) {
+//        List<Comment> comments = commentRepository.findAllByPostId(postId);
+//        return comments.stream().map(this::convertToDto).collect(Collectors.toList());
+//    }
+//
+//    public CommentDto updateComment(Long id, CommentDto commentDto) {
+//        if (!commentRepository.existsById(id)) {
+//            throw new EntityNotFoundException("Comment not found with id: " + id);
+//        }
+//        Comment comment = convertToEntity(commentDto);
+//        comment.setId(id);
+//        comment = commentRepository.save(comment);
+//        return convertToDto(comment);
+//    }
+//
+//    public void deleteComment(Long id) {
+//        if (!commentRepository.existsById(id)) {
+//            throw new EntityNotFoundException("Comment not found with id: " + id);
+//        }
+//        commentRepository.deleteById(id);
+//    }
+//
+//
+//    private CommentDto convertToDto(Comment comment) {
+//        return modelMapper.map(comment, CommentDto.class);
+//    }
+//
+//    private Comment convertToEntity(CommentDto commentDto) {
+//        return modelMapper.map(commentDto, Comment.class);
+//    }
+//}
