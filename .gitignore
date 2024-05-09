@@ -40,3 +40,7 @@ out/
 *.yml
 application.properties
 *.xlsx
+
+**/application.yml
+
+
