@@ -1,4 +1,4 @@
-package com.example.whatseoul.service;
+package com.example.whatseoul.service.account;
 
 import com.example.whatseoul.dto.response.UserResponseDto;
 import com.example.whatseoul.entity.User;
