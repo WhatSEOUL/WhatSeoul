@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.whatseoul.dto.response.PopulationDataDto;
 import com.example.whatseoul.entity.Area;
-import com.example.whatseoul.respository.cityData.AreaRepository;
+import com.example.whatseoul.repository.cityData.AreaRepository;
 import com.example.whatseoul.service.PopulationService;
 
 import lombok.RequiredArgsConstructor;

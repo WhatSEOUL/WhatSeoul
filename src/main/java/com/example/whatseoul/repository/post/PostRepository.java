@@ -1,4 +1,4 @@
-package com.example.whatseoul.repository;
+package com.example.whatseoul.repository.post;
 
 import com.example.whatseoul.entity.Post;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -1,4 +1,4 @@
-package com.example.whatseoul.respository.cityData;
+package com.example.whatseoul.repository.cityData;
 
 import com.example.whatseoul.entity.Area;
 import org.springframework.data.jpa.repository.JpaRepository;
