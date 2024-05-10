@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <th:block th:fragment="header">
 <!-- 상단바 html start -->
 <nav class="navbar navbar-expand-lg navbar-light">
@@ -21,10 +22,13 @@
                     <a class="nav-link" href="/posts">커뮤니티</a>
                 </li>
                 <li class="nav-item my-page-btn">
-                    <a class="nav-link" href="#">마이페이지</a>
+                    <a class="nav-link" href="/user/me">마이페이지</a>
                 </li>
-                <li class="nav-item logout-btn">
-                    <a class="nav-link" href="#">로그아웃</a>
+                <li class="nav-item logout-btn" sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{/logout}">로그아웃</a>
+                </li>
+                <li class="nav-item login-btn" sec:authorize="!isAuthenticated()">
+                    <a class="nav-link" href="/login">로그인</a>
                 </li>
             </ul>
         </div>
