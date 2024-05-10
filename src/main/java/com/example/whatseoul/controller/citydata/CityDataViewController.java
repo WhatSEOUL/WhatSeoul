@@ -13,7 +13,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.whatseoul.security.CustomUserDetails;
-import com.example.whatseoul.service.AccountService;
 import com.example.whatseoul.service.ApiScheduler;
 
 @Controller
@@ -21,7 +20,7 @@ public class CityDataViewController {
 
 	private final ApiScheduler apiScheduler;
 
-	public CityDataViewController(ApiScheduler apiScheduler, AccountService accountService) {
+	public CityDataViewController(ApiScheduler apiScheduler) {
 		this.apiScheduler = apiScheduler;
 	}
 
