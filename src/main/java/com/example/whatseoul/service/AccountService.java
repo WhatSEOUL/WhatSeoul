@@ -61,4 +61,16 @@ public class AccountService implements UserDetailsService {
         user.setUserPassword(encoder.encode(password));        // 실제 애플리케이션에서는 패스워드를 암호화해야 합니다.
         userRepository.save(user);
     }
+
+    @Transactional
+    public void withDraw(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+
+        User user = userRepository.findByUserEmail(userDetails.getUsername())
+                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
+
+        user.setActive(false);
+        userRepository.save(user);
+    }
 }

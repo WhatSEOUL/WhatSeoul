@@ -1,21 +1,60 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <title>Login Page</title>
   <link rel="stylesheet" type="text/css" href="/css/user/login.css" th:href="@{/css/user/login.css}">
-
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="/css/index/index.css" th:href="@{/css/index/index.css}">
 </head>
 <body>
+<header>
+  <!-- 상단바 html start  -->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+      <a class="navbar-brand" onclick="location.href='/'">WhatSeoul</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <!--                    <li class="nav-item active">-->
+          <!--                        <a class="nav-link" href="#">현재있는 메뉴는 이 클래스 쓰면 될듯 <span class="sr-only">(현재)</span></a>-->
+          <!--                    </li>-->
+          <li class="nav-item">
+            <a class="nav-link" href="/district">지금 서울은?</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/alan/sse">서울 명소 추천받기</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/posts">커뮤니티</a>
+          </li>
+          <li class="nav-item my-page-btn">
+            <a class="nav-link" href="/user/me">마이페이지</a>
+          </li>
+          <li class="nav-item logout-btn" sec:authorize="isAuthenticated()">
+            <a class="nav-link" th:href="@{/logout}">로그아웃</a>
+          </li>
+          <li class="nav-item login-btn" sec:authorize="!isAuthenticated()">
+            <a class="nav-link" href="/login">로그인</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- 상단바 html end -->
+</header>
 <div class="container">
   <div class="hero">
     <form th:action="@{/login}" method="post" class="form">
       <div class="logo">로그인</div>
       <input name="username" id="username" required class="input" placeholder="username">
       <input type="password" name="password" id="password" required class="input" placeholder="password">
-      <input type="submit" value="Log in" class="input submit">
-      <p class="signup">Don't have an account? <a href="/register">SignUp</a></p>
+      <input type="submit" value="로그인" class="input submit">
+      <p class="signup">계정이 없으신가요? <a href="/register">회원가입</a></p>
     </form>
   </div>
 </div>

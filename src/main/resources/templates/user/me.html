@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8">
   <title>MyPage</title>
@@ -30,8 +31,11 @@
           <li class="nav-item my-page-btn">
             <a class="nav-link" href="/user/me">마이페이지</a>
           </li>
-          <li class="nav-item logout-btn">
-            <a class="nav-link" href="#">로그아웃</a>
+          <li class="nav-item logout-btn" sec:authorize="isAuthenticated()">
+            <a class="nav-link" th:href="@{/logout}">로그아웃</a>
+          </li>
+          <li class="nav-item login-btn" sec:authorize="!isAuthenticated()">
+            <a class="nav-link" href="/login">로그인</a>
           </li>
         </ul>
       </div>

@@ -42,9 +42,19 @@ public class UserController {
         return "redirect:/";
     }
 
+    @GetMapping("update")
+    public String update() {
+        return "/user/update";
+    }
+
     @PostMapping("update")
     public String updateUserInfo(String password) {
         accountService.updatePw(password);
-        return "redirect:/mypage/me";
+        return "redirect:/user/me";
+    }
+
+    @PostMapping("withdraw")
+    public String withDraw(){
+        return "/user/withdraw";
     }
 }
