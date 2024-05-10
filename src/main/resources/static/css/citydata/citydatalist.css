@@ -323,6 +323,9 @@ section.buttons-wrapper {
 /* 인구데이터 조회 관련 css end ===> */
 
 /* 문화행사 데이터 조회 관련 css start ===> */
+.main-content-culture-wrapper{
+    margin-bottom: 50px;
+}
 .event-info{
     margin-bottom: 50px;
 }

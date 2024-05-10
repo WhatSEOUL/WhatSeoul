@@ -1,4 +1,4 @@
-package com.example.whatseoul.respository.user;
+package com.example.whatseoul.repository.user;
 
 import com.example.whatseoul.entity.User;
 import java.util.Optional;
@@ -10,4 +10,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByUserName(String userName);
     Optional<User> findByUserEmail(String email); // 이메일을 기준으로 사용자 찾기
+    boolean existsByUserName(String userName);
+    boolean existsByUserEmail(String userEmail);
 }
