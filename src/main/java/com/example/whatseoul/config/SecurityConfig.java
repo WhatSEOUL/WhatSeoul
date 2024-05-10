@@ -39,18 +39,19 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            .csrf(AbstractHttpConfigurer::disable) // csrf 비활성화
-            .authorizeHttpRequests(requests -> requests
-                .requestMatchers("/", "login", "/user/login", "/join", "user/register", "register")
-                .permitAll() // 홈, 로그인, 회원가입 로그인 없이 접근가능
-                .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/login")
-                .defaultSuccessUrl("/", true)
-                .permitAll()
-            )
-            .logout(LogoutConfigurer::permitAll);
+                .csrf(AbstractHttpConfigurer::disable) // csrf 비활성화
+                .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/", "/login", "/register", "/api/join", "/api/check/username", "/api/check/email")
+                        .permitAll() // 홈, 로그인, 회원가입 로그인 없이 접근가능
+                        .anyRequest().authenticated()
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/", true)
+                        .permitAll()
+                )
+                .logout(requests -> requests.logoutSuccessUrl("/")
+                        .invalidateHttpSession(true));
 
         return http.build();
     }

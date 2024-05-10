@@ -50,10 +50,10 @@
 </header>
 <div class="container">
   <div class="hero">
-    <form th:action="@{/join}" method="post" class="form">
+    <form th:action="@{/api/join}" method="post" class="form">
       <div class="logo">회원가입</div>
-      <input type="email" name="email" required class="input" placeholder="email">
-      <input name="name" required class="input" placeholder="username">
+      <input type="email" id="email" name="email" required class="input" placeholder="email">
+      <input name="name" id="userName" required class="input" placeholder="username">
       <input type="password" name="password" required class="input" placeholder="password">
       <input type="submit" value="회원가입" class="input submit">
     </form>

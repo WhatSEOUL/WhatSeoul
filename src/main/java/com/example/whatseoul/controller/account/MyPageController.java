@@ -1,4 +1,4 @@
-package com.example.whatseoul.controller.user;
+package com.example.whatseoul.controller.account;
 
 import com.example.whatseoul.entity.User;
 import com.example.whatseoul.repository.user.UserRepository;

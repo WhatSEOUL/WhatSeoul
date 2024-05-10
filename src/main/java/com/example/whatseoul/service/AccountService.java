@@ -1,5 +1,6 @@
 package com.example.whatseoul.service;
 
+import com.example.whatseoul.dto.response.UserResponseDto;
 import com.example.whatseoul.entity.User;
 import com.example.whatseoul.repository.user.UserRepository;
 import java.util.ArrayList;
@@ -38,17 +39,20 @@ public class AccountService implements UserDetailsService {
     }
 
     @Transactional
-    public boolean join(String userEmail, String userPwd, String userName) {
-        if (userRepository.findByUserEmail(userEmail).isPresent()) {
-            return false;
-        }
+    public UserResponseDto join(String userEmail, String userPwd, String userName) {
+        boolean checkEmail = existsByUserEmail(userEmail);
+        boolean checkUserName = existsByUserName(userName);
+
+        if(checkEmail || checkUserName) throw new RuntimeException("이메일 또는 유저네임 중복 발생");
+
         User newUser = new User();
         newUser.setUserEmail(userEmail);
         newUser.setUserPassword(encoder.encode(userPwd));
         newUser.setUserName(userName);
         newUser.setActive(true);
         userRepository.save(newUser);
-        return true;
+
+        return UserResponseDto.from(newUser);
     }
 
     @Transactional
@@ -72,5 +76,13 @@ public class AccountService implements UserDetailsService {
 
         user.setActive(false);
         userRepository.save(user);
+    }
+
+    public boolean existsByUserName(String userName) {
+        return userRepository.existsByUserName(userName);
+    }
+
+    public boolean existsByUserEmail(String userEmail) {
+        return userRepository.existsByUserEmail(userEmail);
     }
 }
