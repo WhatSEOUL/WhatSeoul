@@ -3,8 +3,8 @@ package com.example.whatseoul.service;
 import com.example.whatseoul.dto.response.WeatherDataDto;
 import com.example.whatseoul.entity.Area;
 import com.example.whatseoul.entity.Weather;
-import com.example.whatseoul.respository.cityData.AreaRepository;
-import com.example.whatseoul.respository.cityData.WeatherRepository;
+import com.example.whatseoul.repository.cityData.AreaRepository;
+import com.example.whatseoul.repository.cityData.WeatherRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

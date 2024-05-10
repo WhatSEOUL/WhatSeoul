@@ -4,7 +4,7 @@
 //import com.example.whatseoul.dto.PostDto;
 //import com.example.whatseoul.entity.Comment;
 //import com.example.whatseoul.entity.Post;
-//import com.example.whatseoul.repository.PostRepository;
+//import com.example.whatseoul.respository.post.PostRepository;
 //import com.example.whatseoul.respository.post.CommentRepository;
 //import jakarta.persistence.EntityNotFoundException;
 //import lombok.RequiredArgsConstructor;

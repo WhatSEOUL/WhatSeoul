@@ -2,7 +2,7 @@ package com.example.whatseoul.controller;
 
 import com.example.whatseoul.dto.response.WeatherDataDto;
 import com.example.whatseoul.entity.Area;
-import com.example.whatseoul.respository.cityData.AreaRepository;
+import com.example.whatseoul.repository.cityData.AreaRepository;
 import com.example.whatseoul.service.WeatherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
