@@ -1,4 +1,4 @@
-package com.example.whatseoul.controller.account;
+package com.example.whatseoul.controller.user;
 
 import com.example.whatseoul.service.account.AccountService;
 
@@ -12,12 +12,11 @@ import org.springframework.security.web.authentication.logout.SecurityContextLog
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequiredArgsConstructor
-public class AccountController {
+public class UserController {
 
     private final AccountService accountService;
 
