@@ -25,12 +25,7 @@ public class CityDataViewController {
 	}
 
 	@GetMapping("/")
-	public String indexPage(@AuthenticationPrincipal CustomUserDetails userDetails, Model model) {
-		if (userDetails != null) {
-			model.addAttribute("isAuthenticated", true);
-		} else {
-			model.addAttribute("isAuthenticated", false);
-		}
+	public String indexPage() {
 		return "/index/index";
 	}
 
