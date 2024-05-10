@@ -13,8 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.whatseoul.security.CustomUserDetails;
+import com.example.whatseoul.service.AccountService;
 import com.example.whatseoul.service.ApiScheduler;
-import com.example.whatseoul.service.account.AccountService;
 
 @Controller
 public class CityDataViewController {

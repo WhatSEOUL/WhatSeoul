@@ -1,28 +1,40 @@
+@font-face {
+    font-family: 'SDSamliphopangche_Outline';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Outline.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+header{
+    font-family: 'SDSamliphopangche_Outline', serif;
+}
+
 /* 상단바 css start  */
 .navbar {
     height:10vh; /* 네비게이션 바의 높이를 조정합니다. */
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과를 추가합니다. */
 }
 
+.navbar-brand{
+    font-size: 50px;
+}
+.navbar-brand :hover{
+    cursor: pointer;
+}
 .navbar-nav .nav-item:nth-child(1) .nav-link,
 .navbar-nav .nav-item:nth-child(2) .nav-link {
     margin-right: 2vw; /* 첫 번째와 두 번째 nav-item에 margin-right를 추가합니다. */
 }
 
-.signup-btn,
 .my-page-btn {
     margin-left: 2vw;
     background-color: #007bff;
     border-radius: 5px;
 }
-
-.signup-btn a,
 .my-page-btn a {
     color: #ffffff !important;
 }
-
-.login-btn,
-.logout-btn {
+.logout-btn,
+.login-btn {
     margin-left: 1vw;
     background-color: #6c757d;
     border-radius: 5px;

@@ -30,26 +30,28 @@ public class SecurityConfig {
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring()
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
-            .requestMatchers("/static/**","/css/**", "/js/**", "/media/**", "/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html");
+            .requestMatchers("/static/**","/css/**", "/js/**", "/media/**",
+                    "/swagger-ui/**", "/v3/api-docs/**", "/swagger-ui.html");
     }
+
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-            .csrf(AbstractHttpConfigurer::disable) // csrf 비활성화
-            .authorizeHttpRequests(requests -> requests
-                .requestMatchers("/", "/login", "/register", "/api/join", "/api/check/username", "/api/check/email")
-                .permitAll() // 홈, 로그인, 회원가입 로그인 없이 접근가능
-                .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/login")
-                .defaultSuccessUrl("/", true)
-                .permitAll()
-            )
-            .logout(requests -> requests.logoutSuccessUrl("/")
-                .invalidateHttpSession(true));
+                .csrf(AbstractHttpConfigurer::disable) // csrf 비활성화
+                .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/", "/login", "/register", "/api/join", "/api/check/username", "/api/check/email")
+                        .permitAll() // 홈, 로그인, 회원가입 로그인 없이 접근가능
+                        .anyRequest().authenticated()
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/", true)
+                        .permitAll()
+                )
+                .logout(requests -> requests.logoutSuccessUrl("/")
+                        .invalidateHttpSession(true));
 
         return http.build();
     }
