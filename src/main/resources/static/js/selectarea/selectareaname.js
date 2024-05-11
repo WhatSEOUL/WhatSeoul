@@ -202,3 +202,79 @@ areaButtons.forEach(function(button) {
         location.href = "/area/confirm";
     })
 })
+
+// 카카오맵 api
+var container = document.getElementById('map');
+var options = {
+    center: new kakao.maps.LatLng(37.4981646510326, 127.028307900881),
+    level: 3
+};
+
+var map = new kakao.maps.Map(container, options);
+
+// 지역정보 조회 api 호출
+document.addEventListener('DOMContentLoaded', function() {
+    // 페이지가 로드되면 한 번만 fetch 요청을 보냅니다.
+    fetch('/api/area', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ areaNames: areaNames })
+    })
+        .then(response => response.json())
+        .then(data => {
+            // 호출 데이터 [{..}, {..}, {..}, ..]를 이용해 좌표 설정
+            var points = [];
+
+            data.forEach(area => {
+
+                // 각 지역의 위도(latitude)와 경도(longitude) 값을 가져와 points 배열에 추가
+                var latitude = area.areaLatitude;
+                var longitude = area.areaLongitude;
+                var point = new kakao.maps.LatLng(latitude, longitude);
+                points.push(point);
+
+                // 마커 생성
+                var marker = new kakao.maps.Marker({ position: point });
+
+                // 인포윈도우 생성
+                var infowindow = new kakao.maps.InfoWindow({
+                    content: '<div style="padding:5px;">' + area.areaName + '</div>'
+                });
+
+                // 마커에 마우스 호버 이벤트 추가
+                kakao.maps.event.addListener(marker, 'mouseover', function() {
+                    // 마우스 호버 시 인포윈도우를 지도에 표시
+                    infowindow.open(map, marker);
+                });
+
+                // 마커에 마우스 아웃 이벤트 추가 (선택 사항)
+                kakao.maps.event.addListener(marker, 'mouseout', function() {
+                    // 마우스가 마커를 벗어날 때 인포윈도우를 닫음
+                    infowindow.close();
+                });
+
+                // 마커 지도에 추가
+                marker.setMap(map);
+
+                // LatLngBounds 객체에 좌표를 추가합니다
+                // bounds.extend(point);
+            });
+
+            // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
+            var bounds = new kakao.maps.LatLngBounds();
+
+            // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
+            points.forEach(point => {
+                bounds.extend(point);
+            });
+
+            // 지도의 범위를 재설정합니다.
+            map.setBounds(bounds);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});
+
