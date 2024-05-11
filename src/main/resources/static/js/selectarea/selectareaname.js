@@ -163,7 +163,10 @@ const areasByDistrict = {
         "응봉산"
     ]
 };
+var infowindow = new kakao.maps.InfoWindow({});
 
+// 전역 변수로 마커 객체 배열 생성
+var markers = [];
 // 선택한 구 이름 출력
 const strongText = document.querySelector('.main-content-text strong');
 const districtName = localStorage.getItem('district');
@@ -195,11 +198,53 @@ if(areaNames) {
 }
 
 const areaButtons = document.querySelectorAll('.area-name');
-areaButtons.forEach(function(button) {
+areaButtons.forEach(function(button, index) {
     button.addEventListener('click', function () {
         var buttonText = button.textContent;
         localStorage.setItem('area', buttonText);
-        location.href = "/area/confirm";
+
+        // 클릭한 버튼의 buttonText가 areaNames에서 차지하는 인덱스와 markers에서 marker가 차지하는 인덱스가 같으면
+        // 이 코드 실행
+        // infowindow.open(map, marker);
+
+        if (markers[index]) {
+            infowindow.setContent('<div style="padding:5px; width:max-content;">' + buttonText + '</div>');
+            infowindow.open(map, markers[index]);
+        }
+
+        const isConfirm = confirm("페이지를 이동합니다.");
+        if (isConfirm) {
+            location.href = "/area/confirm";
+        }
+    })
+
+    button.addEventListener('mouseover', function () {
+        var buttonText = button.textContent;
+        console.log("areas: ", areas);
+        console.log("markers: ", markers);
+
+        // 클릭한 버튼의 buttonText가 areaNames에서 차지하는 인덱스와 markers에서 marker가 차지하는 인덱스가 같으면
+        // 이 코드 실행
+        // infowindow.open(map, marker);
+
+        if (markers[index]) {
+            infowindow.setContent('<div style="padding:5px; width:max-content;">' + buttonText + '</div>');
+            infowindow.open(map, markers[index]);
+        }
+
+
+    })
+
+    button.addEventListener('mouseout', function () {
+        var buttonText = button.textContent;
+        console.log("areas: ", areas);
+        console.log("markers: ", markers);
+
+        // 클릭한 버튼의 buttonText가 areaNames에서 차지하는 인덱스와 markers에서 marker가 차지하는 인덱스가 같으면
+        // 이 코드 실행
+        // infowindow.open(map, marker);
+
+        infowindow.close();
     })
 })
 
@@ -211,6 +256,7 @@ var options = {
 };
 
 var map = new kakao.maps.Map(container, options);
+// 전역 변수로 인포윈도우 객체 생성
 
 // 지역정보 조회 api 호출
 document.addEventListener('DOMContentLoaded', function() {
@@ -226,7 +272,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(data => {
             // 호출 데이터 [{..}, {..}, {..}, ..]를 이용해 좌표 설정
             var points = [];
-
+            areas = data;
             data.forEach(area => {
 
                 // 각 지역의 위도(latitude)와 경도(longitude) 값을 가져와 points 배열에 추가
@@ -258,6 +304,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 // 마커 지도에 추가
                 marker.setMap(map);
 
+                // 마커 객체를 전역 배열에 저장
+                markers.push(marker);
                 // LatLngBounds 객체에 좌표를 추가합니다
                 // bounds.extend(point);
             });
@@ -277,4 +325,11 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error:', error);
         });
 });
+
+function viewConfirmPage() {
+    const isConfirm = confirm("페이지를 이동합니다.");
+    if (isConfirm) {
+        location.href = "/area/confirm";
+    }
+}
 
