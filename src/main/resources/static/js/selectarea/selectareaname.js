@@ -163,6 +163,19 @@ const areasByDistrict = {
         "응봉산"
     ]
 };
+// 카카오맵 api
+var container = document.getElementById('map');
+var options = {
+    center: new kakao.maps.LatLng(37.4981646510326, 127.028307900881),
+    level: 3
+};
+
+var map = new kakao.maps.Map(container, options);
+
+// 지도 확대/축소 컨트롤 추가
+var zoomControl = new kakao.maps.ZoomControl();
+map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
 var infowindow = new kakao.maps.InfoWindow({});
 
 // 전역 변수로 마커 객체 배열 생성
@@ -248,15 +261,7 @@ areaButtons.forEach(function(button, index) {
     })
 })
 
-// 카카오맵 api
-var container = document.getElementById('map');
-var options = {
-    center: new kakao.maps.LatLng(37.4981646510326, 127.028307900881),
-    level: 3
-};
 
-var map = new kakao.maps.Map(container, options);
-// 전역 변수로 인포윈도우 객체 생성
 
 // 지역정보 조회 api 호출
 document.addEventListener('DOMContentLoaded', function() {
