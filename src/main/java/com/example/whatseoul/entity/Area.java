@@ -22,4 +22,10 @@ public class Area {
 
     @Column(name = "AREA_NAME")
     private String areaName;
+
+    @Column(name = "AREA_LATITUDE")
+    private Double areaLatitude;
+
+    @Column(name = "AREA_LONGITUDE")
+    private Double areaLongitude;
 }
