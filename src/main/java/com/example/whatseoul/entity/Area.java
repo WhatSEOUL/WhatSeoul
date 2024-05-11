@@ -28,4 +28,10 @@ public class Area {
 
     @Column(name = "AREA_LONGITUDE")
     private Double areaLongitude;
+
+    @Column(name = "AREA_LOCATION_INFO", columnDefinition = "TEXT")
+    private String areaLocationInfo;
+
+    @Column(name = "AREA_ATTRACTION_INFO")
+    private String areaAttractionInfo;
 }
