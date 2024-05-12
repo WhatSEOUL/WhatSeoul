@@ -1,14 +1,16 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>WhatSeoul</title>
+    <title>비밀번호 수정</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="./css/selectarea/selectareaname.css" th:href="@{/css/selectarea/selectareaname.css}">
-    <script defer src="/js/selectarea/selectareaname.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/index/index.css" th:href="@{/css/index/index.css}">
+    <link rel="stylesheet" type="text/css" href="/css/user/update.css" th:href="@{/css/user/update.css}">
+
 </head>
 <body>
 <header>
@@ -22,7 +24,10 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
+                    <!--                    <li class="nav-item active">-->
+                    <!--                        <a class="nav-link" href="#">현재있는 메뉴는 이 클래스 쓰면 될듯 <span class="sr-only">(현재)</span></a>-->
+                    <!--                    </li>-->
+                    <li class="nav-item">
                         <a class="nav-link" href="/district">지금 서울은?</a>
                     </li>
                     <li class="nav-item">
@@ -34,8 +39,11 @@
                     <li class="nav-item my-page-btn">
                         <a class="nav-link" href="/user/me">마이페이지</a>
                     </li>
-                    <li class="nav-item logout-btn">
+                    <li class="nav-item logout-btn" sec:authorize="isAuthenticated()">
                         <a class="nav-link" th:href="@{/logout}">로그아웃</a>
+                    </li>
+                    <li class="nav-item login-btn" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" href="/login">로그인</a>
                     </li>
                 </ul>
             </div>
@@ -43,24 +51,19 @@
     </nav>
     <!-- 상단바 html end -->
 </header>
-<main>
-    <div class="main-content">
-        <div class="main-content-text">
-            <strong></strong>를 선택하셨어요.<br>
-            구체적으로 어느 지역에 관심이 있나요?
-        </div>
-        <div class="button-container-wrapper">
-        </div>
-    </div>
-    <!-- 뒤로가기 버튼 -->
-    <div class="button-container-wrapper" id="backButtonWrapper">
-        <button id="backButton" onclick="location.href='/district'">뒤로가기</button>
-    </div>
-</main>
-<!-- 부트스트랩 JS (jQuery 포함) -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 
+<form th:action="@{/api/update}" method="post">
+    <div class="card">
+        <span class="card__title">비밀번호 수정</span>
+        <!--<p class="card__content">Get fresh web design resources delivered straight to your inbox every week.
+        </p>-->
+        <div class="card__form">
+            <label>
+                <input placeholder="new password" type="password" name="password" required />
+            </label>
+            <button class="sign-up" type="submit">수정하기</button>
+        </div>
+    </div>
+</form>
 </body>
 </html>

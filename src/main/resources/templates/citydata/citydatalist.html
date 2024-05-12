@@ -40,7 +40,7 @@
                         <a class="nav-link" href="#">커뮤니티</a>
                     </li>
                     <li class="nav-item my-page-btn">
-                        <a class="nav-link" href="#">마이페이지</a>
+                        <a class="nav-link" href="/api/user/me">마이페이지</a>
                     </li>
                     <li class="nav-item logout-btn">
                         <a class="nav-link" href="#">로그아웃</a>
@@ -123,6 +123,9 @@
                         <canvas id="myChart"></canvas>
                     </div>
                 </div>
+                <div class="ppltn-update-time" style="font-size: 10px; color: gray;">
+                    🕖 업데이트 시간: <span class="span-ppltn-update-time" ></span>
+                </div>
             </div>
 
             <!-- 실시간 문화행사 정보 -->
@@ -141,10 +144,7 @@
 
     <!-- 계속 떠다니는 버튼들 필요없을시 제거  -->
     <section class="buttons-wrapper" >
-        <button class="location-info-btn" onclick="location.href='/district'">
-            실시간<br>
-            지역정보 확인하기</button>
-        <button class="alan-question-btn" href="#">
+        <button class="alan-question-btn" onclick="location.href='/alan/sse'">
             <div class="alan-question-btn-content">
                 <div class="btn-content-text">
                     앨런에게<br>

@@ -2,11 +2,10 @@ package com.example.whatseoul.service;
 
 import com.example.whatseoul.dto.CityData;
 import com.example.whatseoul.entity.*;
-import com.example.whatseoul.respository.cityData.*;
+import com.example.whatseoul.repository.cityData.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;

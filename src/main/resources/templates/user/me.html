@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>MyPage</title>
+  <link rel="stylesheet" type="text/css" href="/css/user/mypage.css" th:href="@{/css/user/mypage.css}">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+</head>
+<body>
+<header>
+  <!-- 상단바 html start  -->
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="container">
+      <a class="navbar-brand" onclick="location.href='/'">WhatSeoul</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/district">지금 서울은?</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/alan/sse">서울 명소 추천받기</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/posts">커뮤니티</a>
+          </li>
+          <li class="nav-item my-page-btn">
+            <a class="nav-link" href="/user/me">마이페이지</a>
+          </li>
+          <li class="nav-item logout-btn" sec:authorize="isAuthenticated()">
+            <a class="nav-link" th:href="@{/logout}">로그아웃</a>
+          </li>
+          <li class="nav-item login-btn" sec:authorize="!isAuthenticated()">
+            <a class="nav-link" href="/login">로그인</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- 상단바 html end -->
+</header>
+  <div class="card">
+    <div class="card-details">
+      <p class="userName"><span th:text="${userName}"></span></p>
+      <p class="userEmail"><span th:text="${userEmail}"></span></p>
+    </div>
+    <a class="card-button" href="/update">비밀번호 수정하기</a>
+  </div>
+</body>
+</html>
