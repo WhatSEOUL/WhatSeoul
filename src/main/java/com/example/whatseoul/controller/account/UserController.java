@@ -26,7 +26,7 @@ public class UserController {
 
     @GetMapping("register")
     public String register() {
-        return "/user/register";  // 회원가입 페이지를 반환
+        return "user/register";  // 회원가입 페이지를 반환
     }
 
     @PostMapping("/api/join")
@@ -42,7 +42,7 @@ public class UserController {
 
     @GetMapping("update")
     public String update() {
-        return "/user/update";
+        return "user/update";
     }
 
     @PostMapping("/api/update")
@@ -53,7 +53,7 @@ public class UserController {
 
     @PostMapping("withdraw")
     public String withDraw(){
-        return "/user/withdraw";
+        return "user/withdraw";
     }
 
     @GetMapping("/api/check/username")
