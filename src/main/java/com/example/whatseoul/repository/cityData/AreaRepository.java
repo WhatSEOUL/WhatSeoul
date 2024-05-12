@@ -20,5 +20,10 @@ public interface AreaRepository extends JpaRepository<Area, Long> {
     @Transactional
     @Modifying
     @Query("UPDATE Area a SET a.areaLocationInfo = :areaLocationInfo WHERE a.areaName = :areaName")
-    int updateAreaLocationInfoByAreaName(String areaName, String areaLocationInfo);
+    void updateAreaLocationInfoByAreaName(String areaName, String areaLocationInfo);
+
+    @Transactional
+    @Modifying
+    @Query("UPDATE Area a SET a.areaAttractionInfo = :areaAttractionInfo WHERE a.areaName = :areaName")
+    void updateAreaAttractionInfoByAreaName(String areaName, String areaAttractionInfo);
 }

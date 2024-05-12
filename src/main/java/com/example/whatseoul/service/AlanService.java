@@ -49,16 +49,31 @@ public class AlanService {
 		return parseJsonResponse(responseBody);
 	}
 
-	@Transactional
-	@Scheduled(cron = "0 52 13/24 * * *")
-	public void fetchAlanAreaResponse() throws JsonProcessingException {
+	// @Transactional
+	// @Scheduled(cron = "0 26 19/24 * * *")
+	public void fetchAlanAreaResponse(String type, List<String> areaNames) throws JsonProcessingException {
 		long startTime = System.currentTimeMillis();
-		List<String> names = areaRepository.findAllAreaNames();
-		// 하루 100회까지만 가능 - 사실상 분리해서 질의해야 함
-		for (int i = 10; i < 40; i++) {
-			log.info("area {} start", names.get(i));
+		// 스케줄링으로 컨트롤러 없이 서비스 메소드만으로 데이터를 저장할 경우
+		// String type = "attraction";
+		// List<String> areaNames = areaRepository.findAllAreaNames();
 
-			String content = names.get(i) + "의 도로명 주소를 한줄로 알려줘."
+		// 하루 100회까지만 가능 - 사실상 분리해서 질의해야 함
+		log.info("type: {}, areaNames: {}", type, areaNames);
+		if (type.equals("location")) {
+			updateAreaLocationInfo(areaNames);
+		} else if (type.equals("attraction")) {
+			updateAreaAttarctionInfo(areaNames);
+		}
+		long endTime = System.currentTimeMillis();
+		long totalTime = (endTime-startTime)/1000;
+		log.info("소요 시간 = " + totalTime);
+	}
+
+	public void updateAreaLocationInfo(List<String> areaNames) throws JsonProcessingException {
+		for (String areaName : areaNames) {
+			log.info("area {} start", areaName);
+
+			String content = "서울 " + areaName + "의 도로명 주소를 한줄로 알려줘."
 				+ "\n반드시 그 어떤 다른 안내문구도 없이 도로명 주소만을 알려줘.";
 
 			String uri = UriComponentsBuilder
@@ -72,12 +87,32 @@ public class AlanService {
 			AlanBasicResponseDto jsonResponse = parseJsonResponse(responseBody);
 			String areaLocationInfo = jsonResponse.getContent();
 			log.info("areaLocationInfo = {}", areaLocationInfo);
-			areaRepository.updateAreaLocationInfoByAreaName(names.get(i), areaLocationInfo);
-			log.info("area {} end", names.get(i));
+			areaRepository.updateAreaLocationInfoByAreaName(areaName, areaLocationInfo);
+			log.info("area {} end", areaName);
 		}
-		long endTime = System.currentTimeMillis();
-		long totalTime = (endTime-startTime)/1000;
-		log.info("소요 시간 = " + totalTime);
+	}
+
+	public void updateAreaAttarctionInfo(List<String> areaNames) throws JsonProcessingException {
+		for (int i = 65; i < areaNames.size(); i++) {
+			log.info("area {} start", areaNames.get(i));
+
+			String content = "서울 " + areaNames.get(i) + "의 특색을 4줄 이내로 알려줘."
+				+ "\n이 지역의 명소와 특징을 위주로 알려줘";
+
+			String uri = UriComponentsBuilder
+				.fromHttpUrl(BASE_URL)
+				.queryParam("content", content)
+				.queryParam("client_id", CLIENT_ID)
+				.toUriString();
+
+			ResponseEntity<String> response =  restTemplate.getForEntity(uri, String.class);
+			String responseBody = response.getBody();
+			AlanBasicResponseDto jsonResponse = parseJsonResponse(responseBody);
+			String areaAttractionInfo = jsonResponse.getContent();
+			log.info("areaAttractionInfo = {}", areaAttractionInfo);
+			areaRepository.updateAreaAttractionInfoByAreaName(areaNames.get(i), areaAttractionInfo);
+			log.info("area {} end", areaNames.get(i));
+		}
 	}
 
 	private AlanBasicResponseDto parseJsonResponse(String responseBody) throws JsonProcessingException {

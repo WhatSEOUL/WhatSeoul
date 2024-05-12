@@ -33,9 +33,9 @@ public class AlanController {
 	// 지역 위치 및 명소 정보 저장을 위한 앨런 기본 질의
 	// 서비스 메소드만 필요할 수도
 	@GetMapping("/alan/basic/area")
-	public ResponseEntity<Void> getAlanAreaResponse(@RequestParam("areaName") List<String> areaNames) throws
+	public ResponseEntity<Void> getAlanAreaResponse(@RequestParam("type") String type, @RequestParam("areaNames") List<String> areaNames) throws
 		JsonProcessingException {
-		alanService.fetchAlanAreaResponse();
+		alanService.fetchAlanAreaResponse(type, areaNames);
 		return ResponseEntity.ok().build();
 	}
 }
