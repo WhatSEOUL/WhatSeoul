@@ -219,7 +219,8 @@ areaButtons.forEach(function(button, index) {
     button.addEventListener('click', function () {
         var buttonText = button.textContent;
         localStorage.setItem('area', buttonText);
-
+        const areaNameDiv = document.querySelector(".main-content-area-name");
+        areaNameDiv.innerText = buttonText;
         // 클릭한 버튼의 buttonText가 areaNames에서 차지하는 인덱스와 markers에서 marker가 차지하는 인덱스가 같으면
         // 이 코드 실행
         // infowindow.open(map, marker);
@@ -359,16 +360,11 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 });
 
-function viewConfirmPage() {
-    const isConfirm = confirm("페이지를 이동합니다.");
-    if (isConfirm) {
-        location.href = "/area/confirm";
-    }
-}
-
 function formatResponse(response) {
+    let boldRegex = /\*\*(.*?)\*\*/g; // 볼드 처리를 위한 정규표현식
     let urlRegex = /\[(.*?)\]\((.*?)\)/g; // URL 추출을 위한 정규표현식
 
+    response = response.replace(boldRegex, '<strong>$1</strong>'); // ** **를 <strong> 태그로 바꾸기
     response = response.replace(urlRegex, '<a href="$2" target="_blank">$1</a>'); // URL을 <a> 태그로 바꾸기
 
     // 마침표(.)로 끝나는 문장을 기준으로 문단을 나누고, 각 문단을 <p> 태그로 감싸기

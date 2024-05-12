@@ -75,5 +75,38 @@
 .main-content-location-attraction-info-wrapper {
     display: none;
     width: 50vw;
-    margin-top: 5vh;
+    margin-top: 2vh;
+}
+
+/* 버튼을 클릭한 지역 이름을 나타내는 div */
+.main-content-area-name {
+    align-self: flex-start;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-top: 2vh;
+}
+
+.main-content-location-attraction-info-wrapper-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    border-bottom: 1px solid #cfcfcf;
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+
+}
+
+/* 실시간 지역정보 확인하기 버튼 */
+.confirm-button {
+    float: right;
+    height: 5vh;
+    font-size: 1.2rem;
+    border: 0px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.25); /* 그림자 효과를 추가합니다. */
+    background-color: #65abff;
+    color: #ffffff;
+}
+
+.confirm-button:hover {
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.5); /* 호버 시 그림자 효과를 강화합니다. */
 }
