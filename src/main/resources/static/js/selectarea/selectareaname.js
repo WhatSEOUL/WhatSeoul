@@ -247,8 +247,8 @@ areaButtons.forEach(function(button, index) {
                 console.log(data.areaLocationInfo);
                 const content = formatResponse(data.areaLocationInfo);
                 console.log(content);
-                locationAttractionDiv.textContent = data.areaLocationInfo;
                 locationAttractionWrapper.style.display = "block";
+                locationAttractionDiv.innerHTML = formatResponse(data.areaLocationInfo);
             })
             .catch(error => {
                 console.log('Error: ', error);
@@ -363,21 +363,16 @@ function viewConfirmPage() {
 }
 
 function formatResponse(response) {
-    // 문장을 구분하는 정규 표현식
-    var sentencePattern = /[^.!?]*[.!?]/;
+    let boldRegex = /\*\*(.*?)\*\*/g; // 볼드 처리를 위한 정규표현식
+    let urlRegex = /\[(.*?)\]\((.*?)\)/g; // URL 추출을 위한 정규표현식
 
-    // 주어진 텍스트에서 첫 번째 문장을 추출
-    var firstSentence = response.match(sentencePattern);
 
-    // 추가: 중괄호 [가 등장할 때까지의 내용을 첫 번째 문장으로 반환
-    if (firstSentence) {
-        var index = firstSentence[0].indexOf('[');
-        if (index !== -1) {
-            return firstSentence[0].substring(0, index);
-        } else {
-            return firstSentence[0];
-        }
-    }
+    response = response.replace(boldRegex, '<strong>$1</strong>'); // ** **를 <strong> 태그로 바꾸기
+    response = response.replace(urlRegex, '<a href="$2" target="_blank">$1</a>'); // URL을 <a> 태그로 바꾸기
 
-    return ''; // 추출된 문장이 없으면 빈 문자열 반환
+    // 마침표(.)로 끝나는 문장을 기준으로 문단을 나누고, 각 문단을 <p> 태그로 감싸기
+    response = response.replace(/([^.?!])\s*$/, "$1.</p>").replace(/\n/g, "</p><p>");
+
+    // 문단을 감싼 <p> 태그로 감싼 결과 반환
+    return response;
 }
