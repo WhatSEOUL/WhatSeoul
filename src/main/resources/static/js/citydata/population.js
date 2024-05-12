@@ -17,6 +17,7 @@ if (areaName) {
 
 const areaCongestLvl = document.querySelector('#area-congest-lvl');
 const areaCongestMsg = document.querySelector('#area-congest-msg');
+const ppltn_time = document.querySelector('.span-ppltn-update-time');
 
 document.addEventListener('DOMContentLoaded', function () {
     fetch(`/api/ppltn/${areaName}`)
@@ -40,8 +41,10 @@ function showCityData() {
     console.log("let cityData: ", cityData);
     console.log("congestlvl:", cityData.areaCongestionLevel);
     console.log("congestmessage:", cityData.areaCongestionMessage);
+    console.log("ppltntime: ", cityData.pplUpdateTime);
     areaCongestLvl.innerHTML = cityData.areaCongestionLevel;
     areaCongestMsg.innerHTML = cityData.areaCongestionMessage;
+    ppltn_time.innerHTML = cityData.pplUpdateTime;
 
     // 받아온 데이터에서 필요한 정보 추출
     const populationForecasts = cityData.populationForecasts;

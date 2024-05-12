@@ -6,11 +6,11 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
+//@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
 @EnableJpaAuditing // JPA Auditing 활성화
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class})
+@SpringBootApplication
 @EnableScheduling
 public class WhatSeoulApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(WhatSeoulApplication.class, args);
     }

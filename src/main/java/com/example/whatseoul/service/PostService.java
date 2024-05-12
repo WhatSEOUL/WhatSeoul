@@ -2,7 +2,7 @@ package com.example.whatseoul.service;
 
 import com.example.whatseoul.dto.PostDto;
 import com.example.whatseoul.entity.Post;
-import com.example.whatseoul.repository.PostRepository;
+import com.example.whatseoul.repository.post.PostRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
