@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 import jakarta.transaction.Transactional;
@@ -12,6 +13,9 @@ import jakarta.transaction.Transactional;
 public interface AreaRepository extends JpaRepository<Area, Long> {
     Optional<Area> findAreaByAreaCode(String areaCode);
     Optional<Area> findAreaByAreaName(String areaName);
+
+    @Query("SELECT a.areaName FROM Area a")
+    List<String> findAllAreaNames();
 
     @Transactional
     @Modifying
