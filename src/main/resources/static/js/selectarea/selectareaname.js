@@ -187,8 +187,6 @@ strongText.innerHTML = districtName;
 
 // 선택한 구와 연관된 구체적인 지역명
 const areaNames = areasByDistrict[districtName];
-console.log(areaNames);
-
 
 const buttonContainerWrapper= document.querySelector('.button-container-wrapper')
 const buttonContainerDiv = document.createElement('div');
@@ -196,7 +194,8 @@ const backButton = document.querySelector('#backButton');
 
 // 지역별 위치, 명소정보 div
 const locationAttractionWrapper = document.querySelector(".main-content-location-attraction-info-wrapper");
-const locationAttractionDiv = document.querySelector(".main-content-location-attraction-info");
+const locationDiv = document.querySelector(".main-content-location-info");
+const attractionDiv = document.querySelector(".main-content-attraction-info");
 
 buttonContainerDiv.classList.add('button-container');
 buttonContainerWrapper.appendChild(buttonContainerDiv);
@@ -250,44 +249,19 @@ areaButtons.forEach(function(button, index) {
             .then(response => response.json())
             .then(data => {
                 console.log("areaLocationInfo: ", data.areaLocationInfo);
+                console.log("areaAttractionInfo: ", data.areaAttractionInfo);
                 const content = formatResponse(data.areaLocationInfo);
+                const attraction = formatResponse(data.areaAttractionInfo);
                 console.log("formatted: ", content);
+                console.log("formatted: ", attraction);
                 locationAttractionWrapper.style.display = "block";
-                locationAttractionDiv.innerHTML = formatResponse(data.areaLocationInfo);
+                locationDiv.innerHTML = formatResponse(data.areaLocationInfo);
+                attractionDiv.innerHTML = formatResponse(data.areaAttractionInfo);
             })
             .catch(error => {
                 console.log('Error: ', error);
             });
     });
-
-    // button.addEventListener('mouseover', function () {
-    //     var buttonText = button.textContent;
-    //     console.log("areas: ", areas);
-    //     console.log("markers: ", markers);
-    //
-    //     // 클릭한 버튼의 buttonText가 areaNames에서 차지하는 인덱스와 markers에서 marker가 차지하는 인덱스가 같으면
-    //     // 이 코드 실행
-    //     // infowindow.open(map, marker);
-    //
-    //     if (markers[index]) {
-    //         infowindow.setContent('<div style="padding:5px; width:max-content;">' + buttonText + '</div>');
-    //         infowindow.open(map, markers[index]);
-    //     }
-    //
-    //
-    // })
-    //
-    // button.addEventListener('mouseout', function () {
-    //     var buttonText = button.textContent;
-    //     console.log("areas: ", areas);
-    //     console.log("markers: ", markers);
-    //
-    //     // 클릭한 버튼의 buttonText가 areaNames에서 차지하는 인덱스와 markers에서 marker가 차지하는 인덱스가 같으면
-    //     // 이 코드 실행
-    //     // infowindow.open(map, marker);
-    //
-    //     infowindow.close();
-    // })
 })
 
 
