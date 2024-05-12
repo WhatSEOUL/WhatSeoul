@@ -14,4 +14,6 @@ public class AreaResponseDto {
 	private String areaName;
 	private Double areaLatitude;
 	private Double areaLongitude;
+	private String areaLocationInfo;
+	private String areaAttractionInfo;
 }
