@@ -229,6 +229,11 @@ areaButtons.forEach(function(button, index) {
             infowindow.open(map, markers[index]);
         }
 
+        // 마커의 위치 정보 가져오기
+        var markerPosition = markers[index].getPosition();
+        // 지도의 중심을 마커의 위치로 이동
+        map.setCenter(markerPosition);
+
         // const isConfirm = confirm("페이지를 이동합니다.");
         // if (isConfirm) {
         //     location.href = "/area/confirm";
@@ -243,10 +248,9 @@ areaButtons.forEach(function(button, index) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                console.log(data.areaLocationInfo);
+                console.log("areaLocationInfo: ", data.areaLocationInfo);
                 const content = formatResponse(data.areaLocationInfo);
-                console.log(content);
+                console.log("formatted: ", content);
                 locationAttractionWrapper.style.display = "block";
                 locationAttractionDiv.innerHTML = formatResponse(data.areaLocationInfo);
             })
@@ -363,11 +367,8 @@ function viewConfirmPage() {
 }
 
 function formatResponse(response) {
-    let boldRegex = /\*\*(.*?)\*\*/g; // 볼드 처리를 위한 정규표현식
     let urlRegex = /\[(.*?)\]\((.*?)\)/g; // URL 추출을 위한 정규표현식
 
-
-    response = response.replace(boldRegex, '<strong>$1</strong>'); // ** **를 <strong> 태그로 바꾸기
     response = response.replace(urlRegex, '<a href="$2" target="_blank">$1</a>'); // URL을 <a> 태그로 바꾸기
 
     // 마침표(.)로 끝나는 문장을 기준으로 문단을 나누고, 각 문단을 <p> 태그로 감싸기
