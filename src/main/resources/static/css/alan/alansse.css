@@ -28,7 +28,7 @@
 /* 상단바 css end  */
 
 .main-content-wrapper {
-    /*margin: 0 auto;*/
+    margin: 0 auto;
     margin-top: 15vh;
     margin-bottom: 20vh; /* 향후 수정하기 */
     display: flex;
@@ -37,7 +37,6 @@
     /*align-items: center;*/
     width: 50vw;
 
-    /*align-items: center;*/
 }
 
 .main-content-title {

@@ -53,7 +53,7 @@ public class AlanService {
 	// @Scheduled(cron = "0 26 19/24 * * *")
 	public void fetchAlanAreaResponse(String type, List<String> areaNames) throws JsonProcessingException {
 		long startTime = System.currentTimeMillis();
-		// 스케줄링으로 컨트롤러 없이 서비스 메소드만으로 데이터를 저장할 경우
+		// 컨트롤러 없이 서비스 메소드 스케줄링만으로 데이터를 저장할 경우 인자를 비우고 아래 코드 사용
 		// String type = "attraction";
 		// List<String> areaNames = areaRepository.findAllAreaNames();
 
