@@ -194,6 +194,10 @@ const buttonContainerWrapper= document.querySelector('.button-container-wrapper'
 const buttonContainerDiv = document.createElement('div');
 const backButton = document.querySelector('#backButton');
 
+// 지역별 위치, 명소정보 div
+const locationAttractionWrapper = document.querySelector(".main-content-location-attraction-info-wrapper");
+const locationAttractionDiv = document.querySelector(".main-content-location-attraction-info");
+
 buttonContainerDiv.classList.add('button-container');
 buttonContainerWrapper.appendChild(buttonContainerDiv);
 
@@ -225,40 +229,60 @@ areaButtons.forEach(function(button, index) {
             infowindow.open(map, markers[index]);
         }
 
-        const isConfirm = confirm("페이지를 이동합니다.");
-        if (isConfirm) {
-            location.href = "/area/confirm";
-        }
-    })
+        // const isConfirm = confirm("페이지를 이동합니다.");
+        // if (isConfirm) {
+        //     location.href = "/area/confirm";
+        // }
 
-    button.addEventListener('mouseover', function () {
-        var buttonText = button.textContent;
-        console.log("areas: ", areas);
-        console.log("markers: ", markers);
+        // 지역정보 개별 조회 api 호출
+        fetch('/api/area?areaName=' + buttonText, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                console.log(data.areaLocationInfo);
+                const content = formatResponse(data.areaLocationInfo);
+                console.log(content);
+                locationAttractionDiv.textContent = data.areaLocationInfo;
+                locationAttractionWrapper.style.display = "block";
+            })
+            .catch(error => {
+                console.log('Error: ', error);
+            });
+    });
 
-        // 클릭한 버튼의 buttonText가 areaNames에서 차지하는 인덱스와 markers에서 marker가 차지하는 인덱스가 같으면
-        // 이 코드 실행
-        // infowindow.open(map, marker);
-
-        if (markers[index]) {
-            infowindow.setContent('<div style="padding:5px; width:max-content;">' + buttonText + '</div>');
-            infowindow.open(map, markers[index]);
-        }
-
-
-    })
-
-    button.addEventListener('mouseout', function () {
-        var buttonText = button.textContent;
-        console.log("areas: ", areas);
-        console.log("markers: ", markers);
-
-        // 클릭한 버튼의 buttonText가 areaNames에서 차지하는 인덱스와 markers에서 marker가 차지하는 인덱스가 같으면
-        // 이 코드 실행
-        // infowindow.open(map, marker);
-
-        infowindow.close();
-    })
+    // button.addEventListener('mouseover', function () {
+    //     var buttonText = button.textContent;
+    //     console.log("areas: ", areas);
+    //     console.log("markers: ", markers);
+    //
+    //     // 클릭한 버튼의 buttonText가 areaNames에서 차지하는 인덱스와 markers에서 marker가 차지하는 인덱스가 같으면
+    //     // 이 코드 실행
+    //     // infowindow.open(map, marker);
+    //
+    //     if (markers[index]) {
+    //         infowindow.setContent('<div style="padding:5px; width:max-content;">' + buttonText + '</div>');
+    //         infowindow.open(map, markers[index]);
+    //     }
+    //
+    //
+    // })
+    //
+    // button.addEventListener('mouseout', function () {
+    //     var buttonText = button.textContent;
+    //     console.log("areas: ", areas);
+    //     console.log("markers: ", markers);
+    //
+    //     // 클릭한 버튼의 buttonText가 areaNames에서 차지하는 인덱스와 markers에서 marker가 차지하는 인덱스가 같으면
+    //     // 이 코드 실행
+    //     // infowindow.open(map, marker);
+    //
+    //     infowindow.close();
+    // })
 })
 
 
@@ -338,3 +362,22 @@ function viewConfirmPage() {
     }
 }
 
+function formatResponse(response) {
+    // 문장을 구분하는 정규 표현식
+    var sentencePattern = /[^.!?]*[.!?]/;
+
+    // 주어진 텍스트에서 첫 번째 문장을 추출
+    var firstSentence = response.match(sentencePattern);
+
+    // 추가: 중괄호 [가 등장할 때까지의 내용을 첫 번째 문장으로 반환
+    if (firstSentence) {
+        var index = firstSentence[0].indexOf('[');
+        if (index !== -1) {
+            return firstSentence[0].substring(0, index);
+        } else {
+            return firstSentence[0];
+        }
+    }
+
+    return ''; // 추출된 문장이 없으면 빈 문자열 반환
+}

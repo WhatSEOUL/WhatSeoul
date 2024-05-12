@@ -50,16 +50,16 @@ public class AlanService {
 	}
 
 	@Transactional
-	// @Scheduled(cron = "0 32 10/24 * * *")
+	@Scheduled(cron = "0 52 13/24 * * *")
 	public void fetchAlanAreaResponse() throws JsonProcessingException {
 		long startTime = System.currentTimeMillis();
-		List<String> areaNames = areaRepository.findAllAreaNames();
+		List<String> names = areaRepository.findAllAreaNames();
 		// 하루 100회까지만 가능 - 사실상 분리해서 질의해야 함
-		for (String areaName : areaNames) {
-			log.info("area {} start", areaName);
+		for (int i = 10; i < 40; i++) {
+			log.info("area {} start", names.get(i));
 
-			String content = areaName + "은(는) 는 어느 지역에 위치해 있는지 5줄 이내로 알려주세요."
-				+ "\n 도로명 주소를 알려줄 수 있다면 굵은 글씨로 표기해주세요.";
+			String content = names.get(i) + "의 도로명 주소를 한줄로 알려줘."
+				+ "\n반드시 그 어떤 다른 안내문구도 없이 도로명 주소만을 알려줘.";
 
 			String uri = UriComponentsBuilder
 				.fromHttpUrl(BASE_URL)
@@ -71,8 +71,9 @@ public class AlanService {
 			String responseBody = response.getBody();
 			AlanBasicResponseDto jsonResponse = parseJsonResponse(responseBody);
 			String areaLocationInfo = jsonResponse.getContent();
-			areaRepository.updateAreaLocationInfoByAreaName(areaName, areaLocationInfo);
-			log.info("area {} end", areaName);
+			log.info("areaLocationInfo = {}", areaLocationInfo);
+			areaRepository.updateAreaLocationInfoByAreaName(names.get(i), areaLocationInfo);
+			log.info("area {} end", names.get(i));
 		}
 		long endTime = System.currentTimeMillis();
 		long totalTime = (endTime-startTime)/1000;
