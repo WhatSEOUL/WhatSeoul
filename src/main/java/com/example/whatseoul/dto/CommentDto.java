@@ -1,9 +1,14 @@
 package com.example.whatseoul.dto;
 
-import lombok.*;
+import com.example.whatseoul.entity.Post;
+import com.example.whatseoul.entity.User;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
-
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -14,9 +19,7 @@ public class CommentDto {
     private Long id;
     private Long userId;
     private Long postId;
-    private String comContent;
-    private LocalDateTime comCreated;
+    private String content;
+    private String comCreated = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
     private LocalDateTime comModified;
-
-
 }
