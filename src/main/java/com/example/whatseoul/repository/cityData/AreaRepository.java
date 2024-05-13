@@ -18,6 +18,10 @@ public interface AreaRepository extends JpaRepository<Area, Long> {
     @Query("SELECT a.areaName FROM Area a")
     List<String> findAllAreaNames();
 
+    // 주소 기반 좌표 업데이트에 사용하는 메소드
+    @Query("SELECT a.areaName FROM Area a WHERE a.areaAddress IS NOT NULL")
+    List<String> findAreaNamesWhereAddressNotNull();
+
     @Transactional
     @Modifying
     @Query("UPDATE Area a SET a.areaLocationInfo = :areaLocationInfo WHERE a.areaName = :areaName")

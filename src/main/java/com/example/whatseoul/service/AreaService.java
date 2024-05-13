@@ -10,7 +10,9 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
 import com.example.whatseoul.dto.response.AreaResponseDto;
@@ -64,16 +66,22 @@ public class AreaService {
 	@Value("${kakao.api.key}")
 	private String KAKAO_KEY;
 
+	// @Transactional
+	// @Scheduled(cron = "0 57 00/24 * * *")
 	public List<LatLongResponseDto> getLatLngByAreaName(List<String> areaNames) throws JsonProcessingException {
 		ArrayList<LatLongResponseDto> updatedLatLongResponses = new ArrayList<>();
+		// 컨트롤러 없이 메소드 스케줄링만 할 때의 코드(메소드 인자 삭제 필요)
+		// List<String> areaNames = areaRepository.findAreaNamesWhereAddressNotNull();
 		for (String areaName : areaNames) {
 			Optional<Area> optionalArea = areaRepository.findAreaByAreaName(areaName);
 			if (optionalArea.isPresent()) {
 				Area area = optionalArea.get();
+				log.info("areaId: {}, area : {}", area.getAreaId(), area.getAreaName());
 				String address = area.getAreaAddress();
 
 				// 카카오 로컬 api url, header 설정
-				String apiUrl = "https://dapi.kakao.com/v2/local/search/address.json?query=" + address;
+				String apiUrl = "https://dapi.kakao.com/v2/local/search/address.json?query=" + address + "&page=45&size=30";
+				log.info("apiUrl: {}", apiUrl);
 				HttpHeaders headers = new HttpHeaders();
 				headers.set("Authorization", "KakaoAK " + KAKAO_KEY);
 				headers.setContentType(MediaType.APPLICATION_JSON);

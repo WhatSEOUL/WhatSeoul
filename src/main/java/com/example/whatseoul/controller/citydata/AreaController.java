@@ -33,7 +33,7 @@ public class AreaController {
 	public ResponseEntity<List<LatLongResponseDto>> updateAreaLatLongByAddress(@RequestParam("areaName") List<String> areaName) throws
 		JsonProcessingException {
 		log.info("areaName: {}", areaName);
-		List<LatLongResponseDto> response = areaService.getLatLngByAreaName(areaName);
+		List<LatLongResponseDto> response = areaService.getLatLngByAreaName(areaName); // 서비스 메소드 스케줄링만 할 경우 인자 삭제
 		return ResponseEntity.ok(response);
 	}
 	// 지역정보 복수 조회(구 단위)
