@@ -234,13 +234,8 @@ areaButtons.forEach(function(button, index) {
         // 지도의 중심을 마커의 위치로 이동
         map.setCenter(markerPosition);
 
-        // const isConfirm = confirm("페이지를 이동합니다.");
-        // if (isConfirm) {
-        //     location.href = "/area/confirm";
-        // }
-
         // 지역정보 개별 조회 api 호출
-        fetch('/api/area?areaName=' + buttonText, {
+        fetch(`/api/area/${buttonText}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

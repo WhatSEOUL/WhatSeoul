@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,8 +34,8 @@ public class AreaController {
 	}
 
 	// 지역정보 개별 조회
-	@GetMapping("/area")
-	public ResponseEntity<AreaResponseDto> getAreaByAreaName(@RequestParam String areaName) {
+	@GetMapping("/area/{areaName}")
+	public ResponseEntity<AreaResponseDto> getAreaByAreaName(@PathVariable String areaName) {
 		AreaResponseDto areaResponseDto = areaService.findAreaByAreaName(areaName);
 		return ResponseEntity.ok(areaResponseDto);
 	}
