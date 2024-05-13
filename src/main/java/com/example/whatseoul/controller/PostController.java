@@ -71,10 +71,11 @@ public class PostController {
     }
 
     @PostMapping("/create")
-    public String createPost(@ModelAttribute("postDto") PostDto postDto) {
+    public String createPost(@ModelAttribute("postDto") PostDto postDto){
         postService.createPost(postDto);
         return "redirect:/posts";
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<PostDto> updatePost(@PathVariable("id") Long id, @RequestBody PostDto postDto) {
         PostDto updatedPost = postService.updatePost(id, postDto);
