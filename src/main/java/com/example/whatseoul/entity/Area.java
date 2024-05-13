@@ -29,6 +29,9 @@ public class Area {
     @Column(name = "AREA_LONGITUDE")
     private Double areaLongitude;
 
+    @Column(name = "AREA_ADDRESS")
+    private String areaAddress;
+
     @Column(name = "AREA_LOCATION_INFO", columnDefinition = "TEXT")
     private String areaLocationInfo;
 
