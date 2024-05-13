@@ -28,6 +28,8 @@ public class AreaService {
 				.areaName(area.getAreaName())
 				.areaLatitude(area.getAreaLatitude())
 				.areaLongitude(area.getAreaLongitude())
+				.areaLocationInfo(area.getAreaLocationInfo())
+				.areaAttractionInfo(area.getAreaAttractionInfo())
 				.build();
 			areaResponseDtos.add(areaResponseDto);
 		}

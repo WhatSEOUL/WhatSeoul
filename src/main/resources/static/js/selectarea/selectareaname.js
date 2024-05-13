@@ -261,15 +261,19 @@ areaButtons.forEach(function(button, index) {
 
 
 
-// 지역정보 조회 api 호출
+// 구 단위 지역정보 조회 api 호출
 document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams();
+    areaNames.forEach(areaName => {
+        urlParams.append('areaName', areaName);
+    });
+    const queryString = urlParams.toString();
     // 페이지가 로드되면 한 번만 fetch 요청을 보냅니다.
-    fetch('/api/area', {
-        method: 'POST',
+    fetch(`/api/area?${queryString}`, {
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ areaNames: areaNames })
+        }
     })
         .then(response => response.json())
         .then(data => {
