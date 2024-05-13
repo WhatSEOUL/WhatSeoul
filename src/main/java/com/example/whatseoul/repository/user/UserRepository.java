@@ -6,15 +6,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-
-
-    boolean existsByUserName(String userName);
-    boolean existsByUserEmail(String userEmail);
-
-
     Optional<User> findById(Long id);
 
     Optional<User> findByUserName(String userName);
     Optional<User> findByUserEmail(String email); // 이메일을 기준으로 사용자 찾기
 
+    User findByUserId(Long userId);
+    boolean existsByUserName(String userName);
+    boolean existsByUserEmail(String userEmail);
 }

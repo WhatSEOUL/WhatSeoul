@@ -29,13 +29,14 @@
             padding-left: 20px;
         }
 
-        .content-box {
+        .content-box, #comments-list li {
             border: 1px solid #ccc;
             padding: 30px;
             margin-bottom: 20px;
             width: 80%;
             background-color: #f9f9f9;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            list-style: none;
         }
 
 
@@ -61,8 +62,9 @@
         }
 
         textarea {
-            width: 1550px;
+            width: 1300px;
             height: 50px;
+            align-items: center;
             margin-bottom: 10px; /* 텍스트 영역과 버튼 사이의 간격 */
         }
 
@@ -87,13 +89,13 @@
             color: white;
         }
 
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center; /* 버튼을 중앙 정렬 */
-            width: 80%; /* 폼의 너비 조정 */
-            margin-top: 20px; /* 상단 여백 */
-        }
+        /*form {*/
+        /*    display: flex;*/
+        /*    flex-direction: column;*/
+        /*    align-items: center; !* 버튼을 중앙 정렬 *!*/
+        /*    width: 80%; !* 폼의 너비 조정 *!*/
+        /*    margin-top: 20px; !* 상단 여백 *!*/
+        /*}*/
 
     </style>
 </head>
@@ -104,29 +106,80 @@
     <div class="content-box">
         <a href="/posts" class="back">뒤로가기</a>
         <h1 th:text="${post.postTitle}">제목</h1>
+<!--        <p><strong>작성자 : </strong><span th:text="${post.getUserId()}"></span></p>-->
         <p><strong>작성일:</strong> <span th:text="${post.createdAt}"></span> | <strong>조회수:</strong> <span th:text="${post.viewCount}"></span></p>
         <p><strong>내용:</strong></p>
         <div th:text="${post.postContent}"></div>
     </div>
-<!--<a th:href="@{'/posts/edit/' + ${post.id}}">수정하기</a>-->
+<!--<a th:href="@{'/posts' + ${post.id}}">수정하기</a>-->
 
 
-<form action="/posts/comments" method="post">
-    <input type="hidden" name="postId" th:value="${post.id}" />
-    <textarea name="comment" placeholder="댓글을 입력하세요"></textarea>
-    <button type="submit">등록</button>
-</form>
-<div>
-    <h2>댓글 목록</h2>
-    <ul>
-        <!-- 댓글을 반복해서 표시 -->
-        <li th:each="comment : ${comments}">
-            <!-- 각 댓글의 내용 표시 -->
-            <span th:text="${comment.comContent}"></span>
-        </li>
-    </ul>
-</div>
+    <div id="comments-section">
+        <h2>Comments</h2>
+        <ul id="comments-list">
+            <li th:each="comment : ${comments}">
+                <span class="author" th:text="${comment.user.userName}"></span><br>
+                <span th:text="${comment.content}"></span><br>
+                <span th:text="${comment.createdAt}"></span>
+
+                <div class="comment-actions" th:if="${comment.user.userEmail == currentUser}">
+                    <button type="button" class="delete-comment" th:id="'delete-comment-' + ${comment.id}" th:onclick="'deleteComment(\'' + ${comment.id} + '\')'">삭제</button>
+
+                </div>
+            </li>
+        </ul>
+        <!-- Add comment form -->
+        <form id="add-comment-form">
+            <input type="hidden" id="postId" th:value="${post.id}">
+            <textarea id="content" placeholder="Write your comment here"></textarea>
+            <button type="submit" onclick= "submitComment()">댓글 작성</button>
+        </form>
+    </div>
 
 </main>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function submitComment() {
+        var postId = document.getElementById('postId').value;
+        var content = document.getElementById('content').value;
+
+        // 여기에 AJAX 요청을 작성하세요
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/posts/' + postId + '/comments', true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 201) {
+                location.reload();
+            }
+        };
+        var data = JSON.stringify(content);
+        xhr.send(data);
+    }
+    // 댓글 삭제 함수
+    function deleteComment(commentId) {
+        var postId = document.getElementById('postId').value;
+        if (confirm('댓글을 삭제하시겠습니까?')) {
+            fetch('/posts/' + postId + '/comments/' + commentId, {
+                method: 'DELETE'
+            })
+                .then(response => {
+                    if (response.ok) {
+                        alert('댓글이 삭제되었습니다.');
+                        // 댓글이 삭제된 후의 처리 로직 (예: 댓글 목록에서 해당 항목 제거)
+                        const commentElement = document.getElementById('delete-comment-' + commentId).closest('li');
+                        commentElement.remove();
+                    } else {
+                        alert('댓글 삭제에 실패했습니다.');
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    }
+
+    /*]]>*/
+</script>
+
 </body>
 </html>

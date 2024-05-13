@@ -1,23 +1,22 @@
 package com.example.whatseoul.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
+@Builder
 @Entity
 @Data
-@Getter
-@Setter
-@NoArgsConstructor
 @EntityListeners(AuditingEntityListener.class)
-
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Post {
 
 	@Id
@@ -34,17 +33,23 @@ public class Post {
 	@Column(name = "POST_FILE", length = 300)// 렝스 300으로 바꿨습니다.
 	private String postFile;
 
-	@Column(name = "VIEW_COUNT")
-	private Long viewCount;
+	@Column(name = "VIEW_COUNT", columnDefinition = "integer default 0")
+	private int viewCount;
 
 
 	@Column(name = "CREATED_AT", nullable = false, updatable = false)
 	@CreatedDate
-	private LocalDateTime createdAt;
+	private String createdAt;
 
 	@Column(name = "MODIFIED_AT")
 	@LastModifiedDate
 	private LocalDateTime modifiedAt;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "user_id")
+	private User user;
+
+//	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+//	private List<Comment> comments = new ArrayList<>();
 
 }
