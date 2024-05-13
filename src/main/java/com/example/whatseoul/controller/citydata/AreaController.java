@@ -25,7 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 public class AreaController {
 	private final AreaService areaService;
 
-	// 구 단위 지역정보 조회
+	// 지역정보 복수 조회(구 단위)
 	@GetMapping("/area")
 	public ResponseEntity<List<AreaResponseDto>> getAreasByAreaNames(@RequestParam("areaName") List<String> areaNames ) {
 		List<AreaResponseDto> areaResponseDtos = areaService.findAreasByAreaNames(areaNames);

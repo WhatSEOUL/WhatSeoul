@@ -23,14 +23,7 @@ public class AreaService {
 		for (String areaName : areaNames) {
 			Area area = areaRepository.findAreaByAreaName(areaName)
 				.orElseThrow(() -> new RuntimeException("해당 지역명에 대한 정보를 찾을 수 없습니다. " + areaName));
-			AreaResponseDto areaResponseDto = AreaResponseDto.builder()
-				.areaCode(area.getAreaCode())
-				.areaName(area.getAreaName())
-				.areaLatitude(area.getAreaLatitude())
-				.areaLongitude(area.getAreaLongitude())
-				.areaLocationInfo(area.getAreaLocationInfo())
-				.areaAttractionInfo(area.getAreaAttractionInfo())
-				.build();
+			AreaResponseDto areaResponseDto = buildAreaResponseDto(area);
 			areaResponseDtos.add(areaResponseDto);
 		}
 		return areaResponseDtos;
@@ -38,6 +31,10 @@ public class AreaService {
 
 	public AreaResponseDto findAreaByAreaName(String areaName) {
 		Area area = areaRepository.findAreaByAreaName(areaName).orElseThrow(() -> new RuntimeException("해당 지역명에 대한 정보를 찾을 수 없습니다. " + areaName));
+		return buildAreaResponseDto(area);
+	}
+
+	private AreaResponseDto buildAreaResponseDto(Area area) {
 		return AreaResponseDto.builder()
 			.areaCode(area.getAreaCode())
 			.areaName(area.getAreaName())
@@ -47,5 +44,4 @@ public class AreaService {
 			.areaAttractionInfo(area.getAreaAttractionInfo())
 			.build();
 	}
-
 }
