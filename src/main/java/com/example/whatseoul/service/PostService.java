@@ -3,14 +3,15 @@ package com.example.whatseoul.service;
 import com.example.whatseoul.dto.PostDto;
 import com.example.whatseoul.entity.Post;
 import com.example.whatseoul.repository.post.PostRepository;
-import com.example.whatseoul.repository.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
@@ -20,11 +21,21 @@ public class PostService {
     private final ModelMapper modelMapper;
     private final AccountService accountService;
 
+
     public List<PostDto> getAllPosts() {
         List<Post> posts = postRepository.findAll();
-        return posts.stream()
+        Comparator<Post> byCreatedAtComparator = new Comparator<Post>() {
+            public int compare(Post p1, Post p2) {
+                return p2.getCreatedAt().compareTo(p1.getCreatedAt());
+            }
+        };
+
+        posts.sort(byCreatedAtComparator);
+        List<PostDto> postDtos = posts.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
+
+        return postDtos;
     }
 
     public PostDto getPostById(Long id) {
