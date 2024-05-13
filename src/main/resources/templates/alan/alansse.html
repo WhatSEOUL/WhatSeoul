@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -29,13 +31,16 @@
                         <a class="nav-link" href="/alan/sse">서울 명소 추천받기</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">커뮤니티</a>
+                        <a class="nav-link" href="/posts">커뮤니티</a>
                     </li>
                     <li class="nav-item my-page-btn">
-                        <a class="nav-link" href="#">마이페이지</a>
+                        <a class="nav-link" href="/user/me">마이페이지</a>
                     </li>
-                    <li class="nav-item logout-btn">
-                        <a class="nav-link" href="#">로그아웃</a>
+                    <li class="nav-item logout-btn" sec:authorize="isAuthenticated()">
+                        <a class="nav-link" th:href="@{/logout}">로그아웃</a>
+                    </li>
+                    <li class="nav-item login-btn" sec:authorize="!isAuthenticated()">
+                        <a class="nav-link" href="/login">로그인</a>
                     </li>
                 </ul>
             </div>
