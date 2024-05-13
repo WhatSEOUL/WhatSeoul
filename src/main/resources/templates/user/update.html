@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/css/index/index.css" th:href="@{/css/index/index.css}">
     <link rel="stylesheet" type="text/css" href="/css/user/update.css" th:href="@{/css/user/update.css}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 </head>
 <body>
@@ -52,18 +54,55 @@
     <!-- 상단바 html end -->
 </header>
 
-<form th:action="@{/api/update}" method="post">
+<form th:action="@{/api/update}" method="post" onsubmit="event.preventDefault(); passwordUpdate(event);">
     <div class="card">
         <span class="card__title">비밀번호 수정</span>
         <!--<p class="card__content">Get fresh web design resources delivered straight to your inbox every week.
         </p>-->
         <div class="card__form">
             <label>
-                <input placeholder="new password" type="password" name="password" required />
+                <input placeholder="new password" type="password" name="password" id="password" required />
             </label>
             <button class="sign-up" type="submit">수정하기</button>
         </div>
     </div>
 </form>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+<script>
+
+    async function passwordUpdate() {
+        const password = document.querySelector("#password").value;
+        const param = { "userPassword": password };
+        if (password) {
+            const response = await fetch("/api/update", {
+                method: "POST",
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(param)
+            });
+            if (response.ok) {
+                const res=await response.json();
+                //console.log("res  :", res);
+                if(res.message==="success"){
+                    Toastify({
+                        text: "비밀번호 변경 완료 되었습니다.",
+                        duration: 5000,
+                        close: true,
+                        gravity: "top",
+                        position: 'center',
+                        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+                    }).showToast();
+
+                    document.querySelector("#password").value="";
+                }else{
+                    alert("비밀번호 변경 실패!");
+                }
+            } else {
+                console.log("Error:", await response.text());
+            }
+        }
+    }
+
+</script>
 </body>
 </html>

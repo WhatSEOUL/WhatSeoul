@@ -7,6 +7,12 @@
   <link rel="stylesheet" type="text/css" href="/css/user/login.css" th:href="@{/css/user/login.css}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/css/index/index.css" th:href="@{/css/index/index.css}">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <style>
+    input{width: 100%;}
+    .error{color: red;}
+  </style>
 </head>
 <body>
 <header>
@@ -51,6 +57,7 @@
   <div class="hero">
     <form th:action="@{/login}" method="post" class="form">
       <div class="logo">로그인</div>
+      <p th:if="${errorMessage}" class="error" th:text="${errorMessage}"></p>
       <input name="username" id="username" required class="input" placeholder="username">
       <input type="password" name="password" id="password" required class="input" placeholder="password">
       <input type="submit" value="로그인" class="input submit">
@@ -58,5 +65,27 @@
     </form>
   </div>
 </div>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+
+<script th:inline="javascript">
+  $(document).ready(function() {
+    const errorMessage = [[${errorMessage}]];
+    console.log(errorMessage);
+    if (errorMessage==="아이디 또는 비밀번호를 확인해주세요!") {
+      Toastify({
+        text: "아이디 또는 비밀번호를 확인해주세요!",
+        duration: 3000,
+        close: true,
+        gravity: "top",
+        position: 'center',
+        backgroundColor: "linear-gradient(to right, #FF0000, #FF7F50)",
+      }).showToast();
+    }
+  });
+</script>
+
+
 </body>
 </html>
