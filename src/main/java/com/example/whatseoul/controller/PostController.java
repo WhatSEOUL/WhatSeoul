@@ -1,17 +1,21 @@
 package com.example.whatseoul.controller;
 
 import com.example.whatseoul.dto.PostDto;
+import com.example.whatseoul.entity.Comment;
+import com.example.whatseoul.service.CommentService;
 import com.example.whatseoul.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-//@RestController
 
 @Controller
 @RequestMapping("/posts")
@@ -20,6 +24,7 @@ public class PostController {
 
 
     private final PostService postService;
+    private  final CommentService commentService;
 
 //    @GetMapping
 //    public ResponseEntity<List<PostDto>> getAllPosts() {
@@ -43,6 +48,13 @@ public class PostController {
     public String getPostById(@PathVariable("id") Long id, Model model) {
         PostDto post = postService.getPostById(id);
         model.addAttribute("post", post);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String username = userDetails.getUsername();
+
+        model.addAttribute("currentUser", username);
+        List<Comment> comments = commentService.getCommentsByPostId(post.getId());
+        model.addAttribute("comments", comments);
         return "post/postDetail"; // postDetail.html 템플릿을 렌더링
     }
 
@@ -52,11 +64,10 @@ public class PostController {
 //        return new ResponseEntity<>(createdPost, HttpStatus.CREATED);
 //    }
 
-    // TODO: css 확인
     @GetMapping("/create")
     public String showCreateForm(Model model) {
         model.addAttribute("postDto", new PostDto());
-        return "post/post"; 
+        return "post/post";
     }
 
     @PostMapping("/create")

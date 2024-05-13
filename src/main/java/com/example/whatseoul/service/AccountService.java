@@ -85,4 +85,12 @@ public class AccountService implements UserDetailsService {
     public boolean existsByUserEmail(String userEmail) {
         return userRepository.existsByUserEmail(userEmail);
     }
+
+    public Long getAuthenticatedUserId() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = ((UserDetails) authentication.getPrincipal()).getUsername();
+        User user = userRepository.findByUserEmail(userEmail)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + userEmail));
+        return user.getUserId(); // 여기서 userId를 반환합니다.
+    }
 }
