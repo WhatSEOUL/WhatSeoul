@@ -9,7 +9,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" th:href="@{/css/post/post.css}">
     <link rel="stylesheet" type="text/css" th:href="@{/css/index/index.css}">
-    <th:block th:include="header/header :: header"></th:block>
+    <link rel="stylesheet" type="text/css" href="/css/header/header.css" th:href="@{/css/header/header.css}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
     <style>
         #imagePreviews {
             display: flex;
@@ -26,9 +28,8 @@
     </style>
 </head>
 <body>
-<header>
+<th:block th:replace="~{header/header :: header}"></th:block>
 
-</header>
 <main>
     <form th:action="@{/posts/create}" method="post" th:object="${postForm}">
         <h2>후기 작성</h2>
