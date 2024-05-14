@@ -2,25 +2,30 @@ package com.example.whatseoul.service;
 
 import com.example.whatseoul.dto.PostDto;
 import com.example.whatseoul.entity.Post;
+import com.example.whatseoul.entity.User;
 import com.example.whatseoul.repository.post.PostRepository;
+import com.example.whatseoul.repository.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PostService {
 
     private final PostRepository postRepository;
     private final ModelMapper modelMapper;
     private final AccountService accountService;
-
+    private final UserRepository userRepository;
 
     public List<PostDto> getAllPosts() {
         List<Post> posts = postRepository.findAll();
@@ -50,7 +55,8 @@ public class PostService {
     public void createPost(PostDto postDto) {
         Long userId = accountService.getAuthenticatedUserId();
 //        Long userId = accountService.getAuthenticatedUserId();
-//        User user = userRepository.findByUserId(userId);
+        User user = userRepository.findByUserId(userId);
+        postDto.setUserEmail(user.getUserEmail());
 //        postDto.setUserId(user.getUserId());
         postDto.setUserId(userId);
         Post post = convertToEntity(postDto);
@@ -70,10 +76,12 @@ public class PostService {
     }
 
     public PostDto updatePost(PostDto postDto) {
-        if (!postRepository.existsById(postDto.getId())) {
-            throw new EntityNotFoundException("Post not found with id: " + postDto.getId());
-        }
-        Post post = convertToEntity(postDto);
+
+        Post post = postRepository.findById(postDto.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Post not found"));
+
+        post.setPostTitle(postDto.getPostTitle());
+        post.setPostContent(postDto.getPostContent());
         post = postRepository.save(post);
         return convertToDto(post);
     }

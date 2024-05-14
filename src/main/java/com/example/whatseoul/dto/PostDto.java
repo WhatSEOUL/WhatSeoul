@@ -18,5 +18,7 @@ public class PostDto {
     private String createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
     private LocalDateTime modifiedAt;
     private Long userId;
+    private String userName;
+    private String userEmail;
 
 }

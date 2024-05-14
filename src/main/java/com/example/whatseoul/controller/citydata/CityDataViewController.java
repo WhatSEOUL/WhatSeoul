@@ -17,41 +17,40 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.whatseoul.security.CustomUserDetails;
 import com.example.whatseoul.service.ApiScheduler;
-import com.example.whatseoul.service.AreaService;
-
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @Slf4j
 public class CityDataViewController {
 
-	private final AreaService areaService;
+	private final ApiScheduler apiScheduler;
 
-	public CityDataViewController(AreaService areaService) {
-		this.areaService = areaService;
+	public CityDataViewController(ApiScheduler apiScheduler) {
+		this.apiScheduler = apiScheduler;
 	}
 
 	@GetMapping("/district")
 	public String selectDistrictPage() {
-		return "/selectarea/selectdistrict";
+		return "selectarea/selectdistrict";
 	}
 
 	@GetMapping("/area")
-	public String selectAreaNamePage(Model model) {
-		model.addAttribute("key", areaService.getKakaoKey());
-		return "/selectarea/selectareaname";
+	public String selectAreaNamePage() {
+		return "selectarea/selectareaname";
 	}
 
 	@GetMapping("/area/confirm")
 	public String selectAreaNameConfirmPage() {
-		return "/selectarea/selectconfirm";
+		return "selectarea/selectconfirm";
 	}
 
 	// 유저가 지역구 선택한 후 "네, 좋아요" 버튼 클릭했을 때 도시데이터를 조회하는 화면
 	@GetMapping("/citydata")
 	public String citydataPage() {
-		return "/citydata/citydatalist";
+		return "citydata/citydatalist";
 	}
+
+
 
 	//추가함
 	@GetMapping("/")
@@ -71,7 +70,7 @@ public class CityDataViewController {
 			session.removeAttribute("logoutSuccess");
 		}
 
-		return "/index/index";
+		return "index/index";
 	}
 
 }
