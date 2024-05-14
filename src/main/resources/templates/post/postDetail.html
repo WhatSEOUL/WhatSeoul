@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>게시글 상세 내용</title>
+
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -65,7 +66,49 @@
             width: 1300px;
             height: 50px;
             align-items: center;
-            margin-bottom: 10px; /* 텍스트 영역과 버튼 사이의 간격 */
+            margin-bottom: 10px;
+        }
+
+        .modify-review {
+            float: right;
+            display: inline-block;
+            padding: 8px 12px;
+            margin: 3px 0;
+            background-color: #007BFF;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            width: auto;
+            transition: background-color 0.3s;
+        }
+
+        .modify-review:hover {
+            text-decoration: none;
+            background-color: lightskyblue;
+            color: white;
+        }
+
+        .delete-post {
+            float: right;
+            display: inline-block;
+            padding: 8px 12px;
+            margin: 3px 0;
+            background-color: #007BFF;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            width: auto;
+            transition: background-color 0.3s;
+        }
+
+        .delete-post:hover {
+            text-decoration: none;
+            background-color: lightskyblue;
+            color: white;
         }
 
         button {
@@ -89,22 +132,76 @@
             color: white;
         }
 
-        /*form {*/
-        /*    display: flex;*/
-        /*    flex-direction: column;*/
-        /*    align-items: center; !* 버튼을 중앙 정렬 *!*/
-        /*    width: 80%; !* 폼의 너비 조정 *!*/
-        /*    margin-top: 20px; !* 상단 여백 *!*/
-        /*}*/
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+            margin-top: 20px;
+        }
+
+        #comments-section {
+            margin-left: 200px;
+        }
+
+        #add-comment-form {
+            margin-left: 50px;
+        }
+
+        .comment-actions {
+            display: flex;
+            justify-content: flex-end;
+
+        }
+
+        .delete-comment {
+            padding: 8px 12px;
+            margin: 3px 0;
+            background-color: #007BFF;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .delete-comment:hover {
+            background-color: lightskyblue;
+            color: white;
+        }
+
+        .comment-details {
+            padding-bottom: 5px; /* 내용과 시간 사이의 간격 */
+        }
+
+        .comment-footer {
+            display: flex;
+            justify-content: space-between; /* 생성 시간과 삭제 버튼을 양쪽 끝으로 정렬 */
+            align-items: center;
+        }
+
+        .author, .comment-footer span {
+            display: block; /* 각 요소를 블록 요소로 만들어 줄바꿈 */
+        }
+
+        .delete-comment {
+            margin-left: 10px; /* 삭제 버튼과 생성 시간 사이 간격 */
+        }
 
     </style>
 </head>
 <body>
+<th:block th:replace="~{header/header :: header}"></th:block>
+
 <main>
 
 
     <div class="content-box">
         <a href="/posts" class="back">뒤로가기</a>
+        <a th:href="@{/posts/edit/{id}(id=${post.id})}" class="modify-review">후기 수정</a>
+        <a th:href="@{/posts/delete(id=${post.id})}" class="delete-post">글 삭제</a>
         <h1 th:text="${post.postTitle}">제목</h1>
 <!--        <p><strong>작성자 : </strong><span th:text="${post.getUserId()}"></span></p>-->
         <p><strong>작성일:</strong> <span th:text="${post.createdAt}"></span> | <strong>조회수:</strong> <span th:text="${post.viewCount}"></span></p>
@@ -118,15 +215,18 @@
         <h2>Comments</h2>
         <ul id="comments-list">
             <li th:each="comment : ${comments}">
-                <span class="author" th:text="${comment.user.userName}"></span><br>
-                <span th:text="${comment.content}"></span><br>
-                <span th:text="${comment.createdAt}"></span>
-
-                <div class="comment-actions" th:if="${comment.user.userEmail == currentUser}">
-                    <button type="button" class="delete-comment" th:id="'delete-comment-' + ${comment.id}" th:onclick="'deleteComment(\'' + ${comment.id} + '\')'">삭제</button>
-
+                <div class="comment-details">
+                    <span class="author" th:text="${comment.user.userName}"></span><br>
+                    <span th:text="${comment.content}"></span>
+                </div>
+                <div class="comment-footer">
+                    <span th:text="${comment.createdAt}"></span>
+                    <div class="comment-actions" th:if="${comment.user.userEmail == currentUser}">
+                        <button type="button" class="delete-comment" th:id="'delete-comment-' + ${comment.id}" th:onclick="'deleteComment(\'' + ${comment.id} + '\')'">삭제</button>
+                    </div>
                 </div>
             </li>
+
         </ul>
         <!-- Add comment form -->
         <form id="add-comment-form">
