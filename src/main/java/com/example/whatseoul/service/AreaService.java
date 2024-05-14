@@ -139,5 +139,9 @@ public class AreaService {
 			.build();
 	}
 
+	public String getKakaoKey() {
+		return KAKAO_KEY;
+	}
+
 
 }

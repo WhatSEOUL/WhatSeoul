@@ -17,22 +17,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.whatseoul.security.CustomUserDetails;
 import com.example.whatseoul.service.ApiScheduler;
+import com.example.whatseoul.service.AreaService;
+
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @Slf4j
 public class CityDataViewController {
 
-	private final ApiScheduler apiScheduler;
+	private final AreaService areaService;
 
-	public CityDataViewController(ApiScheduler apiScheduler) {
-		this.apiScheduler = apiScheduler;
+	public CityDataViewController(AreaService areaService) {
+		this.areaService = areaService;
 	}
-
-
-
-
-
 
 	@GetMapping("/district")
 	public String selectDistrictPage() {
@@ -40,7 +37,8 @@ public class CityDataViewController {
 	}
 
 	@GetMapping("/area")
-	public String selectAreaNamePage() {
+	public String selectAreaNamePage(Model model) {
+		model.addAttribute("key", areaService.getKakaoKey());
 		return "/selectarea/selectareaname";
 	}
 
@@ -54,8 +52,6 @@ public class CityDataViewController {
 	public String citydataPage() {
 		return "/citydata/citydatalist";
 	}
-
-
 
 	//추가함
 	@GetMapping("/")
