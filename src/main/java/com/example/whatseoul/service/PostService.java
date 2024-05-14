@@ -7,16 +7,19 @@ import com.example.whatseoul.repository.post.PostRepository;
 import com.example.whatseoul.repository.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PostService {
 
     private final PostRepository postRepository;
@@ -73,10 +76,12 @@ public class PostService {
     }
 
     public PostDto updatePost(PostDto postDto) {
-        if (!postRepository.existsById(postDto.getId())) {
-            throw new EntityNotFoundException("Post not found with id: " + postDto.getId());
-        }
-        Post post = convertToEntity(postDto);
+
+        Post post = postRepository.findById(postDto.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Post not found"));
+
+        post.setPostTitle(postDto.getPostTitle());
+        post.setPostContent(postDto.getPostContent());
         post = postRepository.save(post);
         return convertToDto(post);
     }

@@ -5,6 +5,7 @@ import com.example.whatseoul.entity.Comment;
 import com.example.whatseoul.service.CommentService;
 import com.example.whatseoul.service.PostService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -20,6 +21,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/posts")
 @RequiredArgsConstructor
+@Slf4j
 public class PostController {
 
 
