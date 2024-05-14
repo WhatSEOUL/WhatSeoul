@@ -2,93 +2,27 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/header/header.css" th:href="@{/css/header/header.css}">
+    <link rel="stylesheet" type="text/css" href="/css/post/postView.css" th:href="@{/css/post/postView.css}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
     <title>게시글 목록</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #FFFFFF;
-            margin: 0;
-            padding: 20px;
-        }
-
-
-        h1 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        a {
-            display: inline-block;
-            padding: 10px 15px;
-            margin-bottom: 10px;
-            background-color: #007BFF;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            text-align: center;
-
-        }
-
-        a:hover {
-            text-decoration: none;
-            background-color: lightskyblue;
-            color: white;
-        }
-
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        li {
-            background-color: #f8f8f8;
-            border: 1px solid #ddd;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-
-        li p {
-            margin: 5px 0;
-        }
-
-        li a {
-            background-color: #007BFF;
-            color: #fff;
-            text-decoration: none;
-        }
-
-        li a:hover {
-            text-decoration: none;
-            background-color: lightskyblue;
-            color: white;
-        }
-
-        .registration-link {
-            text-align: right; /* 오른쪽 정렬 */
-            margin-top: 20px; /* 상단 여백 조정 */
-        }
-
-
-
-
-    </style>
 </head>
 <body>
-<th:block th:replace="~{header/header :: header}"></th:block>
+    <th:block th:replace="~{header/header :: header}"></th:block>
+
         <h1>지금, 왓서울 유저들의 서울 방문 후기는? </h1>
         <div class="registration-link">
-            <a href="/posts/create">등록하기</a>
+            <a class="post-btn" href="/posts/create">등록하기</a>
         </div>
     <!--TODO : 작성자 / 조회수 추가 -->
         <ul>
-            <li th:each="post : ${posts}">
+            <li class="post" th:each="post : ${posts}">
 
                 <p><strong>작성일:</strong> <span th:text="${post.createdAt}"></span></p>
                 <p><strong>제목:</strong> <span th:text="${post.postTitle}"></span></p>
-                <a th:href="@{'/posts/' + ${post.id}}">보러 가기</a>
+                <a class="post-btn" th:href="@{'/posts/' + ${post.id}}">보러 가기</a>
             </li>
         </ul>
 </body>

@@ -2,204 +2,21 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/header/header.css" th:href="@{/css/header/header.css}">
+    <link rel="stylesheet" type="text/css" href="/css/post/postDetail.css" th:href="@{/css/post/postDetail.css}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
     <title>게시글 상세 내용</title>
 
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #FFFFFF;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        main {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 100%;
-        }
-
-        h1 {
-            align-self: flex-start;
-            width: 100%;
-            padding-left: 20px;
-        }
-
-        .content-box, #comments-list li {
-            border: 1px solid #ccc;
-            padding: 30px;
-            margin-bottom: 20px;
-            width: 80%;
-            background-color: #f9f9f9;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            list-style: none;
-        }
-
-
-        .back {
-            float: right;
-            display: inline-block;
-            padding: 8px 12px;
-            margin: 3px 0;
-            background-color: #007BFF;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            color: #fff;
-            text-decoration: none;
-            text-align: center;
-            width: auto;
-            transition: background-color 0.3s;
-        }
-
-        .back:hover {
-            text-decoration: none;
-            background-color: lightskyblue;
-            color: white;
-        }
-
-        textarea {
-            width: 1300px;
-            height: 50px;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .modify-review {
-            float: right;
-            display: inline-block;
-            padding: 8px 12px;
-            margin: 3px 0;
-            background-color: #007BFF;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            color: #fff;
-            text-decoration: none;
-            text-align: center;
-            width: auto;
-            transition: background-color 0.3s;
-        }
-
-        .modify-review:hover {
-            text-decoration: none;
-            background-color: lightskyblue;
-            color: white;
-        }
-
-        .delete-post {
-            float: right;
-            display: inline-block;
-            padding: 8px 12px;
-            margin: 3px 0;
-            background-color: #007BFF;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            color: #fff;
-            text-decoration: none;
-            text-align: center;
-            width: auto;
-            transition: background-color 0.3s;
-        }
-
-        .delete-post:hover {
-            text-decoration: none;
-            background-color: lightskyblue;
-            color: white;
-        }
-
-        button {
-            float: right;
-            display: inline-block;
-            padding: 8px 12px;
-            margin: 3px 0;
-            background-color: #007BFF;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            color: #fff;
-            text-decoration: none;
-            text-align: center;
-            width: auto;
-            transition: background-color 0.3s;
-        }
-
-        button:hover {
-            text-decoration: none;
-            background-color: lightskyblue;
-            color: white;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 80%;
-            margin-top: 20px;
-        }
-
-        #comments-section {
-            margin-left: 200px;
-        }
-
-        #add-comment-form {
-            margin-left: 50px;
-        }
-
-        .comment-actions {
-            display: flex;
-            justify-content: flex-end;
-
-        }
-
-        .delete-comment {
-            padding: 8px 12px;
-            margin: 3px 0;
-            background-color: #007BFF;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            color: #fff;
-            text-decoration: none;
-            text-align: center;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-
-        .delete-comment:hover {
-            background-color: lightskyblue;
-            color: white;
-        }
-
-        .comment-details {
-            padding-bottom: 5px; /* 내용과 시간 사이의 간격 */
-        }
-
-        .comment-footer {
-            display: flex;
-            justify-content: space-between; /* 생성 시간과 삭제 버튼을 양쪽 끝으로 정렬 */
-            align-items: center;
-        }
-
-        .author, .comment-footer span {
-            display: block; /* 각 요소를 블록 요소로 만들어 줄바꿈 */
-        }
-
-        .delete-comment {
-            margin-left: 10px; /* 삭제 버튼과 생성 시간 사이 간격 */
-        }
-
-    </style>
 </head>
 <body>
 <th:block th:replace="~{header/header :: header}"></th:block>
 
 <main>
 
-
     <div class="content-box">
-        <a href="/posts" class="back">뒤로가기</a>
+        <a class="detail-btn" href="/posts">뒤로가기</a>
         <a th:href="@{/posts/edit/{id}(id=${post.id})}" class="modify-review">후기 수정</a>
         <a th:href="@{/posts/delete(id=${post.id})}" class="delete-post">글 삭제</a>
         <h1 th:text="${post.postTitle}">제목</h1>
@@ -232,7 +49,7 @@
         <form id="add-comment-form">
             <input type="hidden" id="postId" th:value="${post.id}">
             <textarea id="content" placeholder="Write your comment here"></textarea>
-            <button type="submit" onclick= "submitComment()">댓글 작성</button>
+            <button class="detail-btn" type="submit" onclick= "submitComment()">댓글 작성</button>
         </form>
     </div>
 

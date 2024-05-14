@@ -1,0 +1,82 @@
+@font-face {
+    font-family: 'SDSamliphopangche_Outline';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Outline.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+header{
+    font-family: 'SDSamliphopangche_Outline', serif;
+}
+
+/* 상단바 css start  */
+.navbar {
+    height:10vh; /* 네비게이션 바의 높이를 조정합니다. */
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과를 추가합니다. */
+}
+
+.navbar-brand{
+    font-size: 50px;
+}
+.navbar-brand :hover{
+    cursor: pointer;
+}
+.nav-item{
+    font-size: 25px;
+}
+.navbar-nav .nav-item:nth-child(1) .nav-link,
+.navbar-nav .nav-item:nth-child(2) .nav-link {
+    margin-right: 2vw; /* 첫 번째와 두 번째 nav-item에 margin-right를 추가합니다. */
+}
+
+.my-page-btn {
+    margin-left: 2vw;
+    background: #55a2eb;
+    font-family: inherit;
+    font-weight: 900;
+    font-size: 18px;
+    border: 3px solid black;
+    border-radius: 0.4em;
+    box-shadow: 0.1em 0.1em;
+    cursor: pointer;
+}
+.my-page-btn a {
+    color: #262424 !important;
+}
+.my-page-btn:hover {
+    transform: translate(-0.05em, -0.05em);
+    box-shadow: 0.15em 0.15em;
+}
+
+.my-page-btn:active {
+    transform: translate(0.05em, 0.05em);
+    box-shadow: 0.05em 0.05em;
+}
+
+.logout-btn,
+.login-btn {
+    margin-left: 1vw;
+    background-color: #acbcc5;
+    font-family: inherit;
+    font-weight: 900;
+    font-size: 18px;
+    border: 3px solid black;
+    border-radius: 0.4em;
+    box-shadow: 0.1em 0.1em;
+    cursor: pointer;
+}
+
+.logout-btn a,
+.login-btn a {
+    color: #262424 !important;
+}
+.logout-btn:hover,
+.login-btn:hover {
+    transform: translate(-0.05em, -0.05em);
+    box-shadow: 0.15em 0.15em;
+}
+
+.logout-btn:active,
+.login-btn:active {
+    transform: translate(0.05em, 0.05em);
+    box-shadow: 0.05em 0.05em;
+}
