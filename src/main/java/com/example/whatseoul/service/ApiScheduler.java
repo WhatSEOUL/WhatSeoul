@@ -6,6 +6,7 @@ import com.example.whatseoul.repository.cityData.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.w3c.dom.Document;
@@ -38,7 +39,7 @@ public class ApiScheduler {
 
 
     @Transactional
-    //@Scheduled(cron = "0 29/5 * * * *")
+//    @Scheduled(cron = "0 18/5 * * * *")
     public void call() {
         long startTime = System.currentTimeMillis();
         List<Area> areas = areaRepository.findAll();

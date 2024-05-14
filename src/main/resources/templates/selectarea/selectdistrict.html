@@ -22,6 +22,7 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto">
+                    <!-- 클래스에 active를 추가해주면 부트스트랩에서 알아서 강조 표시를 살짝 해줍니다 -->
                     <li class="nav-item active">
                         <a class="nav-link" href="/district">지금 서울은?</a>
                     </li>
@@ -29,13 +30,13 @@
                         <a class="nav-link" href="/alan/sse">서울 명소 추천받기</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">커뮤니티</a>
+                        <a class="nav-link" href="/posts">커뮤니티</a>
                     </li>
                     <li class="nav-item my-page-btn">
-                        <a class="nav-link" href="#">마이페이지</a>
+                        <a class="nav-link" href="/user/me">마이페이지</a>
                     </li>
                     <li class="nav-item logout-btn">
-                        <a class="nav-link" href="#">로그아웃</a>
+                        <a class="nav-link" th:href="@{/logout}">로그아웃</a>
                     </li>
                 </ul>
             </div>

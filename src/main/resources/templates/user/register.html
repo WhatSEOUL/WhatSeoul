@@ -10,6 +10,172 @@
   <link rel="stylesheet" type="text/css" href="/css/user/login.css" th:href="@{/css/user/login.css}">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" type="text/css" href="/css/index/index.css" th:href="@{/css/index/index.css}">
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+  <style>
+    input{width: 100%;}
+    .error{color: red;}
+    .success{color: green;}
+  </style>
+
+  <script>
+    function validateEmail(email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(String(email).toLowerCase());
+    }
+    async function checkDuplicateUserEmail() {
+      const email = document.querySelector("#email").value;
+      const param = { "userEmail": email };
+      if (email) {
+        const response = await fetch("/api/check/email", {
+          method: "POST",
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(param)
+        });
+        if (response.ok) {
+          console.log("Response:", await response.json());
+          return "available";
+        } else {
+          console.log("Error:", await response.text());
+          return "unavailable";
+        }
+      } else {
+        return "blank";
+      }
+    }
+
+    async function checkEmail() {
+      try {
+        const res = await checkDuplicateUserEmail();
+        console.log("res :", res);
+        if(res === "available") {
+          if(validateEmail(document.querySelector("#email").value)){
+            $("#emailResult").html('<p class="success">사용 가능한 이메일입니다.</p>');
+          }else{
+            $("#emailResult").html('<p class="error">이메일 형식이 맞지 않습니다.</p>');
+          }
+        } else if (res === "unavailable") {
+          $("#emailResult").html('<p class="error">이미 사용중인 이메일입니다.</p>');
+        } else if (res === "blank") {
+          $("#emailResult").text("이메일을 입력해 주세요.");
+        }
+      } catch (error) {
+        console.log("Error:", error);
+      }
+    }
+
+
+    //유저네임 체크
+    async function checkDuplicateUserName(){
+      const userName = $("#userName").val();
+      const param = {"userName": userName};
+      if (userName) {
+        const response=await fetch("/api/check/username", {
+          method: "POST",
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify(param)
+        });
+        if (response.ok) {
+          console.log("Response:", await response.json());
+          return "available";
+        } else {
+          console.log("Error:", await response.text());
+          return "unavailable";
+        }
+      } else {
+        return "blank";
+      }
+    }
+
+    async  function checkUserName() {
+      const res= await checkDuplicateUserName();
+      if(res==="available"){
+        $("#usernameResult").html('<p class="success">사용 가능한 유저네임입니다.</p>');
+      }else if (res==="unavailable"){
+        $("#usernameResult").html('<p class="error">이미 사용중인 유저네임입니다.</p>');
+      }else if (res==="blank"){
+        $("#usernameResult").text("이메일을 입력해 주세요.");
+      }
+    }
+
+
+
+
+    async  function joinAction(event){
+      event.preventDefault();
+
+      const emailCheck= await checkDuplicateUserEmail();
+      if(emailCheck==="unavailable"){
+        //  alert("이미 사용중인 이메일입니다.");
+
+        Toastify({
+          text: "이미 사용중인 이메일입니다.",
+          duration: 3000,
+          close: true,
+          gravity: "top",
+          position: 'center',
+          backgroundColor: "linear-gradient(to right, #FF0000, #FF7F50)",
+        }).showToast();
+
+        $("#email").focus();
+        return;
+      }
+
+      const userNameCheck= await checkDuplicateUserName();
+      if(userNameCheck==="unavailable"){
+        // alert("이미 사용중인 유저네임입니다.");
+        Toastify({
+          text: "이미 사용중인 유저네임입니다.",
+          duration: 3000,
+          close: true,
+          gravity: "top",
+          position: 'center',
+          backgroundColor: "linear-gradient(to right, #FF0000, #FF7F50)",
+        }).showToast();
+
+        $("#userName").focus()
+        return;
+      }
+
+      const form=$(".form").serialize();
+      $.ajax({
+        url: '/api/join',
+        type: 'POST',
+        data: form,
+        success: function(response) {
+          console.log('Success:', response);
+          if(response==="success"){
+            //alert("회원가입이 완료되었습니다.");
+            //location.href="/login";
+            Toastify({
+              text: "회원가입이 완료되었습니다.",
+              duration: 5000,
+              close: true,
+              gravity: "top",
+              position: 'center',
+              backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
+              callback: function() {
+                // 닫기 버튼을 클릭했을 때
+                location.href="/login";
+              }
+            }).showToast();
+
+            setTimeout(()=>{
+              location.href="/login";
+            },7000);
+          }else{
+            alert("회원가입 처리 오류입니다.");
+          }
+        },
+        error: function(jqXHR) {
+          alert(jqXHR.responseText);
+          console.log('Error:', jqXHR.responseText);
+        }
+      });
+    }
+  </script>
 
 </head>
 <body>
@@ -50,14 +216,23 @@
 </header>
 <div class="container">
   <div class="hero">
-    <form th:action="@{/api/join}" method="post" class="form">
+    <form method="post" class="form" onsubmit="event.preventDefault(); joinAction(event);">
       <div class="logo">회원가입</div>
-      <input type="email" id="email" name="email" required class="input" placeholder="email">
-      <input name="name" id="userName" required class="input" placeholder="username">
-      <input type="password" name="password" required class="input" placeholder="password">
-      <input type="submit" value="회원가입" class="input submit">
+
+      <input type="email" id="email" name="email" required class="input" placeholder="email" onchange="checkEmail()" />
+      <div id="emailResult"></div>
+
+      <input name="name" id="userName" required class="input" placeholder="username" onchange="checkUserName()" />
+      <div id="usernameResult"></div>
+
+      <input type="password" name="password" required class="input" placeholder="password" />
+      <input type="submit" value="회원가입" class="input submit" >
     </form>
   </div>
 </div>
+
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+
 </body>
 </html>

@@ -1,15 +1,15 @@
 document.addEventListener("DOMContentLoaded", function() {
-    // 헤더 로고의 margin-left와 main content의 margin-left 맞추는 함수
-    function adjustMainContentMargin() {
-        var logo = document.querySelector(".navbar-brand");
-        var logoLeft = logo.getBoundingClientRect().left;
-        var mainContentWrapper = document.querySelector(".main-content-wrapper");
-        // var questionWrapper = document.querySelector(".main-content-question-wrapper");
-        mainContentWrapper.style.marginLeft = logoLeft + "px";
-        // questionWrapper.style.paddingLeft = logoLeft + "px";
-    }
-    adjustMainContentMargin();
-    window.addEventListener("resize", adjustMainContentMargin);
+    // // 헤더 로고의 margin-left와 main content의 margin-left 맞추는 함수
+    // function adjustMainContentMargin() {
+    //     var logo = document.querySelector(".navbar-brand");
+    //     var logoLeft = logo.getBoundingClientRect().left;
+    //     var mainContentWrapper = document.querySelector(".main-content-wrapper");
+    //     // var questionWrapper = document.querySelector(".main-content-question-wrapper");
+    //     mainContentWrapper.style.marginLeft = logoLeft + "px";
+    //     // questionWrapper.style.paddingLeft = logoLeft + "px";
+    // }
+    // adjustMainContentMargin();
+    // window.addEventListener("resize", adjustMainContentMargin);
 
     // 하단의 질문 input에서 질문이 제출될 때마다 질문-응답의 결과를 담는 html 노드 생성
     var count = 0;
