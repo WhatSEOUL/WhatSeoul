@@ -58,6 +58,8 @@ public class PostController {
         return "post/postDetail"; // postDetail.html 템플릿을 렌더링
     }
 
+
+
 //    @PostMapping
 //    public ResponseEntity<PostDto> createPost(@RequestBody PostDto postDto) {
 //        PostDto createdPost = postService.createPost(postDto);
@@ -82,7 +84,7 @@ public class PostController {
         return new ResponseEntity<>(updatedPost, HttpStatus.OK);
     }
 
-    @PostMapping("posts/editpro")
+    @PostMapping("/editpro")
     public String editPost(PostDto postDto) {
         PostDto updatedPost = postService.updatePost(postDto);
         return "redirect:/posts";
@@ -93,7 +95,7 @@ public class PostController {
         return "postedit";  // 'postedit'는 실제 뷰 파일 이름과 일치해야 함
     }
 
-    @GetMapping("/posts/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String editPost(@PathVariable("id") Long id, Model model) {
         PostDto postDto = postService.getPostById(id); // 게시글 조회
         model.addAttribute("post", postDto);
@@ -109,7 +111,7 @@ public class PostController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("posts/delete")
+    @GetMapping("/delete")
     public String editPost(@RequestParam Long id) {
         postService.deletePost(id);
         return "redirect:/posts";
