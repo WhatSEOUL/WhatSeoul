@@ -199,9 +199,12 @@
 
 
     <div class="content-box">
+        <span class="author" th:text="${post.userName}"></span><br>
         <a href="/posts" class="back">뒤로가기</a>
-        <a th:href="@{/posts/edit/{id}(id=${post.id})}" class="modify-review">후기 수정</a>
-        <a th:href="@{/posts/delete(id=${post.id})}" class="delete-post">글 삭제</a>
+        <div class="post-actions" th:if="${post.userEmail == currentUser}">
+            <a th:href="@{/posts/edit/{id}(id=${post.id})}" class="modify-review">후기 수정</a>
+            <a th:href="@{/posts/delete(id=${post.id})}" class="delete-post">글 삭제</a>
+        </div>
         <h1 th:text="${post.postTitle}">제목</h1>
 <!--        <p><strong>작성자 : </strong><span th:text="${post.getUserId()}"></span></p>-->
         <p><strong>작성일:</strong> <span th:text="${post.createdAt}"></span> | <strong>조회수:</strong> <span th:text="${post.viewCount}"></span></p>

@@ -2,7 +2,9 @@ package com.example.whatseoul.service;
 
 import com.example.whatseoul.dto.PostDto;
 import com.example.whatseoul.entity.Post;
+import com.example.whatseoul.entity.User;
 import com.example.whatseoul.repository.post.PostRepository;
+import com.example.whatseoul.repository.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -20,7 +22,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final ModelMapper modelMapper;
     private final AccountService accountService;
-
+    private final UserRepository userRepository;
 
     public List<PostDto> getAllPosts() {
         List<Post> posts = postRepository.findAll();
@@ -50,7 +52,8 @@ public class PostService {
     public void createPost(PostDto postDto) {
         Long userId = accountService.getAuthenticatedUserId();
 //        Long userId = accountService.getAuthenticatedUserId();
-//        User user = userRepository.findByUserId(userId);
+        User user = userRepository.findByUserId(userId);
+        postDto.setUserEmail(user.getUserEmail());
 //        postDto.setUserId(user.getUserId());
         postDto.setUserId(userId);
         Post post = convertToEntity(postDto);
