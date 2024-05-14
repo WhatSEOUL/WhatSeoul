@@ -21,7 +21,7 @@ header{
     cursor: pointer;
 }
 .nav-item{
-    font-size: 20px;
+    font-size: 25px;
 }
 .navbar-nav .nav-item:nth-child(1) .nav-link,
 .navbar-nav .nav-item:nth-child(2) .nav-link {
@@ -30,20 +30,53 @@ header{
 
 .my-page-btn {
     margin-left: 2vw;
-    background-color: #007bff;
-    border-radius: 5px;
+    background: #55a2eb;
+    font-family: inherit;
+    font-weight: 900;
+    font-size: 18px;
+    border: 3px solid black;
+    border-radius: 0.4em;
+    box-shadow: 0.1em 0.1em;
+    cursor: pointer;
 }
 .my-page-btn a {
-    color: #ffffff !important;
+    color: #262424 !important;
 }
+.my-page-btn:hover {
+    transform: translate(-0.05em, -0.05em);
+    box-shadow: 0.15em 0.15em;
+}
+
+.my-page-btn:active {
+    transform: translate(0.05em, 0.05em);
+    box-shadow: 0.05em 0.05em;
+}
+
 .logout-btn,
 .login-btn {
     margin-left: 1vw;
-    background-color: #6c757d;
-    border-radius: 5px;
+    background-color: #acbcc5;
+    font-family: inherit;
+    font-weight: 900;
+    font-size: 18px;
+    border: 3px solid black;
+    border-radius: 0.4em;
+    box-shadow: 0.1em 0.1em;
+    cursor: pointer;
 }
 
-.login-btn a,
-.logout-btn a {
-    color: #ffffff !important;
+.logout-btn a,
+.login-btn a {
+    color: #262424 !important;
+}
+.logout-btn:hover,
+.login-btn:hover {
+    transform: translate(-0.05em, -0.05em);
+    box-shadow: 0.15em 0.15em;
+}
+
+.logout-btn:active,
+.login-btn:active {
+    transform: translate(0.05em, 0.05em);
+    box-shadow: 0.05em 0.05em;
 }
