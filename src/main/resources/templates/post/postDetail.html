@@ -8,7 +8,6 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
     <title>게시글 상세 내용</title>
-
 </head>
 <body>
 <th:block th:replace="~{header/header :: header}"></th:block>
@@ -16,9 +15,12 @@
 <main>
 
     <div class="content-box">
+        <span class="author" th:text="${post.userName}"></span><br>
         <a class="detail-btn" href="/posts">뒤로가기</a>
-        <a th:href="@{/posts/edit/{id}(id=${post.id})}" class="modify-review">후기 수정</a>
-        <a th:href="@{/posts/delete(id=${post.id})}" class="delete-post">글 삭제</a>
+        <div class="post-actions" th:if="${post.userEmail == currentUser}">
+            <a th:href="@{/posts/edit/{id}(id=${post.id})}" class="modify-review">후기 수정</a>
+            <a th:href="@{/posts/delete(id=${post.id})}" class="delete-post">글 삭제</a>
+        </div>
         <h1 th:text="${post.postTitle}">제목</h1>
 <!--        <p><strong>작성자 : </strong><span th:text="${post.getUserId()}"></span></p>-->
         <p><strong>작성일:</strong> <span th:text="${post.createdAt}"></span> | <strong>조회수:</strong> <span th:text="${post.viewCount}"></span></p>
