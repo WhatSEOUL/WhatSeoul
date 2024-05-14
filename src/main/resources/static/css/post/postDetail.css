@@ -1,0 +1,70 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #FFFFFF;
+    margin: 0;
+    padding: 0;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+h1 {
+    align-self: flex-start;
+    width: 100%;
+    padding-left: 20px;
+}
+
+.content-box, #comments-list li {
+    border: 1px solid #ccc;
+    padding: 30px;
+    margin-bottom: 20px;
+    margin-top: 50px;
+    width: 80%;
+    background-color: #f9f9f9;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    list-style: none;
+}
+
+
+textarea {
+    width: 1300px;
+    height: 50px;
+    align-items: center;
+    margin-bottom: 10px; /* 텍스트 영역과 버튼 사이의 간격 */
+}
+
+.detail-btn {
+    float: right;
+    display: inline-block;
+    padding: 8px 12px;
+    margin: 3px 0;
+    background-color: #007BFF;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    width: auto;
+    transition: background-color 0.3s;
+}
+
+.detail-btn:hover {
+    text-decoration: none;
+    background-color: lightskyblue;
+    color: white;
+}
+
+/*form {*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center; !* 버튼을 중앙 정렬 *!*/
+/*    width: 80%; !* 폼의 너비 조정 *!*/
+/*    margin-top: 20px; !* 상단 여백 *!*/
+/*}*/

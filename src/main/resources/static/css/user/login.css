@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'SDSamliphopangche_Outline';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts-20-12@1.0/SDSamliphopangche_Outline.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 .container {
     height: 100%;
     width: 100%;
@@ -39,6 +46,7 @@
 }
 
 .submit , .btn {
+    font-family: 'SDSamliphopangche_Outline', serif;
     margin-top: 20px;
     font-weight: bold;
     box-shadow: -3px -3px 5px white, 3px 3px 5px rgba(209, 209, 209, 0.705);
@@ -52,6 +60,7 @@
 }
 
 .logo {
+    font-family: 'SDSamliphopangche_Outline', serif;
     font-size: 3rem;
     color: black;
     font-weight: 600;
@@ -100,6 +109,8 @@ a {
 }
 
 .signup {
+    text-decoration-line: none;
+    font-family: 'SDSamliphopangche_Outline', serif;
     color: gray;
     margin-top: 15px;
     font-size: 1rem;

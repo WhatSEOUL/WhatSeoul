@@ -53,7 +53,7 @@ public class AlanService {
 	// @Scheduled(cron = "0 26 19/24 * * *")
 	public void fetchAlanAreaResponse(String type, List<String> areaNames) throws JsonProcessingException {
 		long startTime = System.currentTimeMillis();
-		// 컨트롤러 없이 서비스 메소드 스케줄링만으로 데이터를 저장할 경우 인자를 비우고 아래 코드 사용
+		// 컨트롤러 없이 서비스 메소드 스케줄링만으로 지역 및 특색 정보를 저장할 경우 메소드 인자를 비우고 아래 코드 사용
 		// String type = "attraction";
 		// List<String> areaNames = areaRepository.findAllAreaNames();
 
@@ -69,6 +69,7 @@ public class AlanService {
 		log.info("소요 시간 = " + totalTime);
 	}
 
+	// 지역별 위치정보 저장
 	public void updateAreaLocationInfo(List<String> areaNames) throws JsonProcessingException {
 		for (String areaName : areaNames) {
 			log.info("area {} start", areaName);
@@ -92,11 +93,12 @@ public class AlanService {
 		}
 	}
 
+	// 지역별 특색정보 저장
 	public void updateAreaAttarctionInfo(List<String> areaNames) throws JsonProcessingException {
-		for (int i = 65; i < areaNames.size(); i++) {
-			log.info("area {} start", areaNames.get(i));
+		for (String areaName : areaNames) {
+			log.info("area {} start", areaName);
 
-			String content = "서울 " + areaNames.get(i) + "의 특색을 4줄 이내로 알려줘."
+			String content = "서울 " + areaName + "의 특색을 4줄 이내로 알려줘."
 				+ "\n이 지역의 명소와 특징을 위주로 알려줘";
 
 			String uri = UriComponentsBuilder
@@ -110,8 +112,8 @@ public class AlanService {
 			AlanBasicResponseDto jsonResponse = parseJsonResponse(responseBody);
 			String areaAttractionInfo = jsonResponse.getContent();
 			log.info("areaAttractionInfo = {}", areaAttractionInfo);
-			areaRepository.updateAreaAttractionInfoByAreaName(areaNames.get(i), areaAttractionInfo);
-			log.info("area {} end", areaNames.get(i));
+			areaRepository.updateAreaAttractionInfoByAreaName(areaName, areaAttractionInfo);
+			log.info("area {} end", areaName);
 		}
 	}
 

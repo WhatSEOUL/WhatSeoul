@@ -39,7 +39,7 @@ public class ApiScheduler {
 
 
     @Transactional
-//    @Scheduled(cron = "0 18/5 * * * *")
+   @Scheduled(cron = "0 16/5 * * * *")
     public void call() {
         long startTime = System.currentTimeMillis();
         List<Area> areas = areaRepository.findAll();
@@ -212,26 +212,4 @@ public class ApiScheduler {
             return nodeList.item(0).getTextContent();
         } else return "No Tag";
     }
-
-    // 향후 사용할 일이 없어보이면 삭제하겠습니다!
-    // private String getPplForecastText(Document document, String tag) {
-    //     NodeList nodeList = document.getElementsByTagName("FCST_PPLTN"); // 13개 노드가 담긴 리스트 반환, 0번 노드는 부모 노드
-    //     for (int i = 1; i < nodeList.getLength(); i++) {
-    //         Node fcstPpltnNode = nodeList.item(i);
-    //         NodeList childNodes = fcstPpltnNode.getChildNodes();
-    //
-    //         for (int j = 0; j < childNodes.getLength(); j++) {
-    //             Node childNode = childNodes.item(j);
-    //             if (childNode.getNodeName().equals(tag)) {
-    //                 return childNode.getTextContent();
-    //             }
-    //         }
-    //         // if (tag.equals("FCST_TIME")) {
-    //         //     return fcstPpltnNode.getFirstChild().getFirstChild().getTextContent();
-    //         // } else if (tag.equals("FCST_CONGEST_LVL")) {
-    //         //     return fcstPpltnNode.getFirstChild().getFirstChild().getNextSibling().getTextContent();
-    //         // }
-    //     }
-    //     return "No Tag";
-    // }
 }

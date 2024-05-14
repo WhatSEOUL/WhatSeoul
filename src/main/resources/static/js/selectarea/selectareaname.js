@@ -1,4 +1,4 @@
-// 구별 지역명 정보를 담은 객체
+// 25개 지역구별 115개 핫스팟 장소명 분류 객체
 const areasByDistrict = {
     "강남구": [
         "강남 MICE 관광특구",
@@ -82,8 +82,7 @@ const areasByDistrict = {
     ],
     "서초구": [
         "방배역 먹자골목",
-        "양재역",
-        "구룡공원"
+        "양재역"
     ],
     "성동구": [
         "뚝섬역",
@@ -139,6 +138,7 @@ const areasByDistrict = {
         "광화문·덕수궁",
         "창덕궁·종묘",
         "낙산공원·이화마을",
+        "보신각",
         "북촌한옥마을",
         "서촌",
         "불광천",
@@ -148,13 +148,11 @@ const areasByDistrict = {
     "중구": [
         "명동 관광특구",
         "종로·청계 관광특구",
-        "보신각",
         "낙산공원·이화마을",
         "덕수궁길·정동길",
         "4·19 카페거리",
         "광장(전통)시장",
         "서울역",
-        "회기역",
         "남대문시장",
         "서울광장"
     ],
@@ -243,12 +241,10 @@ areaButtons.forEach(function(button, index) {
         })
             .then(response => response.json())
             .then(data => {
-                console.log("areaLocationInfo: ", data.areaLocationInfo);
-                console.log("areaAttractionInfo: ", data.areaAttractionInfo);
+                console.log("개별 지역 조회 data: ", data)
                 const content = formatResponse(data.areaLocationInfo);
                 const attraction = formatResponse(data.areaAttractionInfo);
-                console.log("formatted: ", content);
-                console.log("formatted: ", attraction);
+
                 locationAttractionWrapper.style.display = "block";
                 locationDiv.innerHTML = formatResponse(data.areaLocationInfo);
                 attractionDiv.innerHTML = formatResponse(data.areaAttractionInfo);
