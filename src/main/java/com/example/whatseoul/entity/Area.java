@@ -34,4 +34,7 @@ public class Area {
 
     @Column(name = "AREA_ATTRACTION_INFO", columnDefinition = "TEXT")
     private String areaAttractionInfo;
+
+    @Column(name = "AREA_ADDRESS")
+    private String areaAddress;
 }
