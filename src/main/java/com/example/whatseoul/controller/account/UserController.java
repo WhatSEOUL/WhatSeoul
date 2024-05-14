@@ -1,19 +1,25 @@
 package com.example.whatseoul.controller.account;
 
+import com.example.whatseoul.dto.ResponseDto;
+import com.example.whatseoul.dto.UserDto;
 import com.example.whatseoul.dto.response.UserResponseDto;
 import com.example.whatseoul.service.AccountService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/")
 @RequiredArgsConstructor
+@Slf4j
 public class UserController {
 
     private final AccountService accountService;
@@ -29,10 +35,24 @@ public class UserController {
         return "user/register";  // 회원가입 페이지를 반환
     }
 
+    /**
+     * 회원 가입처리
+     * @param email
+     * @param password
+     * @param name
+     * @param model
+     * @return
+     */
     @PostMapping("/api/join")
-    public ResponseEntity<UserResponseDto> join(String email, String password, String name) {
-        return ResponseEntity.ok(accountService.join(email, password, name));
+    public ResponseEntity<?> join(String email, String password, String name, Model model) {
+        try {
+            accountService.join(email, password, name);
+            return ResponseEntity.ok("success");
+        }catch (RuntimeException e){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
+        }
     }
+
 
     @GetMapping("/api/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
@@ -40,15 +60,27 @@ public class UserController {
         return "redirect:/";
     }
 
+
     @GetMapping("update")
     public String update() {
         return "user/update";
     }
 
+    /**
+     * 비밀번호 변경 처리
+     * @param userDto
+     * @return
+     */
     @PostMapping("/api/update")
-    public String updateUserInfo(String password) {
-        accountService.updatePw(password);
-        return "redirect:/";
+    @ResponseBody
+    public ResponseEntity<?> updateUserInfo(@RequestBody UserDto userDto) {
+        try {
+            accountService.updatePw(userDto.getUserPassword());
+            return ResponseEntity.ok().body(ResponseDto.builder().code(1).message("success").build());
+        }catch (Exception e){
+            return ResponseEntity.badRequest().body(ResponseDto.builder().code(-1).message(e.getMessage())
+                    .errorCode(HttpStatus.BAD_REQUEST.toString()).build());
+        }
     }
 
     @PostMapping("withdraw")
@@ -56,21 +88,44 @@ public class UserController {
         return "user/withdraw";
     }
 
-    @GetMapping("/api/check/username")
-    public ResponseEntity<String> checkDuplicateUserName(@RequestParam("name") String userName) {
-        if (accountService.existsByUserName(userName)) {
-            return ResponseEntity.badRequest().body("이미 사용중인 유저네임입니다.");
+    /**
+     * 이메일 중복확인
+     * @param userDto
+     * @return
+     */
+    @PostMapping("/api/check/email")
+    @ResponseBody
+    public ResponseEntity<?> checkDuplicateUserEmail(@RequestBody UserDto userDto) {
+        if (accountService.existsByUserEmail(userDto.getUserEmail())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(ResponseDto.builder().code(-1).message("unavailable").build());
         } else {
-            return ResponseEntity.ok("사용 가능한 유저네임입니다.");
+            return ResponseEntity.ok(ResponseDto.builder().code(-1).message("available").build());
         }
     }
 
-    @GetMapping("/api/check/email")
-    public ResponseEntity<String> checkDuplicatUserEmail(@RequestParam("email") String userEmail) {
-        if (accountService.existsByUserEmail(userEmail)) {
-            return ResponseEntity.badRequest().body("이미 사용중인 이메일입니다.");
+
+    /**
+     * 유저네임 중복확인
+     * @param userDto
+     * @return
+     */
+    @PostMapping("/api/check/username")
+    @ResponseBody
+    public ResponseEntity<?> checkDuplicateUserName(@RequestBody UserDto userDto) {
+        if (accountService.existsByUserName(userDto.getUserName())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(ResponseDto.builder().code(-1).message("unavailable").build());
         } else {
-            return ResponseEntity.ok("사용 가능한 이메일입니다.");
+            return ResponseEntity.ok(ResponseDto.builder().code(-1).message("available").build());
         }
     }
+
+
+
+    @GetMapping(value = "/login/error")
+    public String loginError(Model model){
+        model.addAttribute("errorMessage", "아이디 또는 비밀번호를 확인해주세요!");
+        return "login";
+    }
+
 }
+

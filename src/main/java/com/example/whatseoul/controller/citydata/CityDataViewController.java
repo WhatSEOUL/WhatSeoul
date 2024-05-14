@@ -2,8 +2,11 @@ package com.example.whatseoul.controller.citydata;
 
 import java.security.Principal;
 
+import jakarta.servlet.http.HttpSession;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.Banner;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,19 +17,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.example.whatseoul.security.CustomUserDetails;
 import com.example.whatseoul.service.ApiScheduler;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@Slf4j
 public class CityDataViewController {
 
 	private final ApiScheduler apiScheduler;
 
 	public CityDataViewController(ApiScheduler apiScheduler) {
 		this.apiScheduler = apiScheduler;
-	}
-
-	@GetMapping("/")
-	public String indexPage() {
-		return "index/index";
 	}
 
 	@GetMapping("/district")
@@ -49,4 +49,28 @@ public class CityDataViewController {
 	public String citydataPage() {
 		return "citydata/citydatalist";
 	}
+
+
+
+	//추가함
+	@GetMapping("/")
+	public String indexPage(Model model, HttpSession session) {
+
+		//로그인 성공 메시지
+		Object loginSuccess=session.getAttribute("loginSuccess");
+		if(loginSuccess!=null&& (Boolean)loginSuccess){
+			model.addAttribute("loginSuccess", true);
+			session.removeAttribute("loginSuccess");
+		}
+
+		//로그아웃 메시지
+		Object logoutSuccess=session.getAttribute("logoutSuccess");
+		if(logoutSuccess!=null&& (Boolean)logoutSuccess){
+			model.addAttribute("logoutSuccess", true);
+			session.removeAttribute("logoutSuccess");
+		}
+
+		return "index/index";
+	}
+
 }

@@ -1,4 +1,4 @@
-// 구별 지역명 정보를 담은 객체
+// 25개 지역구별 115개 핫스팟 장소명 분류 객체
 const areasByDistrict = {
     "강남구": [
         "강남 MICE 관광특구",
@@ -82,8 +82,7 @@ const areasByDistrict = {
     ],
     "서초구": [
         "방배역 먹자골목",
-        "양재역",
-        "구룡공원"
+        "양재역"
     ],
     "성동구": [
         "뚝섬역",
@@ -139,6 +138,7 @@ const areasByDistrict = {
         "광화문·덕수궁",
         "창덕궁·종묘",
         "낙산공원·이화마을",
+        "보신각",
         "북촌한옥마을",
         "서촌",
         "불광천",
@@ -148,13 +148,11 @@ const areasByDistrict = {
     "중구": [
         "명동 관광특구",
         "종로·청계 관광특구",
-        "보신각",
         "낙산공원·이화마을",
         "덕수궁길·정동길",
         "4·19 카페거리",
         "광장(전통)시장",
         "서울역",
-        "회기역",
         "남대문시장",
         "서울광장"
     ],
@@ -163,7 +161,23 @@ const areasByDistrict = {
         "응봉산"
     ]
 };
+// 카카오맵 api
+var container = document.getElementById('map');
+var options = {
+    center: new kakao.maps.LatLng(37.4981646510326, 127.028307900881),
+    level: 3
+};
 
+var map = new kakao.maps.Map(container, options);
+
+// 지도 확대/축소 컨트롤 추가
+var zoomControl = new kakao.maps.ZoomControl();
+map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+
+var infowindow = new kakao.maps.InfoWindow({});
+
+// 전역 변수로 마커 객체 배열 생성
+var markers = [];
 // 선택한 구 이름 출력
 const strongText = document.querySelector('.main-content-text strong');
 const districtName = localStorage.getItem('district');
@@ -171,12 +185,15 @@ strongText.innerHTML = districtName;
 
 // 선택한 구와 연관된 구체적인 지역명
 const areaNames = areasByDistrict[districtName];
-console.log(areaNames);
-
 
 const buttonContainerWrapper= document.querySelector('.button-container-wrapper')
 const buttonContainerDiv = document.createElement('div');
 const backButton = document.querySelector('#backButton');
+
+// 지역별 위치, 명소정보 div
+const locationAttractionWrapper = document.querySelector(".main-content-location-attraction-info-wrapper");
+const locationDiv = document.querySelector(".main-content-location-info");
+const attractionDiv = document.querySelector(".main-content-attraction-info");
 
 buttonContainerDiv.classList.add('button-container');
 buttonContainerWrapper.appendChild(buttonContainerDiv);
@@ -195,10 +212,133 @@ if(areaNames) {
 }
 
 const areaButtons = document.querySelectorAll('.area-name');
-areaButtons.forEach(function(button) {
+areaButtons.forEach(function(button, index) {
     button.addEventListener('click', function () {
         var buttonText = button.textContent;
         localStorage.setItem('area', buttonText);
-        location.href = "/area/confirm";
-    })
+        const areaNameDiv = document.querySelector(".main-content-area-name");
+        areaNameDiv.innerText = buttonText;
+        // 클릭한 버튼의 buttonText가 areaNames에서 차지하는 인덱스와 markers에서 marker가 차지하는 인덱스가 같으면
+        // 이 코드 실행
+        // infowindow.open(map, marker);
+
+        if (markers[index]) {
+            infowindow.setContent('<div style="padding:5px; width:max-content;">' + buttonText + '</div>');
+            infowindow.open(map, markers[index]);
+        }
+
+        // 마커의 위치 정보 가져오기
+        var markerPosition = markers[index].getPosition();
+        // 지도의 중심을 마커의 위치로 이동
+        map.setCenter(markerPosition);
+
+        // 지역정보 개별 조회 api 호출
+        fetch(`/api/area/${buttonText}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log("개별 지역 조회 data: ", data)
+                const content = formatResponse(data.areaLocationInfo);
+                const attraction = formatResponse(data.areaAttractionInfo);
+
+                locationAttractionWrapper.style.display = "block";
+                locationDiv.innerHTML = formatResponse(data.areaLocationInfo);
+                attractionDiv.innerHTML = formatResponse(data.areaAttractionInfo);
+            })
+            .catch(error => {
+                console.log('Error: ', error);
+            });
+    });
 })
+
+
+
+// 구 단위 지역정보 조회 api 호출
+document.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams();
+    areaNames.forEach(areaName => {
+        urlParams.append('areaName', areaName);
+    });
+    const queryString = urlParams.toString();
+    // 페이지가 로드되면 한 번만 fetch 요청을 보냅니다.
+    fetch(`/api/area?${queryString}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            // 호출 데이터 [{..}, {..}, {..}, ..]를 이용해 좌표 설정
+            var points = [];
+            areas = data;
+            data.forEach(area => {
+
+                // 각 지역의 위도(latitude)와 경도(longitude) 값을 가져와 points 배열에 추가
+                var latitude = area.areaLatitude;
+                var longitude = area.areaLongitude;
+                var point = new kakao.maps.LatLng(latitude, longitude);
+                points.push(point);
+
+                // 마커 생성
+                var marker = new kakao.maps.Marker({ position: point });
+
+                // 인포윈도우 생성
+                var infowindow = new kakao.maps.InfoWindow({
+                    content: '<div style="padding:5px;">' + area.areaName + '</div>'
+                });
+
+                // 마커에 마우스 호버 이벤트 추가
+                kakao.maps.event.addListener(marker, 'mouseover', function() {
+                    // 마우스 호버 시 인포윈도우를 지도에 표시
+                    infowindow.open(map, marker);
+                });
+
+                // 마커에 마우스 아웃 이벤트 추가 (선택 사항)
+                kakao.maps.event.addListener(marker, 'mouseout', function() {
+                    // 마우스가 마커를 벗어날 때 인포윈도우를 닫음
+                    infowindow.close();
+                });
+
+                // 마커 지도에 추가
+                marker.setMap(map);
+
+                // 마커 객체를 전역 배열에 저장
+                markers.push(marker);
+                // LatLngBounds 객체에 좌표를 추가합니다
+                // bounds.extend(point);
+            });
+
+            // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
+            var bounds = new kakao.maps.LatLngBounds();
+
+            // 배열의 좌표들이 잘 보이게 마커를 지도에 추가합니다
+            points.forEach(point => {
+                bounds.extend(point);
+            });
+
+            // 지도의 범위를 재설정합니다.
+            map.setBounds(bounds);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+});
+
+function formatResponse(response) {
+    let boldRegex = /\*\*(.*?)\*\*/g; // 볼드 처리를 위한 정규표현식
+    let urlRegex = /\[(.*?)\]\((.*?)\)/g; // URL 추출을 위한 정규표현식
+
+    response = response.replace(boldRegex, '<strong>$1</strong>'); // ** **를 <strong> 태그로 바꾸기
+    response = response.replace(urlRegex, '<a href="$2" target="_blank">$1</a>'); // URL을 <a> 태그로 바꾸기
+
+    // 마침표(.)로 끝나는 문장을 기준으로 문단을 나누고, 각 문단을 <p> 태그로 감싸기
+    response = response.replace(/([^.?!])\s*$/, "$1.</p>").replace(/\n/g, "</p><p>");
+
+    // 문단을 감싼 <p> 태그로 감싼 결과 반환
+    return response;
+}

@@ -22,4 +22,19 @@ public class Area {
 
     @Column(name = "AREA_NAME")
     private String areaName;
+
+    @Column(name = "AREA_LATITUDE")
+    private Double areaLatitude;
+
+    @Column(name = "AREA_LONGITUDE")
+    private Double areaLongitude;
+
+    @Column(name = "AREA_LOCATION_INFO", columnDefinition = "TEXT")
+    private String areaLocationInfo;
+
+    @Column(name = "AREA_ATTRACTION_INFO", columnDefinition = "TEXT")
+    private String areaAttractionInfo;
+
+    @Column(name = "AREA_ADDRESS")
+    private String areaAddress;
 }

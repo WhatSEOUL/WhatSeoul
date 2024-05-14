@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <!-- 도시데이터 전체 조회(이 페이지)를 위한 css : 내부에 인구데이터 관련 css는 인구데이터 관련이라고 표기해둠    -->
     <link rel="stylesheet" type="text/css" href="/css/citydata/citydatalist.css" th:href="@{/css/citydata/citydatalist.css}">
+    <link rel="stylesheet" type="text/css" href="/css/header/header.css" th:href="@{/css/header/header.css}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
     <!-- 인구데이터 조회 기능을 위한 js -->
     <script defer src="/js/citydata/population.js"></script>
@@ -19,38 +21,8 @@
 
 </head>
 <body>
-<header>
-    <!-- 상단바 html start  -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" onclick="location.href='/'">WhatSeoul</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+<th:block th:replace="~{header/header :: header}"></th:block>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/district">지금 서울은?</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href='/alan/sse'>서울 명소 추천받기</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">커뮤니티</a>
-                    </li>
-                    <li class="nav-item my-page-btn">
-                        <a class="nav-link" href="/api/user/me">마이페이지</a>
-                    </li>
-                    <li class="nav-item logout-btn">
-                        <a class="nav-link" href="#">로그아웃</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- 상단바 html end -->
-</header>
 <main>
     <section class="main-content-wrapper">
         <div class="main-content"><br>
@@ -103,7 +75,7 @@
                         </div>
                     </div>
 
-                    <div class="update-time" style="font-size: 10px; color: gray;">
+                    <div class="update-time" style="font-size: 12px; color: gray;">
                         🕖 업데이트 시간: <span id="updateTime" ></span>
                     </div>
                 </div><br>
@@ -123,7 +95,7 @@
                         <canvas id="myChart"></canvas>
                     </div>
                 </div>
-                <div class="ppltn-update-time" style="font-size: 10px; color: gray;">
+                <div class="ppltn-update-time" style="font-size: 12px; color: gray;">
                     🕖 업데이트 시간: <span class="span-ppltn-update-time" ></span>
                 </div>
             </div>

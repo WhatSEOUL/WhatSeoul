@@ -1,11 +1,9 @@
 package com.example.whatseoul.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Getter
 @Setter
@@ -16,7 +14,11 @@ public class PostDto {
     private String postTitle;
     private String postContent;
     private String postFile;
-    private Long viewCount;
-    private LocalDateTime createdAt;
+    private Integer viewCount;
+    private String createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm"));
     private LocalDateTime modifiedAt;
+    private Long userId;
+    private String userName;
+    private String userEmail;
+
 }

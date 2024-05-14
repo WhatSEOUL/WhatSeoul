@@ -8,41 +8,12 @@
     <title>WhatSeoul</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="./css/selectarea/selectareaname.css" th:href="@{/css/selectarea/selectareaname.css}">
-    <script defer src="/js/selectarea/selectareaname.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/header/header.css" th:href="@{/css/header/header.css}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+
 </head>
 <body>
-<header>
-    <!-- 상단바 html start  -->
-    <nav class="navbar navbar-expand-lg navbar-light">
-        <div class="container">
-            <a class="navbar-brand" onclick="location.href='/'">WhatSeoul</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="/district">지금 서울은?</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/alan/sse">서울 명소 추천받기</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/posts">커뮤니티</a>
-                    </li>
-                    <li class="nav-item my-page-btn">
-                        <a class="nav-link" href="/user/me">마이페이지</a>
-                    </li>
-                    <li class="nav-item logout-btn">
-                        <a class="nav-link" th:href="@{/logout}">로그아웃</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- 상단바 html end -->
-</header>
+<th:block th:replace="~{header/header :: header}"></th:block>
 <main>
     <div class="main-content">
         <div class="main-content-text">
@@ -51,6 +22,30 @@
         </div>
         <div class="button-container-wrapper">
         </div>
+        <div id="map" style="width:50vw; height:50vh">
+        </div>
+        <div class="main-content-location-attraction-info-wrapper">
+            <div class="main-content-area-name">
+            </div>
+            <div class="main-content-location-attraction-info-wrapper-title">
+                위치
+            </div>
+            <div class="main-content-location-info">
+
+            </div>
+            <div class="main-content-location-attraction-info-wrapper-title">
+                특색
+            </div>
+            <div class="main-content-attraction-info">
+
+            </div>
+            <div class="confirm-button-wrapper">
+                <button class="confirm-button" onclick="location.href='/area/confirm';">
+                    실시간 지역정보 확인하기
+                </button>
+            </div>
+        </div>
+
     </div>
     <!-- 뒤로가기 버튼 -->
     <div class="button-container-wrapper" id="backButtonWrapper">
@@ -61,6 +56,8 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=31d9fb88ba6ca43415f343f7a972beeb"></script>
+<script defer src="/js/selectarea/selectareaname.js"></script>
 
 </body>
 </html>
