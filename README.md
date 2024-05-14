@@ -1,8 +1,10 @@
 # whatSeoul
+
 - ESTSoft 대화형 AI 에이전트 [앨런](https://alan.estsoft.ai/old-home#about-1)과 [서울 실시간 도시데이터](https://data.seoul.go.kr/dataList/OA-21285/F/1/datasetView.do)를 활용한 웹 사이트
 <br>
 - `서비스 URL` : '...'
 ><center style="font-style: italic">서울 어딘가로 떠나고 싶은 오늘,<br>어느 곳으로 가야 할지 모르겠다면<br><br><strong style="font-style: normal">서울시 실시간 지역 정보</strong>를 확인하고<br><strong style="font-style: normal">앨런에게 명소를 추천</strong>받아 보세요!</center> 
+
 
 ## 🗺️ 주요 기능
 ### 서울시 115개 핫스팟 정보 조회

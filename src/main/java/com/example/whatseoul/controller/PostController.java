@@ -36,7 +36,7 @@ public class PostController {
     public String getAllPosts(Model model) {
         List<PostDto> posts = postService.getAllPosts();
         model.addAttribute("posts", posts);
-        return "post/postView";
+        return "./post/postView";
     }
 
 //    @GetMapping("/{id}")
@@ -48,6 +48,7 @@ public class PostController {
     public String getPostById(@PathVariable("id") Long id, Model model) {
         PostDto post = postService.getPostById(id);
         model.addAttribute("post", post);
+      
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         String username = userDetails.getUsername();
@@ -55,7 +56,9 @@ public class PostController {
         model.addAttribute("currentUser", username);
         List<Comment> comments = commentService.getCommentsByPostId(post.getId());
         model.addAttribute("comments", comments);
-        return "post/postDetail"; // postDetail.html 템플릿을 렌더링
+
+        return "./post/postDetail"; // postDetail.html 템플릿을 렌더링
+
     }
 
 
@@ -69,7 +72,8 @@ public class PostController {
     @GetMapping("/create")
     public String showCreateForm(Model model) {
         model.addAttribute("postDto", new PostDto());
-        return "post/post";
+
+        return "./post/post";
     }
 
     @PostMapping("/create")
