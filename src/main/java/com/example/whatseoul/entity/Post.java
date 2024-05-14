@@ -51,5 +51,4 @@ public class Post {
 
 	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<Comment> comments = new ArrayList<>();
-
 }
