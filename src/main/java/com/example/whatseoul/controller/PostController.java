@@ -69,9 +69,36 @@ public class PostController {
         return new ResponseEntity<>(updatedPost, HttpStatus.OK);
     }
 
+    @PostMapping("posts/editpro")
+    public String editPost(PostDto postDto) {
+        PostDto updatedPost = postService.updatePost(postDto);
+        return "redirect:/posts";
+    }
+
+    @GetMapping("/postedit.html")
+    public String showPostEditForm() {
+        return "postedit";  // 'postedit'는 실제 뷰 파일 이름과 일치해야 함
+    }
+
+    @GetMapping("/posts/edit/{id}")
+    public String editPost(@PathVariable("id") Long id, Model model) {
+        PostDto postDto = postService.getPostById(id); // 게시글 조회
+        model.addAttribute("post", postDto);
+        return "postedit"; // postedit.html 페이지 반환
+    }
+
+
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePost(@PathVariable("id") Long id) {
         postService.deletePost(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("posts/delete")
+    public String editPost(@RequestParam Long id) {
+        postService.deletePost(id);
+        return "redirect:/posts";
     }
 }

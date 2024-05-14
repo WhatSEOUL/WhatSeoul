@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>후기 작성</title>
     <style>
+
         .layout {
             width: 500px;
             margin: 0 auto;
@@ -20,12 +21,34 @@
             margin-top: 10px;
             min-height: 300px;
         }
+
+        textarea {
+            color: #666;
+        }
+
+        button {
+            padding: 8px 12px;
+            margin: 3px 0;
+            background-color: #007BFF;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #fff;
+            width: auto;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
 <div class="layout">
-    <form action="/post/editpro" method="post" enctype="application/x-www-form-urlencoded">
-        <input name="postId" type="hidden" th:value="${post.postId}">
+    <form action="/posts/editpro" method="post" enctype="application/x-www-form-urlencoded">
+        <input name="id" type="hidden" th:value="${post.id}">
         <input name="postTitle" type="text" th:value="${post.postTitle}">
         <textarea name="postContent" th:text="${post.postContent}"></textarea>
         <button type="submit">수정</button>

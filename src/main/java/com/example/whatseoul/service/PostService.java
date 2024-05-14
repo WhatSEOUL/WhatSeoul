@@ -47,6 +47,15 @@ public class PostService {
         return convertToDto(post);
     }
 
+    public PostDto updatePost(PostDto postDto) {
+        if (!postRepository.existsById(postDto.getId())) {
+            throw new EntityNotFoundException("Post not found with id: " + postDto.getId());
+        }
+        Post post = convertToEntity(postDto);
+        post = postRepository.save(post);
+        return convertToDto(post);
+    }
+
     public void deletePost(Long id) {
         if (!postRepository.existsById(id)) {
             throw new EntityNotFoundException("Post not found with id: " + id);

@@ -66,6 +66,47 @@
             margin-bottom: 10px; /* 텍스트 영역과 버튼 사이의 간격 */
         }
 
+        .modify-review {
+            float: right;
+            display: inline-block;
+            padding: 8px 12px;
+            margin: 3px 0;
+            background-color: #007BFF;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            width: auto;
+            transition: background-color 0.3s;
+        }
+
+        .modify-review:hover {
+            text-decoration: none;
+            background-color: lightskyblue;
+            color: white;
+        }
+
+        .delete-post {
+            float: right;
+            display: inline-block;
+            padding: 8px 12px;
+            margin: 3px 0;
+            background-color: #007BFF;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #fff;
+            text-decoration: none;
+            text-align: center;
+            width: auto;
+            transition: background-color 0.3s;
+        }
+
+        .delete-post:hover {
+            text-decoration: none;
+            background-color: lightskyblue;
+            color: white;
+        }
         button {
             float: right;
             display: inline-block;
@@ -90,9 +131,9 @@
         form {
             display: flex;
             flex-direction: column;
-            align-items: center; /* 버튼을 중앙 정렬 */
-            width: 80%; /* 폼의 너비 조정 */
-            margin-top: 20px; /* 상단 여백 */
+            align-items: center;
+            width: 80%;
+            margin-top: 20px;
         }
 
     </style>
@@ -103,12 +144,16 @@
 
     <div class="content-box">
         <a href="/posts" class="back">뒤로가기</a>
+        <a th:href="@{/posts/edit/{id}(id=${post.id})}" class="modify-review">후기 수정</a>
+        <a th:href="@{/posts/delete(id=${post.id})}" class="delete-post">글 삭제</a>
+
+
         <h1 th:text="${post.postTitle}">제목</h1>
         <p><strong>작성일:</strong> <span th:text="${post.createdAt}"></span> | <strong>조회수:</strong> <span th:text="${post.viewCount}"></span></p>
         <p><strong>내용:</strong></p>
         <div th:text="${post.postContent}"></div>
     </div>
-<!--<a th:href="@{'/posts/edit/' + ${post.id}}">수정하기</a>-->
+
 
 
 <form action="/posts/comments" method="post">
