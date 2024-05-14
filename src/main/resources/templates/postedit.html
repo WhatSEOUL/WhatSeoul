@@ -4,10 +4,23 @@
     <meta charset="UTF-8">
     <title>후기 작성</title>
     <style>
+
+        body {
+            margin: 0; /* 기본 마진 제거 */
+            padding: 0; /* 기본 패딩 제거 */
+            width: 100%; /* 너비 설정 */
+        }
+
+        h1 {
+            text-align: center;
+            width: 100%;
+            margin-left: -50px; /* 제목을 왼쪽으로 조금 이동 */
+        }
+
         .layout {
             width: 500px;
-            margin: 0 auto;
-            margin-top: 40px;
+            margin: 40px auto;
+            padding-left: 20px; /* 왼쪽 패딩 추가로 폼을 왼쪽으로 조금 더 이동 */
         }
         .layout input, textarea {
             width: 100%;
@@ -20,12 +33,36 @@
             margin-top: 10px;
             min-height: 300px;
         }
+
+        textarea {
+            color: #666;
+        }
+
+        button {
+            padding: 8px 12px;
+            margin: 3px 0;
+            background-color: #007BFF;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #fff;
+            width: auto;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
+<th:block th:replace="~{header/header :: header}"></th:block>
+<h1>후기 수정</h1>
 <div class="layout">
-    <form action="/post/editpro" method="post" enctype="application/x-www-form-urlencoded">
-        <input name="postId" type="hidden" th:value="${post.postId}">
+    <form action="/posts/editpro" method="post" enctype="application/x-www-form-urlencoded">
+        <input name="id" type="hidden" th:value="${post.id}">
         <input name="postTitle" type="text" th:value="${post.postTitle}">
         <textarea name="postContent" th:text="${post.postContent}"></textarea>
         <button type="submit">수정</button>

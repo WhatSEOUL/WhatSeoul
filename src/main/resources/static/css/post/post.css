@@ -76,10 +76,7 @@ button:hover {
     color: white;
 }
 
-.modify-review {
-    background-color: #007BFF;
-    color: white;
-}
+
 
 .add-review {
     background-color: #007BFF;
@@ -90,6 +87,3 @@ button:hover {
     background-color: lightskyblue;
 }
 
-.modify-review:hover {
-    background-color: lightskyblue;
-}

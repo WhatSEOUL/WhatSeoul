@@ -1,0 +1,81 @@
+@font-face {
+    font-family: 'IBMPlexSansKR-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_20-07@1.0/IBMPlexSansKR-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Happiness-Sans-Title';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_2205@1.0/Happiness-Sans-Title.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'IBMPlexSansKR-Regular', sans-serif;
+    background-color: #FFFFFF;
+    margin: 0;
+}
+
+h1 {
+    font-family: 'Happiness-Sans-Title', serif;
+    font-weight: 200;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.post-btn {
+    display: inline-block;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    background-color: #007BFF;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+
+}
+
+.post-btn:hover {
+    text-decoration: none;
+    background-color: lightskyblue;
+    color: white;
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.post {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post p {
+    margin: 5px 0;
+}
+
+.post-btn {
+    background-color: #007BFF;
+    color: #fff;
+    text-decoration: none;
+}
+
+.post-btn:hover {
+    text-decoration: none;
+    background-color: lightskyblue;
+    color: white;
+}
+
+.registration-link {
+    text-align: right; /* 오른쪽 정렬 */
+    margin-top: 20px; /* 상단 여백 조정 */
+}
