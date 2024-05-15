@@ -50,8 +50,6 @@ public class CityDataViewController {
 		return "citydata/citydatalist";
 	}
 
-
-
 	//추가함
 	@GetMapping("/")
 	public String indexPage(Model model, HttpSession session) {
