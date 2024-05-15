@@ -6,36 +6,52 @@ ESTSoft 대화형 AI 에이전트 [앨런](https://alan.estsoft.ai/old-home#abou
 
 `서비스 URL` : 주소
 
-
 ## 🗺️ 주요 기능
 ### 📍 서울시 115개 핫스팟 정보 조회
-><img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/ae1f92d0-2ac6-48be-b37a-844451c59520" width="600px">
+<details>
+  <summary>실행화면</summary><br><br>
+  <img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/41f4c12d-9be4-4cbf-8c4b-553bad6129b4" width="600px">
+</details>
 
 ### 📍 서울시 실시간 도시데이터 조회
-><img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/825fa3f5-91fa-496f-9a5f-83f998f9773a" width="600px">
+<details>
+  <summary>실행화면</summary><br><br>
+  <img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/6b87ad29-3b10-4416-8d40-f9fe4234378d" width="600px">
+</details>
 
 ### 🤖 SSE를 활용한 앨런 AI 실시간 응답 조회
-><img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/ecc603e4-99cb-4648-a766-6e7898a68566" width="600px">
+<details>
+  <summary>실행화면</summary><br>
+  <img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/7d217380-773d-47c9-a476-9b7f77239975" width="600px">
+</details>
 
 ### 🔐 Spring Security를 활용한 유저 인증, 인가
-
-<p align="center">
-  <img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/6a359213-8329-47de-8750-d251c4f013e7" align="center" width="23%">  
-  <img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/590aa12d-cba9-4807-a9ee-6f4cb5cef1be" align="center" width="23%">  
-  <img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/a58e1f7c-dc74-48c8-b92a-ede8038c173e" align="center" width="23%">  
-  <img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/bf43aaba-8822-4d2e-a2c5-0a33af3f594b" align="center" width="23%">  
-</p>
+<details>
+  <summary>실행화면</summary><br>
+  <p align="center">
+    <img src="회원가입성공" align="center" width="45%">  
+    <img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/a83e3300-0e77-486b-94d7-350fe39150b1" align="center" width="45%"><br> 
+    <img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/6a19f988-7b16-45ec-a4d8-eaba7b4b4c72" align="center" width="45%">  
+    <img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/dfa07a36-f4fc-4af1-80bd-a5acdacb0b9c" align="center" width="45%">  
+  </p>
+</details>
 
 ### 📝 게시판 게시글 및 댓글 작성
-<p align="center">  
-  <img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/7a661a78-c389-443a-b69c-b930c7f5becd" align="center" width="23%">  
-  <img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/05d43137-fc19-4ed2-9cf0-e082db78f95d" align="center" width="23%">  
-  <img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/d6070d47-14f7-43fd-ae17-316b271fe39e" align="center" width="23%">  
-  <img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/93656f0a-332c-4ec6-b9dd-8ce5b9a24569" align="center" width="23%">  
-</p>
+<details>
+  <summary>실행화면</summary><br>
+  <p align="center">  
+    <img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/7bb47bcf-0142-4e92-a2e7-2a43c62855e4" align="center" width="45%">  
+    <img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/38d156a3-1019-41a9-b8b3-188a372ada1b" align="center" width="45%"><br>
+    <img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/9ba94e5c-141f-4c90-980e-52be6af9f82f" align="center" width="45%">  
+    <img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/778fb0eb-29fb-47a1-a0ed-daca08461a0a" align="center" width="45%">  
+  </p>
+</details>
 
 ### 👤 마이페이지 
-><img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/44ca7b6e-7ea7-4b70-924f-2e4a4d2c0ede" width="600px">
+<details>
+  <summary>실행화면</summary><br><br>
+  <img src="https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/a4bce064-14a8-47b9-ae4f-3d3e0629e096" width="600px">
+</details>
 
 ## 📑 요구사항 명세서
 <a href="https://www.notion.so/oreumi/593ecbdfe92c4619a9ba6372ac12678d"><b>요구사항 명세서</b>
