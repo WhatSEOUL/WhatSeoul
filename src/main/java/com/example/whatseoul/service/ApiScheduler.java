@@ -39,7 +39,6 @@ public class ApiScheduler {
 
 
     @Transactional
-
     @Scheduled(cron = "0 30/5 * * * *")
     public void call() {
         long startTime = System.currentTimeMillis();
@@ -49,16 +48,14 @@ public class ApiScheduler {
                 .map(this::fetchDataAsync)
                 .toList();
 
-        // CompletableFuture<WeatherAndPopulation>의 결과를 추출하여 Weather만 가져와서 리스트로 변환
         List<Weather> weatherList = allFutures.stream()
-                .map(CompletableFuture::join) // CompletableFuture<WeatherAndPopulation>을 blocking하게 변환
-                .map(CityData::getWeather) // WeatherAndPopulation에서 Weather를 추출
+                .map(CompletableFuture::join)
+                .map(CityData::getWeather)
                 .collect(Collectors.toList());
 
-        // CompletableFuture<WeatherAndPopulation>의 결과를 추출하여 Population만 가져와서 리스트로 변환
         List<Population> populationList = allFutures.stream()
-                .map(CompletableFuture::join) // CompletableFuture<WeatherAndPopulation>을 blocking하게 변환
-                .map(CityData::getPopulation) // WeatherAndPopulation에서 Population을 추출
+                .map(CompletableFuture::join)
+                .map(CityData::getPopulation)
                 .toList();
 
         List<PopulationForecast> pplForecastList = allFutures.stream()
@@ -74,9 +71,9 @@ public class ApiScheduler {
         weatherRepository.deleteAllInBatch();
         weatherRepository.saveAll(weatherList);
 
-        populationForecastRepository.deleteAllInBatch(); // 인구예측데이터를 먼저 삭제한 이후 인구 데이터 삭제
+        populationForecastRepository.deleteAllInBatch();
         populationRepository.deleteAllInBatch();
-        populationRepository.saveAll(populationList); // 인구데이터를 먼저 저장한 후 인구 예측 데이터 저장
+        populationRepository.saveAll(populationList);
         populationForecastRepository.saveAll(pplForecastList);
 
         culturalEventRepository.deleteAllInBatch();
@@ -109,15 +106,15 @@ public class ApiScheduler {
     public Population parsePopulationData(Document document, Area area) {
         return Population.builder()
                 .area(area)
-                .areaCongestionLevel(getElement(document, "AREA_CONGEST_LVL")) // 장소 혼잡도 지표
-                .areaCongestionMessage(getElement(document, "AREA_CONGEST_MSG")) // 장소 혼잡도 지표 관련 메시지
-                .pplUpdateTime(getElement(document, "PPLTN_TIME")) // 실시간 인구 데이터 업데이트 시간
+                .areaCongestionLevel(getElement(document, "AREA_CONGEST_LVL"))
+                .areaCongestionMessage(getElement(document, "AREA_CONGEST_MSG"))
+                .pplUpdateTime(getElement(document, "PPLTN_TIME"))
                 .build();
     }
 
     public List<PopulationForecast> parsePopulationForecastData(Document document, Population population) {
         List<PopulationForecast> pplForecastList = new ArrayList<>();
-        NodeList nodeList = document.getElementsByTagName("FCST_PPLTN"); // 13개 노드가 담긴 리스트 반환, 0번 노드는 부모 노드
+        NodeList nodeList = document.getElementsByTagName("FCST_PPLTN");
         for (int i = 1; i < nodeList.getLength(); i++) {
             Node fcstPpltnNode = nodeList.item(i);
             NodeList childNodes = fcstPpltnNode.getChildNodes();
@@ -204,12 +201,9 @@ public class ApiScheduler {
     }
 
     private String getElement(Document document, String tag) {
-        // Document 객체에서 태그 이름에 해당하는 요소 가져오기
         NodeList nodeList = document.getElementsByTagName(tag);
 
-        // 가져온 요소가 비어 있는지 확인
         if (nodeList.getLength() > 0) {
-            // 첫 번째로 발견된 요소의 텍스트 내용 반환
             return nodeList.item(0).getTextContent();
         } else return "No Tag";
     }

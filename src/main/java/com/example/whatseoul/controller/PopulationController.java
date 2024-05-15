@@ -14,12 +14,10 @@ import com.example.whatseoul.repository.cityData.AreaRepository;
 import com.example.whatseoul.service.PopulationService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-@Slf4j
 public class PopulationController {
 	private final AreaRepository areaRepository;
 	private final PopulationService populationService;

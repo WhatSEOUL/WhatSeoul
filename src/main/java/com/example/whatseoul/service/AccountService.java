@@ -31,7 +31,6 @@ public class AccountService implements UserDetailsService {
                 () -> new UsernameNotFoundException("User not found with username: " + username));
 
         List<GrantedAuthority> authorities = new ArrayList<>();
-        // Example: Adding a dummy authority, real implementations might fetch this from the database or configuration
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
         return new org.springframework.security.core.userdetails.User(account.getUserEmail(),
@@ -62,19 +61,7 @@ public class AccountService implements UserDetailsService {
 
         User user = userRepository.findByUserEmail(userDetails.getUsername())
                 .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
-        user.setUserPassword(encoder.encode(password));        // 실제 애플리케이션에서는 패스워드를 암호화해야 합니다.
-        userRepository.save(user);
-    }
-
-    @Transactional
-    public void withDraw(){
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-
-        User user = userRepository.findByUserEmail(userDetails.getUsername())
-                .orElseThrow(() -> new IllegalArgumentException("사용자를 찾을 수 없습니다."));
-
-        user.setActive(false);
+        user.setUserPassword(encoder.encode(password));
         userRepository.save(user);
     }
 
@@ -91,6 +78,6 @@ public class AccountService implements UserDetailsService {
         String userEmail = ((UserDetails) authentication.getPrincipal()).getUsername();
         User user = userRepository.findByUserEmail(userEmail)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + userEmail));
-        return user.getUserId(); // 여기서 userId를 반환합니다.
+        return user.getUserId();
     }
 }

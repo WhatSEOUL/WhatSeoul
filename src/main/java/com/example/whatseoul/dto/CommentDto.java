@@ -1,7 +1,5 @@
 package com.example.whatseoul.dto;
 
-import com.example.whatseoul.entity.Post;
-import com.example.whatseoul.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

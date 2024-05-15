@@ -5,9 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -45,19 +43,12 @@ public class AlanService {
 		ResponseEntity<String> response =  restTemplate.getForEntity(uri, String.class);
 		String responseBody = response.getBody();
 		log.info("response: {}", response);
-		log.info("responseBody: {}", responseBody);
 		return parseJsonResponse(responseBody);
 	}
 
-	// @Transactional
-	// @Scheduled(cron = "0 26 19/24 * * *")
 	public void fetchAlanAreaResponse(String type, List<String> areaNames) throws JsonProcessingException {
 		long startTime = System.currentTimeMillis();
-		// 컨트롤러 없이 서비스 메소드 스케줄링만으로 지역 및 특색 정보를 저장할 경우 메소드 인자를 비우고 아래 코드 사용
-		// String type = "attraction";
-		// List<String> areaNames = areaRepository.findAllAreaNames();
 
-		// 하루 100회까지만 가능 - 사실상 분리해서 질의해야 함
 		log.info("type: {}, areaNames: {}", type, areaNames);
 		if (type.equals("location")) {
 			updateAreaLocationInfo(areaNames);

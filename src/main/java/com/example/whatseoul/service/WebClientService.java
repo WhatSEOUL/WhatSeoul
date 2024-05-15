@@ -35,7 +35,6 @@ public class WebClientService {
 
     private Flux<AlanResponseDto> parseJsonToResponseDto(String jsonString){
         try {
-            // JSON 문자열을 ResponseDto 객체로 파싱
             AlanResponseDto responseDto = this.objectMapper.readValue(jsonString, AlanResponseDto.class);
             return Flux.just(responseDto);
         } catch (JsonProcessingException e) {

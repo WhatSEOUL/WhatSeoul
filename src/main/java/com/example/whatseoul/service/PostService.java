@@ -51,34 +51,21 @@ public class PostService {
 
     public void createPost(PostDto postDto) {
         Long userId = accountService.getAuthenticatedUserId();
-//        Long userId = accountService.getAuthenticatedUserId();
         User user = userRepository.findByUserId(userId);
         postDto.setUserEmail(user.getUserEmail());
-//        postDto.setUserId(user.getUserId());
         postDto.setUserId(userId);
         Post post = convertToEntity(postDto);
-//        post.setViewCount(0L);
         post = postRepository.save(post);
         convertToDto(post);
     }
 
-    public PostDto updatePost(Long id, PostDto postDto) {
-        if (!postRepository.existsById(id)) {
-            throw new EntityNotFoundException("Post not found with id: " + id);
-        }
-        Post post = convertToEntity(postDto);
-        post.setId(id);
-        post = postRepository.save(post);
-        return convertToDto(post);
-    }
-
-    public PostDto updatePost(PostDto postDto) {
+    public void updatePost(PostDto postDto) {
         if (!postRepository.existsById(postDto.getId())) {
             throw new EntityNotFoundException("Post not found with id: " + postDto.getId());
         }
         Post post = convertToEntity(postDto);
         post = postRepository.save(post);
-        return convertToDto(post);
+        convertToDto(post);
     }
 
     public void deletePost(Long id) {

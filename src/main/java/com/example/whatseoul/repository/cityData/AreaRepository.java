@@ -14,14 +14,6 @@ public interface AreaRepository extends JpaRepository<Area, Long> {
     Optional<Area> findAreaByAreaCode(String areaCode);
     Optional<Area> findAreaByAreaName(String areaName);
 
-    // fetchAlanAreaResponse를 스케줄링으로 사용해 지역별 위치, 특색(명소) 정보를 저장할 경우 사용
-    @Query("SELECT a.areaName FROM Area a")
-    List<String> findAllAreaNames();
-
-    // 주소 기반 좌표 업데이트에 사용하는 메소드
-    @Query("SELECT a.areaName FROM Area a WHERE a.areaAddress IS NOT NULL")
-    List<String> findAreaNamesWhereAddressNotNull();
-
     @Transactional
     @Modifying
     @Query("UPDATE Area a SET a.areaLocationInfo = :areaLocationInfo WHERE a.areaName = :areaName")

@@ -31,5 +31,4 @@ public class CultureEvent {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "AREA_CODE", referencedColumnName = "AREA_CODE")
     private Area area;
-
 }
