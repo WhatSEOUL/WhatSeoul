@@ -33,6 +33,6 @@ public class SseController {
                 .map(data -> ServerSentEvent.<AlanResponseDto>builder()
                         .data(data)
                         .build())
-                .delayElements(Duration.ofMillis(50));
+                .delayElements(Duration.ofMillis(10));
     }
 }
