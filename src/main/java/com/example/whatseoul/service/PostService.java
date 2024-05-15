@@ -60,10 +60,11 @@ public class PostService {
     }
 
     public void updatePost(PostDto postDto) {
-        if (!postRepository.existsById(postDto.getId())) {
-            throw new EntityNotFoundException("Post not found with id: " + postDto.getId());
-        }
-        Post post = convertToEntity(postDto);
+        Post post = postRepository.findById(postDto.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Post not found"));
+
+        post.setPostTitle(postDto.getPostTitle());
+        post.setPostContent(postDto.getPostContent());
         post = postRepository.save(post);
         convertToDto(post);
     }
