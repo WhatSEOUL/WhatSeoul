@@ -4,47 +4,13 @@
     font-weight: normal;
     font-style: normal;
 }
-header{
-    font-family: 'SDSamliphopangche_Outline', serif;
+@font-face {
+    font-family: 'SeoulNamsanM';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/SeoulNamsanM.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 
-/* 상단바 css start  */
-.navbar {
-    height:10vh; /* 네비게이션 바의 높이를 조정합니다. */
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과를 추가합니다. */
-}
-
-.navbar-brand{
-    font-size: 50px;
-}
-.navbar-brand :hover{
-    cursor: pointer;
-}
-.navbar-nav .nav-item:nth-child(1) .nav-link,
-.navbar-nav .nav-item:nth-child(2) .nav-link {
-    margin-right: 2vw; /* 첫 번째와 두 번째 nav-item에 margin-right를 추가합니다. */
-}
-
-.my-page-btn {
-    margin-left: 2vw;
-    background-color: #007bff;
-    border-radius: 5px;
-}
-.my-page-btn a {
-    color: #ffffff !important;
-}
-.logout-btn,
-.login-btn {
-    margin-left: 1vw;
-    background-color: #6c757d;
-    border-radius: 5px;
-}
-
-.login-btn a,
-.logout-btn a {
-    color: #ffffff !important;
-}
-/* 상단바 css end  */
 section.container {
     height: 90vh;
     display: flex;
@@ -54,11 +20,14 @@ section.container {
 }
 
 .main-banner-title {
+    font-family: 'SDSamliphopangche_Outline', serif;
     font-weight: 600;
     font-size: 3rem;
 }
 .main-banner-descrip {
+    font-family: 'SeoulNamsanM', serif;
     font-size: 1.5rem;
+    color: #686868;
     margin-top: 3vh;
     line-height: 180%;
 }
@@ -91,6 +60,8 @@ img.main-banner-img {
 .blank-img {
     margin-top: 5vh;
     width: 40vw;
+    border-radius: 20px;
+    box-shadow: 1px 5px 20px rgba(0, 0, 0, 0.23)
 }
 
 section.buttons-wrapper {
@@ -110,7 +81,7 @@ section.buttons-wrapper {
     font-size: 1.2rem;
     border: 0px;
     border-radius: 10px;
-    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.25); /* 그림자 효과를 추가합니다. */
+    box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.25);
 }
 
 .location-info-btn {

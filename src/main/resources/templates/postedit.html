@@ -3,32 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>후기 작성</title>
-    <style>
-        .layout {
-            width: 500px;
-            margin: 0 auto;
-            margin-top: 40px;
-        }
-        .layout input, textarea {
-            width: 100%;
-            box-sizing: border-box;
-            margin-top: 10px;
-
-        }
-        .layout textarea{
-            width: 100%;
-            margin-top: 10px;
-            min-height: 300px;
-        }
-    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/header/header.css" th:href="@{/css/header/header.css}">
+    <link rel="stylesheet" type="text/css" href="/css/post/postEdit.css" th:href="@{/css/post/postEdit.css}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 </head>
 <body>
+<th:block th:replace="~{header/header :: header}"></th:block>
+<h1>후기 수정</h1>
 <div class="layout">
-    <form action="/post/editpro" method="post" enctype="application/x-www-form-urlencoded">
-        <input name="postId" type="hidden" th:value="${post.postId}">
+    <form action="/posts/editpro" method="post" enctype="application/x-www-form-urlencoded">
+        <input name="id" type="hidden" th:value="${post.id}">
         <input name="postTitle" type="text" th:value="${post.postTitle}">
         <textarea name="postContent" th:text="${post.postContent}"></textarea>
-        <button type="submit">수정</button>
+        <button class ="edit-btn" type="submit">수정</button>
     </form>
 </div>
 </body>

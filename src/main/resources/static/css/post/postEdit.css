@@ -1,0 +1,51 @@
+body {
+    margin: 0; /* 기본 마진 제거 */
+    padding: 0; /* 기본 패딩 제거 */
+    width: 100%; /* 너비 설정 */
+}
+
+h1 {
+    text-align: center;
+    width: 100%;
+    margin-left: -50px; /* 제목을 왼쪽으로 조금 이동 */
+    margin-top: 50px;
+}
+
+.layout {
+    width: 500px;
+    margin: 40px auto;
+    padding-left: 20px; /* 왼쪽 패딩 추가로 폼을 왼쪽으로 조금 더 이동 */
+}
+.layout input, textarea {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 10px;
+
+}
+.layout textarea{
+    width: 100%;
+    margin-top: 10px;
+    min-height: 300px;
+}
+
+textarea {
+    color: #666;
+}
+
+.edit-btn {
+    padding: 8px 12px;
+    margin: 3px 0;
+    background-color: #007BFF;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #fff;
+    width: auto;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 80%;
+    margin-top: 20px;
+}

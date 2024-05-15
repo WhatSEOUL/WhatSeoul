@@ -2,39 +2,67 @@ package com.example.whatseoul.service;
 
 import com.example.whatseoul.dto.PostDto;
 import com.example.whatseoul.entity.Post;
+import com.example.whatseoul.entity.User;
 import com.example.whatseoul.repository.post.PostRepository;
+import com.example.whatseoul.repository.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
+
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PostService {
 
     private final PostRepository postRepository;
     private final ModelMapper modelMapper;
+    private final AccountService accountService;
+    private final UserRepository userRepository;
 
     public List<PostDto> getAllPosts() {
         List<Post> posts = postRepository.findAll();
-        return posts.stream()
+        Comparator<Post> byCreatedAtComparator = new Comparator<Post>() {
+            public int compare(Post p1, Post p2) {
+                return p2.getCreatedAt().compareTo(p1.getCreatedAt());
+            }
+        };
+
+        posts.sort(byCreatedAtComparator);
+        List<PostDto> postDtos = posts.stream()
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
+
+        return postDtos;
     }
 
     public PostDto getPostById(Long id) {
         Post post = postRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Post not found with id: " + id));
+        post.setViewCount(post.getViewCount() + 1);
+        postRepository.save(post);
+
         return convertToDto(post);
     }
 
-    public PostDto createPost(PostDto postDto) {
+    public void createPost(PostDto postDto) {
+        Long userId = accountService.getAuthenticatedUserId();
+//        Long userId = accountService.getAuthenticatedUserId();
+        User user = userRepository.findByUserId(userId);
+        postDto.setUserEmail(user.getUserEmail());
+//        postDto.setUserId(user.getUserId());
+        postDto.setUserId(userId);
         Post post = convertToEntity(postDto);
+//        post.setViewCount(0L);
         post = postRepository.save(post);
-        return convertToDto(post);
+        convertToDto(post);
     }
 
     public PostDto updatePost(Long id, PostDto postDto) {
@@ -43,6 +71,17 @@ public class PostService {
         }
         Post post = convertToEntity(postDto);
         post.setId(id);
+        post = postRepository.save(post);
+        return convertToDto(post);
+    }
+
+    public PostDto updatePost(PostDto postDto) {
+
+        Post post = postRepository.findById(postDto.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Post not found"));
+
+        post.setPostTitle(postDto.getPostTitle());
+        post.setPostContent(postDto.getPostContent());
         post = postRepository.save(post);
         return convertToDto(post);
     }
