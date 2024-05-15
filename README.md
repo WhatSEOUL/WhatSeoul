@@ -1,9 +1,10 @@
 # whatSeoul
 
-- ESTSoft 대화형 AI 에이전트 [앨런](https://alan.estsoft.ai/old-home#about-1)과 [서울 실시간 도시데이터](https://data.seoul.go.kr/dataList/OA-21285/F/1/datasetView.do)를 활용한 웹 사이트
-<br>
-- `서비스 URL` : '...'
+ESTSoft 대화형 AI 에이전트 [앨런](https://alan.estsoft.ai/old-home#about-1)과 [서울 실시간 도시데이터](https://data.seoul.go.kr/dataList/OA-21285/F/1/datasetView.do)를 활용한 웹 사이트
+
 ><center style="font-style: italic">서울 어딘가로 떠나고 싶은 오늘,<br>어느 곳으로 가야 할지 모르겠다면<br><br><strong style="font-style: normal">서울시 실시간 지역 정보</strong>를 확인하고<br><strong style="font-style: normal">앨런에게 명소를 추천</strong>받아 보세요!</center> 
+
+`서비스 URL` : 주소
 
 
 ## 🗺️ 주요 기능
@@ -15,9 +16,9 @@
 ### 마이페이지 
 
 ## 📑 요구사항 명세서
-
+<a href="https://www.notion.so/oreumi/593ecbdfe92c4619a9ba6372ac12678d"><b>요구사항 명세서</b>
 ## 📜 API 명세서
-
+<a href="https://www.notion.so/oreumi/API-3ec3f41c47e3472ea5572899a52a714a"><b>API 명세서</b>
 ## 🤼‍♂️ Team
 <table>
   <tbody>
@@ -48,6 +49,7 @@
 ![image](https://github.com/WhatSEOUL/WhatSeoul/assets/82032418/5c0ea7a7-ce43-4e48-ba70-91c868915a17)
 
 ## ⛏ ERD
+![image](https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/e7b516ac-5357-4907-abf4-2f6d52aed74d)
 
 ## 📦 Project Structure
 <details>
