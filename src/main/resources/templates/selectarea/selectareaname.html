@@ -56,12 +56,8 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
-<script th:inline="javascript">
-    var kakaoKey = /*[[${key}]]*/ '';
-    // 이렇게 확인해 봅니다.
-    console.log("kakaoKey: " + kakaoKey);
-</script>
-<script th:inline="javascript" th:src="@{'//dapi.kakao.com/v2/maps/sdk.js?appkey=' + ${kakaoKey}}"></script>
+
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=31d9fb88ba6ca43415f343f7a972beeb"></script>
 
 <script defer src="/js/selectarea/selectareaname.js"></script>
 
