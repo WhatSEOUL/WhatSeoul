@@ -69,6 +69,7 @@ function showEventData(event) {
     const eventUrl = document.createElement('a');
     eventUrl.textContent = `${event.culturalEventUrl}`;
     eventUrl.classList.add('card__describe'); // 클래스 추가
+    eventUrl.id = "card__eventUrl";
     eventUrl.href = event.culturalEventUrl;
     eventUrl.target = "_blank";
     eventContent.appendChild(eventUrl);
