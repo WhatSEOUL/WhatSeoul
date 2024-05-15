@@ -356,7 +356,7 @@ section.buttons-wrapper {
     display: flex;
     overflow-x: scroll;
     padding: 24px;
-    width: 300px;
+    width: 90%; /* auto: 부모의 크기에 맞게 동적으로 조정 */
     scroll-snap-type: x mandatory;
     scroll-padding-top: 24px;
     border-radius: 8px;
@@ -364,7 +364,7 @@ section.buttons-wrapper {
 }
 
 .event-container .event-card {
-    flex: 0 0 100%;
+    flex: 0 0 50%; /* auto - 자체 너비 유지 / % - 부모 요소 너비의 %를 너비로 유지*/
     overflow: hidden;
     border-radius: 8px;
     background-color: #353535;
@@ -393,4 +393,13 @@ section.buttons-wrapper {
 .event-card .card__content .card__describe {
     color: #fff;
     font-size: 16px;
+}
+
+#card__eventUrl {
+    word-wrap: break-word;
+}
+
+.culture-card {
+    align-items: flex-start;
+    padding: 10px 30px;
 }
