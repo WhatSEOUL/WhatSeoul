@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.example.whatseoul.dto.CommentDto;
 import com.example.whatseoul.entity.Comment;
 
 import java.util.List;
@@ -34,5 +33,4 @@ public class CommentController {
         commentService.deleteComment(commentId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
-
 }
