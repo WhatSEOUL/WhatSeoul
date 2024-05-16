@@ -55,8 +55,12 @@ ESTSoft 대화형 AI 에이전트 [앨런](https://alan.estsoft.ai/old-home#abou
 
 ## 📑 요구사항 명세서
 ![image](https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/598f8261-8c1c-4128-be7a-5e09c67654b4)
-
 <a href="https://www.notion.so/oreumi/593ecbdfe92c4619a9ba6372ac12678d"><b>요구사항 명세서</b>
+
+## 🗺️ 플로우 차트
+![WHATSEOUL- flowChart](https://github.com/WhatSEOUL/WhatSeoul/assets/81796258/b4fc7961-0b48-4cfc-88e3-5e302babc8ba)
+
+
 ## 📜 API 명세서
 ### 회원 API
 | 기능         | HTTP method | url         |
