@@ -17,9 +17,9 @@ import com.example.whatseoul.dto.response.PopulationDataDto;
 import com.example.whatseoul.entity.Area;
 import com.example.whatseoul.entity.Population;
 import com.example.whatseoul.entity.PopulationForecast;
-import com.example.whatseoul.respository.cityData.AreaRepository;
-import com.example.whatseoul.respository.cityData.PopulationForecastRepository;
-import com.example.whatseoul.respository.cityData.PopulationRepository;
+import com.example.whatseoul.repository.cityData.AreaRepository;
+import com.example.whatseoul.repository.cityData.PopulationForecastRepository;
+import com.example.whatseoul.repository.cityData.PopulationRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class PopulationServiceTest {
@@ -35,14 +35,13 @@ public class PopulationServiceTest {
 	@Mock
 	PopulationForecastRepository populationForecastRepository;
 
-	private final String areaCode = "POI001";
-
 	@DisplayName("인구데이터 조회 테스트")
 	@Test
 	public void testGetPopulationData() {
-		// given
 
+		// given
 		Area area = new Area();
+		String areaCode = "POI001";
 		Population population = new Population();
 		PopulationForecast populationForecast = PopulationForecast.builder()
 			.forecastCongestionLevel("여유")
@@ -54,7 +53,6 @@ public class PopulationServiceTest {
 		when(populationRepository.findPopulationByArea(area)).thenReturn(Optional.of(population));
 		when(populationForecastRepository.findPopulationForecastsByPopulation(population)).thenReturn(
 			List.of(populationForecast));
-
 
 		// when
 		PopulationDataDto result = populationService.getPopulationData(areaCode);
