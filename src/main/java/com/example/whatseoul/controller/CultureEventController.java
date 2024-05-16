@@ -29,26 +29,3 @@ public class CultureEventController {
         return ResponseEntity.ok(dataDto);
     }
 }
-
-
-/*@Controller
-@RequestMapping("/culture-events")
-@RequiredArgsConstructor
-public class CultureEventController {
-    private final AreaRepository areaRepository;
-    private final CultureEventService cultureEventService;
-
-    @GetMapping("/{areaCode}")
-    public String getCultureEventsByArea(@PathVariable String areaCode, Model model) {
-        Area area = areaRepository.findAreaByAreaCode(areaCode)
-                .orElseThrow(() -> new NoSuchElementException("Area not Found"));
-        List<CultureEventDto> cultureEventDtos = cultureEventService.getCultureEventData(area.getAreaCode());
-        if (cultureEventDtos.isEmpty()) {
-            model.addAttribute("message", "해당 지역에 문화 행사 정보가 없습니다.");
-        } else {
-            model.addAttribute("cultureEvents", cultureEventDtos);
-        }
-        return "events";
-    }
-}*/
-

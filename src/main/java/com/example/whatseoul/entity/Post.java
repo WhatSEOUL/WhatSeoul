@@ -30,12 +30,8 @@ public class Post {
 	@Column(name = "POST_CONTENT", nullable = false, length = 3000)
 	private  String postContent;
 
-	@Column(name = "POST_FILE", length = 300)// 렝스 300으로 바꿨습니다.
-	private String postFile;
-
 	@Column(name = "VIEW_COUNT", columnDefinition = "integer default 0")
 	private int viewCount;
-
 
 	@Column(name = "CREATED_AT", nullable = false, updatable = false)
 	@CreatedDate
@@ -51,5 +47,4 @@ public class Post {
 
 	@OneToMany(mappedBy = "post", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
 	private List<Comment> comments = new ArrayList<>();
-
 }

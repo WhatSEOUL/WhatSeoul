@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @Builder
 public class ResponseDto<T> {
-    private int code; //1(성공), -1(실패)
+    private int code; // 1(성공), -1(실패)
     private String message;
     private String errorCode;
     private T data;

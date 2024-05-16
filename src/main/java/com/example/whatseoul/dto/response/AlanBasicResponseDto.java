@@ -26,5 +26,4 @@ public class AlanBasicResponseDto {
 		@JsonProperty(value = "speak")
 		String speak;
 	}
-
 }

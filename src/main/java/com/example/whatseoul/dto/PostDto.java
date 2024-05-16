@@ -20,5 +20,4 @@ public class PostDto {
     private Long userId;
     private String userName;
     private String userEmail;
-
 }

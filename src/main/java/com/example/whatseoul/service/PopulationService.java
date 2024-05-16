@@ -52,5 +52,4 @@ public class PopulationService {
 			.populationForecasts(forecastDataDtoList)
 			.build();
 	}
-
 }

@@ -7,18 +7,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.example.whatseoul.dto.response.AlanBasicResponseDto;
 import com.example.whatseoul.service.AlanService;
 import com.fasterxml.jackson.core.JsonProcessingException;
-
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-@Slf4j
 public class AlanController {
 	private final AlanService alanService;
 
@@ -34,7 +30,7 @@ public class AlanController {
 	@GetMapping("/alan/basic/area")
 	public ResponseEntity<Void> getAlanAreaResponse(@RequestParam("type") String type, @RequestParam("areaName") List<String> areaName) throws
 		JsonProcessingException {
-		alanService.fetchAlanAreaResponse(type, areaName); 	// 서비스 메소드 스케줄링만 사용할 경우 인자 삭제
+		alanService.fetchAlanAreaResponse(type, areaName);
 		return ResponseEntity.ok().build();
 	}
 }

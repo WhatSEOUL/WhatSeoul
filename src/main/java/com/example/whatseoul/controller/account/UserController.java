@@ -2,7 +2,6 @@ package com.example.whatseoul.controller.account;
 
 import com.example.whatseoul.dto.ResponseDto;
 import com.example.whatseoul.dto.UserDto;
-import com.example.whatseoul.dto.response.UserResponseDto;
 import com.example.whatseoul.service.AccountService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -35,14 +34,6 @@ public class UserController {
         return "user/register";  // 회원가입 페이지를 반환
     }
 
-    /**
-     * 회원 가입처리
-     * @param email
-     * @param password
-     * @param name
-     * @param model
-     * @return
-     */
     @PostMapping("/api/join")
     public ResponseEntity<?> join(String email, String password, String name, Model model) {
         try {
@@ -53,24 +44,17 @@ public class UserController {
         }
     }
 
-
     @GetMapping("/api/logout")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
         return "redirect:/";
     }
 
-
     @GetMapping("update")
     public String update() {
         return "user/update";
     }
 
-    /**
-     * 비밀번호 변경 처리
-     * @param userDto
-     * @return
-     */
     @PostMapping("/api/update")
     @ResponseBody
     public ResponseEntity<?> updateUserInfo(@RequestBody UserDto userDto) {
@@ -83,16 +67,6 @@ public class UserController {
         }
     }
 
-    @PostMapping("withdraw")
-    public String withDraw(){
-        return "user/withdraw";
-    }
-
-    /**
-     * 이메일 중복확인
-     * @param userDto
-     * @return
-     */
     @PostMapping("/api/check/email")
     @ResponseBody
     public ResponseEntity<?> checkDuplicateUserEmail(@RequestBody UserDto userDto) {
@@ -103,12 +77,6 @@ public class UserController {
         }
     }
 
-
-    /**
-     * 유저네임 중복확인
-     * @param userDto
-     * @return
-     */
     @PostMapping("/api/check/username")
     @ResponseBody
     public ResponseEntity<?> checkDuplicateUserName(@RequestBody UserDto userDto) {
@@ -119,13 +87,10 @@ public class UserController {
         }
     }
 
-
-
     @GetMapping(value = "/login/error")
     public String loginError(Model model){
         model.addAttribute("errorMessage", "아이디 또는 비밀번호를 확인해주세요!");
         return "login";
     }
-
 }
 

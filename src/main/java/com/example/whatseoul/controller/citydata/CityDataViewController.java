@@ -1,34 +1,14 @@
 package com.example.whatseoul.controller.citydata;
 
-import java.security.Principal;
-
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.boot.Banner;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import com.example.whatseoul.security.CustomUserDetails;
-import com.example.whatseoul.service.ApiScheduler;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 @Controller
 @Slf4j
 public class CityDataViewController {
-
-	private final ApiScheduler apiScheduler;
-
-	public CityDataViewController(ApiScheduler apiScheduler) {
-		this.apiScheduler = apiScheduler;
-	}
-
 	@GetMapping("/district")
 	public String selectDistrictPage() {
 		return "selectarea/selectdistrict";
@@ -50,7 +30,6 @@ public class CityDataViewController {
 		return "citydata/citydatalist";
 	}
 
-	//추가함
 	@GetMapping("/")
 	public String indexPage(Model model, HttpSession session) {
 
@@ -70,5 +49,4 @@ public class CityDataViewController {
 
 		return "index/index";
 	}
-
 }

@@ -90,7 +90,7 @@
       }
     }
 
-    async  function checkUserName() {
+    async function checkUserName() {
       const res= await checkDuplicateUserName();
       if(res==="available"){
         $("#usernameResult").html('<p class="success">사용 가능한 유저네임입니다.</p>');
@@ -102,9 +102,7 @@
     }
 
 
-
-
-    async  function joinAction(event){
+    async function joinAction(event){
       event.preventDefault();
 
       const emailCheck= await checkDuplicateUserEmail();

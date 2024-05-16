@@ -7,19 +7,16 @@ import com.example.whatseoul.repository.post.PostRepository;
 import com.example.whatseoul.repository.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class PostService {
 
     private final PostRepository postRepository;
@@ -54,36 +51,22 @@ public class PostService {
 
     public void createPost(PostDto postDto) {
         Long userId = accountService.getAuthenticatedUserId();
-//        Long userId = accountService.getAuthenticatedUserId();
         User user = userRepository.findByUserId(userId);
         postDto.setUserEmail(user.getUserEmail());
-//        postDto.setUserId(user.getUserId());
         postDto.setUserId(userId);
         Post post = convertToEntity(postDto);
-//        post.setViewCount(0L);
         post = postRepository.save(post);
         convertToDto(post);
     }
 
-    public PostDto updatePost(Long id, PostDto postDto) {
-        if (!postRepository.existsById(id)) {
-            throw new EntityNotFoundException("Post not found with id: " + id);
-        }
-        Post post = convertToEntity(postDto);
-        post.setId(id);
-        post = postRepository.save(post);
-        return convertToDto(post);
-    }
-
-    public PostDto updatePost(PostDto postDto) {
-
+    public void updatePost(PostDto postDto) {
         Post post = postRepository.findById(postDto.getId())
                 .orElseThrow(() -> new EntityNotFoundException("Post not found"));
 
         post.setPostTitle(postDto.getPostTitle());
         post.setPostContent(postDto.getPostContent());
         post = postRepository.save(post);
-        return convertToDto(post);
+        convertToDto(post);
     }
 
     public void deletePost(Long id) {

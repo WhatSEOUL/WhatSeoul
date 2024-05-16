@@ -1,12 +1,6 @@
 package com.example.whatseoul.dto;
 
-import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.time.LocalDateTime;
-
 
 @Getter
 @Setter
@@ -19,6 +13,4 @@ public class UserDto {
 	private String userEmail;
 	private String userPassword;
 	private String userName;
-
-
 }
