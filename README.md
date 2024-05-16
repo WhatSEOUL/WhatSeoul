@@ -56,7 +56,53 @@ ESTSoft 대화형 AI 에이전트 [앨런](https://alan.estsoft.ai/old-home#abou
 ## 📑 요구사항 명세서
 <a href="https://www.notion.so/oreumi/593ecbdfe92c4619a9ba6372ac12678d"><b>요구사항 명세서</b>
 ## 📜 API 명세서
-<a href="https://www.notion.so/oreumi/API-3ec3f41c47e3472ea5572899a52a714a"><b>API 명세서</b>
+### 회원 API
+| 기능         | HTTP method | url         |
+|------------|-------------|-------------|
+| 회원가입       | POST        | `/api/join`   |
+| 로그인        | POST        | `/api/login`  |
+| 로그아웃       | GET     | `/api/logout` |
+| 유저네임 중복 체크 | GET     | `/api/check/username` |
+| 닉네임 중복 체크  | GET     | `/api/check/email` |
+
+### 마이페이지 API
+| 기능         | HTTP method | url         |
+|------------|-------------|-------------|
+| 내 정보 조회    | GET         | `/user/me`   |
+| 비밀번호 수정    | PUT         | `/api/update`  |
+
+### 게시물 API
+| 기능         | HTTP method | url         |
+|------------|-------------|-------------|
+| 커뮤니티 게시글 작성    | POST        | `/posts/create`   |
+| 커뮤니티 게시글 수정    | PUT         | `/posts/editpro`   |
+| 커뮤니티 게시글 삭제    | DELETE      | `/posts/delete?id=`   |
+| 커뮤니티 게시글 전체 조회    | GET         | `/posts`   |
+| 커뮤니티 게시글 개별 조회    | GET         | `/posts/{id}`   |
+| 커뮤니티 게시글 댓글 작성    | POST        | `/posts/{postId}/comments`   |
+| 커뮤니티 게시글 댓글 삭제    | DELETE      | `/posts/{postId}/comments/{commentId}`    |
+| 커뮤니티 게시글 댓글 조회    | GET         | `/posts/{postId}/comments`   |
+
+### 서울시 실시간 도시 데이터 API
+| 기능         | HTTP method | url         |
+|------------|-------------|-------------|
+| 서울시 장소별 실시간 날씨 데이터 조회    | GET         | `/api/weather/{areaName}`   |
+| 서울시 장소별 실시간 인구 데이터 조회    | GET         | `/api/ppltn/{areaName}`   |
+| 서울시 장소별 실시간 문화행사 데이터 조회   | GET   | `/api/culture-event/{areaCode}`   |
+
+### 앨런 API
+| 기능         | HTTP method | url         |
+|------------|-------------|-------------|
+| 앨런에게 질문하기    | GET         | `/api/alan?content=`   |
+
+### 핫스팟 장소 API
+| 기능         | HTTP method | url         |
+|------------|-------------|-------------|
+| 핫스팟 장소 정보 조회    | GET         | `/api/area?areaName=`   |
+| 핫스팟 장소 위치 및 특색 정보 저장    | GET         | `/api/alan/basic/area?type=&areaName=`   |
+| 핫스팟 장소 좌표 저장   | GET   | `/api/area/kakao?areaName=`   |
+
+<br><a href="https://www.notion.so/oreumi/API-3ec3f41c47e3472ea5572899a52a714a"><b>API 명세서</b>
 ## 🤼‍♂️ Team
 <table>
   <tbody>
